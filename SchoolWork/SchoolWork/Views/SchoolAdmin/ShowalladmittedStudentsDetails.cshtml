@@ -1,0 +1,549 @@
+﻿@model SchoolWork.Models.StudentAdmission
+
+@{
+    ViewBag.Title = "StudentFormFillup";
+}
+@{
+    
+        int stu_id = 0;
+        string stu_stepOne_status = null;
+        string stu_first_name = null;
+        string stu_middle_name = null;
+        string stu_last_name = null;
+
+    }
+
+    <h2>StudentFormFillup</h2>
+
+
+    <html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <!-- This file has been downloaded from Bootsnipp.com. Enjoy! -->
+        <title>STUDENT ADMISSION FORM</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+        <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+        <link href="~/CSS/stylesheet1.css" rel="stylesheet" />
+
+        <style>
+            * {
+                box-sizing: border-box
+            }
+
+            body {
+                font-family: "Lato", sans-serif;
+                overflow-x: hidden;
+            }
+
+            /* Style the tab */
+            .tab {
+                float: left;
+                border: 1px solid #ccc;
+                background-color: #f1f1f1;
+                width: 15%;
+                height: auto;
+            }
+
+                /* Style the buttons inside the tab */
+                .tab button {
+                    display: block;
+                    background-color: inherit;
+                    color: black;
+                    padding: 22px 16px;
+                    width: 100%;
+                    border: none;
+                    outline: none;
+                    text-align: center;
+                    cursor: pointer;
+                    transition: 0.3s;
+                    font-size: 17px;
+                }
+
+                    /* Change background color of buttons on hover */
+                    .tab button:hover {
+                        background-color: #ddd;
+                    }
+
+                    /* Create an active/current "tab button" class */
+                    .tab button.active {
+                        background-color: #ccc;
+                    }
+
+            /* Style the tab content */
+            .tabcontent {
+                float: left;
+                margin-bottom: 20px;
+                padding: 10px;
+                border: 1px solid #ccc;
+                width: 85%;
+                border-left: none;
+                height: auto;
+            }
+
+            h3 {
+                text-align: center;
+                padding: 10px;
+            }
+
+            .tabcontent p {
+                text-align: center;
+                color: #FF3333;
+            }
+
+            .input-group p {
+                font-weight: 700;
+            }
+        </style>
+
+        <style>
+            #show1, #show2, #local, #Parent, #Education, #Photo, #Declaration, #div1, #div2, #disabilitydesc, #SpCaredec {
+                display: none;
+            }
+
+            .text-danger {
+                font-weight: 700;
+                color: red;
+            }
+
+            #SignaturePreview, #imagePreview {
+                border: 1px solid black;
+            }
+
+            .control-label {
+                text-align: center;
+                font-weight: 700;
+                margin: 10px;
+            }
+
+            .col-md-2 {
+                text-align: center;
+            }
+        </style>
+
+    </head>
+    <body>
+
+        <br />
+        <br />
+        <br />
+        <br />
+        @foreach (var stu_details in Model.StudentDetails)
+        {
+
+            stu_stepOne_status = @stu_details.StepOne_status;
+            stu_id = @stu_details.Student_Id;
+            stu_first_name = @stu_details.first_name;
+            stu_middle_name = @stu_details.middle_name;
+            stu_last_name = @stu_details.last_name;
+
+        }
+
+        <div class="tab">
+            <button class="tablinks" onclick="openCity(event, 'Student')"><i class="fa fa-info fa-2x"></i><p><small>Student<br />Information</small></p> </button>
+
+        </div>
+
+        @using (Html.BeginForm("UpdateStudentRollSection", "SchoolAdmin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+           
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.Query_step, new { Value = "Step1" })
+            @Html.HiddenFor(model => model.Student_Id, new { Value = @stu_id })
+
+
+
+            <div id="Student" class="tabcontent">
+                @if (TempData["msg"] != null)
+                {
+                    <p class="alert alert-success" id="successMessage" style="color:#5cb85c;text-align:center">@TempData["msg"]</p>
+                }
+                <br />
+                <h3>Student Information</h3>
+
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <b>First Name</b>
+                            <div class="input-group">
+
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                @Html.EditorFor(model => model.first_name, new { htmlAttributes = new { @class = "form-control", Value = @stu_first_name } })
+
+                            </div>
+
+                            @Html.ValidationMessageFor(model => model.first_name, "", new { @class = "text-danger" })
+
+
+                        </div>
+
+                        <div class="col-sm-3">
+                            <b>Middle Name</b>
+                            <div class="input-group">
+
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                @Html.EditorFor(model => model.middle_name, new { htmlAttributes = new { @class = "form-control", Value = @stu_middle_name } })
+
+                            </div>
+
+                            @Html.ValidationMessageFor(model => model.middle_name, "", new { @class = "text-danger" })
+
+
+                        </div>
+
+                        <div class="col-sm-4">
+                            <b>Last Name</b>
+                            <div class="input-group">
+
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                @Html.EditorFor(model => model.last_name, new { htmlAttributes = new { @class = "form-control", Value = @stu_last_name } })
+
+                            </div>
+
+
+
+                        </div>
+
+                    </div>
+
+                    @*   <div class="row">
+                        <div class="col-sm-6">
+                            <b>Current Address1</b>
+                            <div class="input-group">
+
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-road"></i></span>
+                                @Html.EditorFor(model => model.CurrentAddress1, new { htmlAttributes = new { @class = "form-control" } })
+                            </div>
+                            @Html.ValidationMessageFor(model => model.CurrentAddress1, "", new { @class = "text-danger" })
+
+                        </div>
+                        <div class="col-sm-5">
+                            <b>Current Address2</b>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-road"></i></span>
+                                @Html.EditorFor(model => model.CurrentAddress2, new { htmlAttributes = new { @class = "form-control" } })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <b>Country Name</b>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
+                                @Html.EditorFor(model => model.CountryName, new { htmlAttributes = new { @class = "form-control" } })
+                            </div>
+
+                        </div>
+
+
+                        <div class="col-sm-4">
+                            <b>State Name</b>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-flag"></i></span>
+                                @Html.EditorFor(model => model.StateName, new { htmlAttributes = new { @class = "form-control" } })
+                            </div>
+
+
+                        </div>
+                        <div class="col-sm-4">
+                            <b>City Name</b>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-map-marker"></i></span>
+                                @Html.EditorFor(model => model.CityName, new { htmlAttributes = new { @class = "form-control" } })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <b>Current Zipcode</b>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-road"></i></span>
+                                @Html.EditorFor(model => model.currentzipcode, new { htmlAttributes = new { @class = "form-control" } })
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-11">
+                            <div class="input-group">
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <b>Permanent Address1</b>
+                            <div class="input-group">
+
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-road"></i></span>
+                                @Html.EditorFor(model => model.PermanentAddress1, new { htmlAttributes = new { @class = "form-control" } })
+
+                            </div>
+
+                            @Html.ValidationMessageFor(model => model.PermanentAddress1, "", new { @class = "text-danger" })
+
+                        </div>
+
+                        <div class="col-sm-5">
+                            <b>Permanent Address2</b>
+                            <div class="input-group">
+
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-road"></i></span>
+                                @Html.EditorFor(model => model.PermanentAddress2, new { htmlAttributes = new { @class = "form-control" } })
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <b>Permanent Zipcode</b>
+                            <div class="input-group">
+
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-road"></i></span>
+                                @Html.EditorFor(model => model.permanentzipcode, new { htmlAttributes = new { @class = "form-control" } })
+
+                            </div>
+
+
+
+                        </div>
+                    </div>*@
+
+                    @*   <div class="row">
+                        <div class="col-sm-3">
+                            <b>DOB</b>
+                            <div class="input-group">
+
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                @Html.EditorFor(model => model.DOB, new { htmlAttributes = new { @class = "form-control datepicker" } })
+                            </div>
+
+                        </div>
+
+                        <div class="col-sm-4">
+                            <b>POB</b>
+                            <div class="input-group">
+
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-road"></i></span>
+                                @Html.EditorFor(model => model.POB, new { htmlAttributes = new { @class = "form-control" } })
+
+                            </div>
+
+                            @Html.ValidationMessageFor(model => model.POB, "", new { @class = "text-danger" })
+
+                        </div>
+
+                        <div class="col-sm-4">
+                            <b>BCN</b>
+                            <div class="input-group">
+
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-road"></i></span>
+                                @Html.EditorFor(model => model.BCN, new { htmlAttributes = new { @class = "form-control" } })
+
+                            </div>
+
+
+
+                        </div>
+
+
+                    </div>*@
+
+
+
+
+                    <div class="row">
+
+                        @*   <div class="col-sm-3">
+                            <b>Citizen Country</b>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
+
+                                @Html.EditorFor(model => model.CountryName, new { htmlAttributes = new { @class = "form-control" } })
+                            </div>
+
+                        </div>*@
+
+
+
+                        <div>
+
+                            <div class="col-sm-4">
+                                <b>Admission Class</b>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+                                    @*   @Html.DropDownListFor(m => m.AdmissionClass_Id, Model.AdmissionClass_Name, "Please Select A Class", new { @class = "form-control", @onchange = "Education(this.value);" })     *@
+                                    @Html.EditorFor(model => model.Class_Name, new { htmlAttributes = new { @class = "form-control" } })
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <b>Assign Roll Number</b>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+                                @Html.EditorFor(model => model.Assign_Roll_Number, new { htmlAttributes = new { @class = "form-control", @Placeholder = "Please Insert Roll Number" } })
+
+                            </div>
+
+
+                        </div>
+                        <div class="col-sm-4">
+                            <b>Assign Section</b>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+
+
+                                @Html.DropDownListFor(m => m.Section_Id, Model.Section_Name, "Please select Section", new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+
+                    <div id="disabilitydesc">
+
+
+
+
+
+                    </div>
+
+                </div>
+
+                <ul class="list-unstyled list-inline pull-right">
+                    <li><input type="submit" value="Next" class="btn btn-success" onclick="javascript:return alert('Are you sure to submit form')" /></li>
+                </ul>
+
+            </div>
+
+        }
+
+
+
+
+        @section Scripts
+           {
+            @Scripts.Render("~/bundles/jqueryval")
+
+
+            @Styles.Render("~/Content/cssjqryUi")
+
+
+
+            <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+            <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+            <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+            <script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+
+            <script type="text/javascript" src="Scripts/jquery_calendar/jquery-ui.js"></script>
+            <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+            <script>
+                $(function () {
+                    $(".datepicker").datepicker(
+                        {
+                            dateFormat: 'dd/mm/yy',
+                            showStatus: true,
+                            showWeeks: true,
+                            highlightWeek: true,
+                            numberOfMonths: 1,
+                            showAnim: "scale",
+                            showOptions: { origin: ["top", "left"] }
+                        }
+                    );
+                });
+            </script>
+
+
+
+
+            <script type="text/javascript">
+
+
+            </script>
+
+            <script>
+
+
+            </script>
+
+
+
+        }
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.3/jquery.min.js"></script>
+        <script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.js"></script>
+        <script src="//ajax.aspnetcdn.com/ajax/mvc/5.2.3/jquery.validate.unobtrusive.js"></script>
+        <script src="http://code.jquery.com/ui/1.11.1/jquery-ui.min.js"></script>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.css" rel="stylesheet">
+
+
+        <script>
+            var checkboxes = $("input[type='checkbox']"),
+                Butt = $("input[type='']");
+
+            checkboxes.click(function () {
+                Butt.attr("disabled", !checkboxes.is(":checked"));
+            });
+
+        </script>
+        <script>
+            function openCity(evt, cityName) {
+                var i, tabcontent, tablinks;
+                tabcontent = document.getElementsByClassName("tabcontent");
+                for (i = 0; i < tabcontent.length; i++) {
+                    tabcontent[i].style.display = "none";
+                }
+                tablinks = document.getElementsByClassName("tablinks");
+                for (i = 0; i < tablinks.length; i++) {
+                    tablinks[i].className = tablinks[i].className.replace(" active", "");
+                }
+                document.getElementById(cityName).style.display = "block";
+                evt.currentTarget.className += " active";
+            }
+
+        </script>
+
+
+        <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                var id = 0;
+                $("#add-row").click(function () {
+                    id++;
+
+                    var markup = "<tr class='border_bottom'><input type='hidden' name='idvalue' value='" + id + "'/><td colspan='12'><input type='checkbox' name='record'></td>&nbsp;<td colspan='12'><label class='mylabel'>Attachment '" + id + "' :</label></td><td colspan='6'><input type='file' name='StudentfileUpload'></td></tr><br>";
+                    $("table tbody").append(markup);
+                });
+
+                // Find and remove selected table rows
+                $(".delete-row").click(function () {
+                    $("table tbody").find('input[name="record"]').each(function () {
+                        if ($(this).is(":checked")) {
+                            $(this).parents("tr").remove();
+                        }
+                    });
+                });
+            });
+        </script>
+
+    </body>
+</html>
+

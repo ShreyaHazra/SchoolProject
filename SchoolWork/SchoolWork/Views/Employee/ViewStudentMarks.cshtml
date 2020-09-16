@@ -1,0 +1,640 @@
+﻿@model SchoolWork.Models.StudentMarks
+
+@{
+    ViewBag.Title = "Create Class";
+}
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <link href="~/CSS/stylesheet2.css" rel="stylesheet" />
+    <style>
+        .text-danger {
+            font-weight: 700;
+            color: red;
+        }
+
+        .body-div {
+            margin-top: 140px;
+            border-color: indigo;
+            border-style: groove;
+            padding: 35px;
+        }
+
+        .Education {
+            border-color: lightyellow;
+            border-style: inset;
+            padding: 17px;
+        }
+
+        p {
+            text-align: center;
+        }
+
+
+        .container {
+            width: 70% !important;
+            padding: 10px !important;
+        }
+
+        .well {
+            background-color: #ead4b3 !important;
+            padding: 10px 19px !important;
+            /*border-style: inset;*/
+        }
+
+        .left {
+            float: left;
+            margin-right: 10px;
+            width: 48%;
+        }
+
+        .right {
+            float: left;
+            margin-left: 10px;
+            width: 48%;
+        }
+
+        .hr {
+            margin-top: 14px !important;
+            margin-bottom: 14px !important;
+        }
+    </style>
+</head>
+<body id="LoginForm" style="background-color:cornflowerblue;">
+    <div class="container">
+        <div class="body-div" style="background-color:blanchedalmond; max-width:100%">
+            <div class="row">
+                <div class="col-sm-12 col-md-12">
+                    @*<a class="btn btn-primary btn-product" onclick="@("window.location.href='" + @Url.Action("SchoolNoticeAdd", "SchoolAdmin") + "'");"><span class="glyphicon glyphicon-pencil"></span>Add Notice</a>*@
+                    <a class="btn btn-primary" onclick="@("window.location.href='" + @Url.Action("AdminHeaderBoard", "DashBoard") + "'");"><span class="glyphicon glyphicon-home"></span> &nbsp; Home</a>
+
+                    <a class="btn btn-danger" onclick="history.go(-1)"><span class="glyphicon glyphicon-arrow-left"></span> &nbsp; Return</a>
+
+                    @*<input type="button"  value="Return" class="btn btn-danger" />*@
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 col-md-12 text-center">
+                    <h1 style="color:blueviolet;"><b>View Student Marks </b></h1>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="row Education">
+                <div class="col-md-12 col-sm-12 well">
+                    <div class="col-md-12 col-sm-12 ">
+                        <h4 class="text-center" style="color: blueviolet;font-weight: bold;">Select Student Name/Roll No.</h4>
+                        <hr />
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-1">
+                            <label>Select Session :</label>
+                        </div>
+
+                        <div class="col-sm-3">
+                            @Html.DropDownListFor(m => m.Year_Name, Model.Year_Name, "--Select Session--", new { @class = "form-control" })
+                        </div>
+                        @Html.ValidationMessageFor(model => Model.Year_Name, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-1">
+                            <label>Select Class:</label>
+                        </div>
+                        <div class="col-sm-3">
+                            @Html.DropDownListFor(m => m.Class_Id, Model.Class_Name, "--Select Class--", new { @class = "form-control" })
+                        </div>
+                        @Html.ValidationMessageFor(m => m.Class_Id, "", new { @class = "text-danger" })
+
+                    </div>
+
+
+
+                    <div class="clearfix"></div><br />
+
+                    <div class="form-group">
+                        <div class="col-sm-1">
+                            <label>Select Section :</label>
+                        </div>
+
+                        <div class="col-sm-3">
+
+                            @Html.DropDownListFor(m => m.Section_Id, Model.Section_Name, "--Select Section--", new { @class = "form-control" })
+                        </div>
+                        @Html.ValidationMessageFor(m => m.Section_Id, "", new { @class = "text-danger" })
+
+                    </div>
+
+
+                    <div class="form-group">
+                        <div class="col-sm-1">
+                            <label>Select Exam :</label>
+                        </div>
+                        <div class="col-sm-3">
+                            @Html.DropDownListFor(m => m.ExamType_Id, Model.ExamType_Name, "--Select Exam Name--", new { @class = "form-control" })
+
+                        </div>
+                        @Html.ValidationMessageFor(m => m.ExamType_Id, "", new { @class = "text-danger" })
+
+                    </div>
+
+
+                    <div class="form-group">
+                        <div class="col-sm-1">
+                            <label>Select Student :</label>
+                        </div>
+                        <div class="col-sm-3">
+                            @Html.DropDownListFor(m => m.Student_Id, Model.StudentList, "--Select Student Name--", new { @class = "form-control" })
+
+                        </div>
+                        @Html.ValidationMessageFor(m => m.Student_Id, "", new { @class = "text-danger" })
+
+                    </div>
+                    @*<div class="form-group">
+            <div class="col-sm-1">
+                <label>Select Class:</label>
+            </div>
+            <div class="col-sm-3">
+                @Html.DropDownListFor(m => m.Class_Id, Model.Class_Name, "--Select Class--", new { @class = "form-control" })
+            </div>
+            @Html.ValidationMessageFor(m => m.Class_Id, "", new { @class = "text-danger" })
+
+        </div>*@
+
+                    <div class="clearfix"></div><br />
+                    <div class="col-sm-12" style="text-align:right">
+                        @*<a class="btn btn-success btn-sm" id="save">Save</a>
+            <a class="btn btn-warning btn-sm">Clear</a>*@
+                        <a class="btn btn-warning btn-lg" onclick="LoadStudentMarks()">Show Marks</a>
+
+                    </div>
+                </div>
+                <div class="clearfix"></div><br />
+                                            <div class="col-sm-12 well" id="show" >
+                                                <h4 class="text-center" style="color: blueviolet;font-weight: bold;">View Subject and Marks</h4>
+                                                <hr />
+                                                <div class="text-center col-sm-12" id="result1" style="display:none"></div>
+
+                                                <div class="col-sm-12 col-md-12">
+                                                    <!--insert dynamic table here-->
+                                                    <div id="result2" class="pre-scrollable" style="height:300px;   border:2px solid black;display:none;box-shadow: 1px 2px 4px rgba(0, 0, 0, .5);"></div>
+                                                </div>
+                                            </div>
+            </div>
+        </div><!---end class body div row-->
+    </div><!--container-->
+
+    @section Scripts
+    {
+
+        @Scripts.Render("~/bundles/jqueryval")
+
+
+        @Styles.Render("~/Content/cssjqryUi")
+
+
+
+        <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+        <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+        <link href="~/CSS/StyleSheet5.css" rel="stylesheet" />
+        <link href="~/CSS/Table.css" rel="stylesheet" />
+
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+
+
+
+        <!--sweet alert-->
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+
+        <!-- DataTables CSS -->
+
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.5/css/jquery.dataTables.css">
+
+
+        <!-- DataTables -->
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.5/js/jquery.dataTables.js">
+        </script>
+        <script type="text/javascript">
+
+            $(function () {
+                  $('#CountryId,#StateId').change(function () {
+                    if ($(this).find("option").length <= 1) {
+                        //$(this).attr("disabled", "disabled");
+                    }
+                });
+
+                $('#Class_Id,#Section_Id').on('change', function () {
+                //$("select").change(function () {
+                    var id = 0;
+                    var value = 0;
+                    var Section_Id = 0;
+                    //if ($(this).val() != "") {
+                    //    value = $(this).val();
+                    //}
+                    // id = "Class_Id";
+                    var id = $(this).attr("id");
+                    value = $("#Class_Id").val();
+                    Section_Id = $("#Section_Id").val();
+                    //alert(id);
+                    //alert(value);
+                    //alert(Section_Name);
+
+                    $.ajax({
+                        type: "POST",
+                        url: "/Employee/AjaxMethod_studentList",
+                        data: '{type: "' + id + '", value: ' + value + ', Section_Id: "' + Section_Id +'" }',
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function (response) {
+                            var dropDownId;
+                            var dropDownId1;
+                            var dropDownId2;
+                            var list;
+                            var list1;
+                            var list2;
+                            switch (id) {
+                                case "Class_Id":
+                                    dropDownId = "#Student_Id";
+                                    dropDownId1 = "#Section_Id";
+                                    list = response.StudentList;
+                                    list1 = response.Section_Name;
+                                    DisableDropDown("#Student_Id");
+                                    DisableDropDown1("#Section_Id");
+                                    PopulateDropDown("#Student_Id", list);
+                                    PopulateDropDown1("#Section_Id", list1);
+
+
+                                    dropDownId2 = "#ExamType_Id";
+                                    list2 = response.ExamType_Name;
+                                    DisableDropDown2("#ExamType_Id");
+                                    // DisableDropDown("#CityId");
+                                    PopulateDropDown2("#ExamType_Id", list2);
+
+
+
+                                    break;
+                                case "Section_Id":
+                                    dropDownId = "#Student_Id";                                
+                                    list = response.StudentList;                                   
+                                    DisableDropDown("#Student_Id");                                
+                                    PopulateDropDown("#Student_Id", list);                                    
+
+                                    dropDownId2 = "#ExamType_Id";
+                                    list2 = response.ExamType_Name;
+                                    DisableDropDown2("#ExamType_Id");
+                                    // DisableDropDown("#CityId");
+                                    PopulateDropDown2("#ExamType_Id", list2);
+
+
+                                    break;
+                            }
+
+                        },
+                        failure: function (response) {
+                            alert(response.responseText);
+                        },
+                        error: function (response) {
+                            alert(response.responseText);
+                        }
+                    });
+                });
+
+            });
+
+            function DisableDropDown(dropDownId) {
+                //$(dropDownId).attr("disabled", "disabled");
+                $(dropDownId).empty().append('<option selected="selected" value="0">Please Select Student</option>');
+            }
+
+            function DisableDropDown1(dropDownId1) {
+                //$(dropDownId).attr("disabled", "disabled");
+                $(dropDownId1).empty().append('<option selected="selected" value="0">Please Select Section</option>');
+            }
+
+            function PopulateDropDown(dropDownId, list) {
+                if (list != null && list.length > 0) {
+                    //$(dropDownId).removeAttr("disabled");
+                    $.each(list, function () {
+                        $(dropDownId).append($("<option></option>").val(this['Value']).html(this['Text']));
+                    });
+                }
+            }
+            function PopulateDropDown1(dropDownId1, list1) {
+                if (list1 != null && list1.length > 0) {
+                    //$(dropDownId).removeAttr("disabled");
+                    $.each(list1, function () {
+                        $(dropDownId1).append($("<option></option>").val(this['Value']).html(this['Text']));
+                    });
+                }
+            }
+
+
+
+            function DisableDropDown2(dropDownId2) {
+                //$(dropDownId).attr("disabled", "disabled");
+                $(dropDownId2).empty().append('<option selected="selected" value="0">Please Select Exam Term</option>');
+            }
+
+            function PopulateDropDown2(dropDownId2, list2) {
+                if (list2 != null && list2.length > 0) {
+                    //$(dropDownId).removeAttr("disabled");
+                    $.each(list2, function () {
+                        $(dropDownId2).append($("<option></option>").val(this['Value']).html(this['Text']));
+                    });
+                }
+            }
+
+
+
+
+            $(function () {
+                if ($("#Class_Id").val() != "" && $("#Section_Id").val() != "" ) {
+                    var message = "Class: " + $("#Class_Id option:selected").text();
+                    message += "\nSection: " + $("#Section_Id option:selected").text();
+                   
+                     alert(message);
+                }
+
+            });
+
+
+
+            function LoadStudentMarks() {
+                var Class_Id = 0;
+                var im = 1;
+                var year_name = 0;
+                var examtype_id = 0;
+                var Section_Id = 0;
+                var student_id = 0;
+                $('#result2').css('display', 'none');
+                $('#show').css('display', 'block');
+
+              
+                year_name = $('#Year_Name').val();
+                examtype_id = $('#ExamType_Id').val();
+                class_id = $('#Class_Id').val();
+                Section_Id = $('#Section_Id').val();
+                student_id = $('#Student_Id').val();
+                
+                $('#update_panel').html('Loading Data...');
+                $.ajax({
+                    url: '/Employee/AjaxMethod_FetchStudentMarks',
+                    type: 'POST',
+                    data: '{ year_name:"' + year_name + '", examtype_id:"' + examtype_id + '", class_id : "' + class_id + '", Section_Id: "' + Section_Id + '", student_id:"' + student_id + '"}',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: 'json',
+                    success: function (d) {
+                        if (d.length > 0) {
+                            var $data = $('<table></table>').addClass('table table-responsive table-striped table-borderless table-hover');
+                            var header = "<thead class='thead-light'><tr><th>Id</th><th>Theory Subject Name</th><th>Score</th></tr></thead>";
+                            $data.append(header);
+
+                            $.each(d, function () {
+                                var $row = $('<tr/>');
+                                $row.append($('<td/>').html(im));
+
+                                $row.append($('<td/>').html(this['Subject_Name']));
+       
+                                $row.append($('<td/>').html(this['Score']));
+
+                               
+                                $data.append($row);
+                                im++;
+
+                                if (this['Subject_Type']=='P') {
+
+
+                                }
+
+                              
+                            });
+                            $('#result2').html($data);
+                            $('#result2').css('display', 'block');
+                        }
+                        else {
+                            var $noData = $('<div/>').html('No Data Found!');
+                            $('#result1').html($noData);
+                        }
+                    },
+                    error: function () {
+                        alert('Error! Please try again.');
+                    }
+                });
+            }
+
+
+
+
+
+
+
+
+            function changeclass() {
+
+                var cls = $("#classname").val();
+                //alert(cls);
+                $.ajax({
+                    type: "POST",
+                    url: "/SchoolAdmin/AjaxclassName",
+                    data: '{cname:"' + cls + '"}',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        //alert(response.length);
+                        if (response.length > 0) {
+                            swal({
+                                title: "",
+                                text: response,
+                                icon: "error"
+                            });
+                            $("#classname").val("");
+
+
+                        }
+                        else;
+
+
+
+
+
+                    },
+                    failure: function (response) {
+                        alert("from  inner failure" + response.responseText);
+                    },
+                    error: function (response) {
+                        alert("from inner error  " + response.responseText);
+                    }
+                });
+
+            }
+
+
+            //change class
+
+            function createTable() {
+
+                $.ajax({
+                    type: "POST",
+                    url: "/SchoolAdmin/AjaxcreateClassTable",
+                    data: '{}',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        var list = response.Templist;
+
+                        var str;
+                        str = "<table id='viewclasstime'>";
+                        str += "<thead>";
+                        str += "<tr>";
+                        str += "<th>";
+                        str += "Class Name";
+                        str += "</th>";
+                        str += "<th>";
+                        str += "Start Time";
+                        str += "</th>";
+                        str += "<th>";
+                        str += "End Time";
+                        str += "</th>";
+                        str += "<th>";
+                        str += "Action";
+                        str += "</th>";
+                        str += "</tr>";
+                        str += "</thead>";
+                        if (list.length == 0) {
+
+                            str += "<tr>";
+                            str += "<td colspan='4' class='text-align:center col-sm-12 col-md-12'>";
+                            str += "No Data Found";
+                            str += "</td>";
+                            str += "</tr>";
+
+                        }
+
+
+
+                        if (list != null && list.length > 0) {
+
+                            $.each(list, function () {
+                                str += "<tr>";
+                                str += "<td class='col-sm-3'>";
+                                str += this['ClassName'];
+                                str += "</td>";
+                                str += "<td class='col-sm-3'>";
+                                str += this['Stime'];
+                                str += "</td>";
+                                str += "<td class='col-sm-3'>";
+                                str += this['Etime'];
+                                str += "</td>";
+
+
+                                str += "<td class='col-sm-3'>";
+                                str += "<a href=Edit(" + this['id'] + ") data-toggle='tooltip' title='Edit'>";
+                                str += "  <span class='glyphicon glyphicon-edit' style='font-size:27px;'></span>";
+
+                                str += "</a> ";
+
+
+                                str += "<a href=Rem(" + this['id'] + ") data-toggle='tooltip' title='Delete'>";
+                                str += "  <span class='glyphicon glyphicon-remove-circle' style='font-size:27px;'></span>";
+
+                                str += "</a> ";
+
+
+
+
+
+                                str += "</td>";
+                                str += "</tr>";
+
+
+                            });
+                        }
+
+
+                        str += "</table>";
+
+                        $("#viewclass").html(str);
+                        $('#viewclasstime').DataTable();
+                    },
+                    failure: function (response) {
+                        alert("from   failure" + response.responseText);
+                    },
+                    error: function (response) {
+                        alert("from  error  " + response.responseText);
+                    }
+                });
+
+
+            }
+
+
+        </script>
+        <script>
+
+            //$(window).load(function () {
+            //    // executes when complete page is fully loaded, including all frames, objects and images
+            //    //alert("window is loaded");
+            //    createTable();
+
+            //});
+
+            $(document).ready(function () {
+
+
+
+                //  $('#viewclasstimee').DataTable();
+
+
+
+
+
+                $("#save").click(function () {
+
+
+
+
+                    $.ajax({
+                        type: "POST",
+                        url: "/SchoolAdmin/Ajaxaddclass",
+                        data: '{classname:"' + $("#classname").val() + '",Stime:"' + $("#Stime").val() + '",Etime:"' + $("#Etime").val() + '"}',
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function (response) {
+                            swal({
+                                title: "",
+                                text: response,
+                                icon: "success"
+
+                            });
+
+                            $("#classname").val("");
+                            $("#Stime").val("");
+                            $("#Etime").val("");
+
+                            createTable();
+                        },
+                        failure: function (response) {
+                            alert("from   failure" + response.responseText);
+                        },
+                        error: function (response) {
+                            alert("from  error  " + response.responseText);
+                        }
+                    });
+
+
+
+                });
+
+            });
+                            //end save button click
+
+        </script>
+
+
+    }
+
+</body>
+</html>

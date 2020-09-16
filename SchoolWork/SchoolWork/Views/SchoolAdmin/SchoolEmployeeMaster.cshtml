@@ -1,0 +1,317 @@
+﻿@model SchoolWork.Models.SchoolEmployeeMaster
+@{
+
+    ViewBag.Title = "SchoolEmployeeMaster";
+
+}
+<h2>SectionMaster</h2>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="~/CSS/stylesheet2.css" rel="stylesheet" />
+    <style>
+        .text-danger {
+            font-weight: 700;
+            color: red;
+        }
+    </style>
+
+</head>
+<body id="LoginForm" style="background-color:cadetblue">
+    <div class="container">
+        <h1 class="form-heading"></h1>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <div class="login-form">
+            <div class="body-div" style="background-color:blanchedalmond; max-width:100%">
+
+                <h1 style="color:blueviolet; margin-top:-30px"><b>SCHOOL EMPLOYEE REGISTER</b></h1>
+                <br />
+                <br />
+
+
+                @using (Html.BeginForm("SchoolEmployeeMaster", "SchoolAdmin", FormMethod.Post, new { id = "myID", name = "randform" }))
+                {
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+
+                    <div class="input-group">
+
+                        @Html.EditorFor(model => model.School_Id, new { htmlAttributes = new { @class = "form-control", @type = "hidden", @onkeydown = "return false", @Value = Session["School_Id"] } })
+
+                    </div>
+                    @Html.ValidationMessageFor(model => model.School_Id, "", new { @class = "text-danger" })
+
+                    <div class="input-group">
+
+                        @Html.EditorFor(model => model.School_Email, new { htmlAttributes = new { @class = "form-control", @type = "hidden", @onkeydown = "return false", @Value = Session["School_Email"] } })
+
+                    </div>
+                    @Html.ValidationMessageFor(model => model.School_Email, "", new { @class = "text-danger" })
+
+                    <div class="input-group">
+
+                        @Html.EditorFor(model => model.School_Password, new { htmlAttributes = new { @class = "form-control", @type = "hidden", @onkeydown = "return false", @Value = Session["School_Password"] } })
+
+                    </div>
+                    @Html.ValidationMessageFor(model => model.School_Password, "", new { @class = "text-danger" })
+
+
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="input-group">
+
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-barcode"></i></span>
+                                @Html.EditorFor(model => model.School_Code, new { htmlAttributes = new { @class = "form-control", @onkeydown = "return false", @Value = Session["School_Code"] } })
+                            </div>
+
+                            @Html.ValidationMessageFor(model => model.School_Code, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="input-group">
+
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+                                @Html.EditorFor(model => model.School_Name, new { htmlAttributes = new { @class = "form-control", @onkeydown = "return false", @Value = Session["School_Name"] } })
+                            </div>
+
+                            @Html.ValidationMessageFor(model => model.School_Name, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="input-group">
+
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-education"></i></span>
+                                @Html.DropDownListFor(m => m.EmpType_Id, Model.EmpType_Name, "Please select Employee Designation", new { @class = "form-control" })
+
+                            </div>
+
+                            @Html.ValidationMessageFor(m => m.EmpType_Id, "", new { @class = "text-danger" })
+
+                        </div>
+
+
+                        <div class="col-sm-6">
+                            <div class="input-group">
+
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                @Html.EditorFor(model => model.Employee_Name, new { htmlAttributes = new { @class = "form-control", @Placeholder = "Enter Employee  Name Here" } })
+                            </div>
+                            @Html.ValidationMessageFor(model => model.Employee_Name, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="input-group">
+
+
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-barcode"></i></span>
+                                @Html.EditorFor(model => model.Employee_Code, new { htmlAttributes = new { @class = "form-control", @Placeholder = "Generate Employee Code", @onkeydown = "return false" } })
+
+                            </div>
+
+                            @Html.ValidationMessageFor(model => model.Employee_Code, "", new { @class = "text-danger" })
+
+
+                        </div>
+
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <input type="button" value=" Generate Employee Code" class="btn btn-danger" onclick="randomString();" />
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="input-group">
+
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                                @Html.EditorFor(model => model.Employee_Email, new { htmlAttributes = new { @class = "form-control", @onCopy = "return false", @Placeholder = "Enter Employee Email Id Here" } })
+
+                            </div>
+
+                            @Html.ValidationMessageFor(model => model.Employee_Email, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="input-group">
+
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-phone"></i></span>
+                                @Html.EditorFor(model => model.Employee_Confirm_Email, new { htmlAttributes = new { @class = "form-control", @Placeholder = "Enter Employee Confirm Email Here" } })
+
+                            </div>
+
+                            @Html.ValidationMessageFor(model => model.Employee_Confirm_Email, "", new { @class = "text-danger" })
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="input-group">
+
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-phone"></i></span>
+                                @Html.EditorFor(model => model.Employee_Mobile_Number, new { htmlAttributes = new { @class = "form-control", @Placeholder = "Enter Employee Mobile Number Here" } })
+
+                            </div>
+
+                            @Html.ValidationMessageFor(model => model.Employee_Mobile_Number, "", new { @class = "text-danger" })
+
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="input-group">
+
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-phone-alt"></i></span>
+                                @Html.EditorFor(model => model.Employee_Alt_Number, new { htmlAttributes = new { @class = "form-control", @Placeholder = "Enter Employee Alternative Number Here" } })
+
+                            </div>
+
+                            @Html.ValidationMessageFor(model => model.Employee_Alt_Number, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="input-group">
+
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                @Html.EditorFor(model => model.Employee_Password, new { htmlAttributes = new { @class = "form-control", @Placeholder = "Generate Employee  Password", @onkeydown = "return false" } })
+
+                            </div>
+
+                            @Html.ValidationMessageFor(model => model.Employee_Password, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <input type="button" value=" Generate Employee Password" class="btn btn-success" onclick="randomPassString();" />
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="input-group">
+
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                @Html.EditorFor(model => model.Employee_DOB, new { htmlAttributes = new { @class = "form-control datepicker", @Placeholder = "Enter Employee DOB  Here" } })
+                            </div>
+
+                            @Html.ValidationMessageFor(model => model.Employee_DOB, "", new { @class = "text-danger" })
+
+                        </div>
+                    </div>
+
+
+
+                    <br>
+
+                    <div class="form-group">
+
+                        <input type="submit" value="Submit" class="btn btn-success" />
+                        &nbsp;&nbsp;
+                        <input type="reset" value="Reset" class="btn btn-warning">
+                        &nbsp;&nbsp;
+                        <input type="button" value="Home" class="btn btn-info" onclick="@("window.location.href='" + @Url.Action("AdminHeaderBoard", "DashBoard") + "'");" />
+                        &nbsp;&nbsp;
+                        <input type="button" onclick="history.go(-1)" value="Return" class="btn btn-info" />
+
+                    </div>
+
+
+                }
+            </div>
+        </div>
+    </div>
+
+
+    <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+    @section Scripts
+    {
+        @Scripts.Render("~/bundles/jqueryval")
+
+        @Styles.Render("~/Content/cssjqryUi")
+
+
+
+
+        @* Adding Colours To Daterange picker *@
+
+        <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+        <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+        <link href="~/CSS/StyleSheet5.css" rel="stylesheet" />
+        <link href="~/CSS/Table.css" rel="stylesheet" />
+
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+        <script>
+            $(function () {
+                $('input[name="Employee_DOB"]').daterangepicker({
+                    singleDatePicker: true,
+                    timePicker: true,
+                    showDropdowns: true,
+                    minYear: 2001,
+                    showAnim: "scale",
+                    showOptions: { origin: ["top", "left"] },
+                    locale: {
+                        format: 'DD/MM/YYYY'
+                    }
+                });
+            });
+        </script>
+    }
+
+
+</body>
+</html >
+ <script type="text/javascript">
+    function randomString() {
+
+var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZ&";
+    var string_length = 10;
+    var randomstring = '';
+for (var i = 0; i < string_length; i++) {
+    var rnum = Math.floor(Math.random() * chars.length);
+    randomstring += chars.substring(rnum, rnum + 1);
+
+}
+//alert(randomstring);
+document.randform.Employee_Code.value = randomstring;
+ }
+ </script>
+<script type="text/javascript">
+        function randomPassString() {
+
+            var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZ&";
+                var string_length = 8;
+                var randomstring = '';
+            for (var i = 0; i < string_length; i++) {
+                var rnum = Math.floor(Math.random() * chars.length);
+                randomstring += chars.substring(rnum, rnum + 1);
+
+            }
+            //alert(randomstring);
+            document.randform.Employee_Password.value = randomstring;
+        }
+</script>
+        

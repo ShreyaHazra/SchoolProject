@@ -1,0 +1,1705 @@
+﻿@model SchoolWork.Models.StudentFormFillup
+
+@{
+    ViewBag.Title = "StudentFormFillup";
+}
+
+@{
+    int stu_id = 0;
+    string stu_stepOne_status = null;
+    string stu_first_name = null;
+    string stu_middle_name = null;
+    string stu_last_name = null;
+    string stu_CurrentAddress1 = null;
+    string stu_CurrentAddress2 = null;
+    string stu_currentzipcode = null;
+    int stu_CountryId = 0;
+    int stu_StateId = 0;
+    int stu_CityId = 0;
+    string stu_PermanentAddress1 = null;
+    string stu_PermanentAddress2 = null;
+    string stu_permanentzipcode = null;
+    string stu_DOB = null;
+    string stu_POB = null;
+    string stu_BCN = null;
+    int stu_CitizenCountryId = 0;
+    int stu_IdProof_Id = 0;
+    string stu_IdProof_Number = null;
+    string stu_PassPort_Number = null;
+    int stu_BloodGroup_Id = 0;
+    string stu_BirthCertificatePath = null;
+    int stu_Special_Care = 0;
+    string stu_Special_Care_Description = null;
+    int stu_Disability = 0;
+    string stu_Disability_Percentage = null;
+    string stu_Disability_Description = null;
+    string stu_Disability_Certificate_Number = null;
+    string stu_DisabilityCertificatePath = null;
+
+
+    string stu_FatherName = null;
+    string stu_FatherContactNumber = null;
+    string stu_FatherEmail = null;
+    string stu_MotherName = null;
+    string stu_MotherContactNumber = null;
+    string stu_MotherEmail = null;
+    string stu_HomeContactNumber = null;
+    string stu_LocalGurdianValue = null;
+    string stu_LocalGurdianEmail = null;
+    string stu_LocalGurdianName = null;
+    string stu_LocalGurdianPhone = null;
+
+    int stu_AdmissionClass_Id = '0';
+    string stu_Last_School_Name = null;
+    int stu_SchoolBoard_Id = '0';
+    string stu_Last_School_Year = null;
+    string stu_Last_School_Class = null;
+    string stu_School_Transfer_Certifiate_Number = null;
+    string stu_SchoolTransferCertificatePath = null;
+    string stu_Last_School_Exam_Marks = null;
+    string stu_Last_School_Total_Marks = null;
+    string stu_Last_School_Marks_Percentage = null;
+    string stu_FinalExamResultPath = null;
+    string stu_Board_Exam_Marks = null;
+    string stu_Board_Total_Marks = null;
+    string stu_Marks_Percentage = null;
+    string stu_Board_Certificate_Number = null;
+    string stu_BoardExamCertificatePath = null;
+    string stu_BoardExamResultPath = null;
+
+    string stu_ImagePath = null;
+    string stu_SignaturePath = null;
+
+
+
+}
+<h2>StudentFormFillup</h2>
+
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <!-- This file has been downloaded from Bootsnipp.com. Enjoy! -->
+    <title>STUDENT ADMISSION FORM</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    @* <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+        <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">*@
+    <link href="~/CSS/stylesheet1.css" rel="stylesheet" />
+
+    <style>
+        * {
+            box-sizing: border-box
+        }
+
+        body {
+            font-family: "Lato", sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Style the tab */
+        .tab {
+            float: left;
+            border: 1px solid #ccc;
+            background-color: #f1f1f1;
+            width: 15%;
+            height: auto;
+        }
+
+            /* Style the buttons inside the tab */
+            .tab button {
+                display: block;
+                background-color: inherit;
+                color: black;
+                padding: 22px 16px;
+                width: 100%;
+                border: none;
+                outline: none;
+                text-align: center;
+                cursor: pointer;
+                transition: 0.3s;
+                font-size: 17px;
+            }
+
+                /* Change background color of buttons on hover */
+                .tab button:hover {
+                    background-color: #ddd;
+                }
+
+                /* Create an active/current "tab button" class */
+                .tab button.active {
+                    background-color: #ccc;
+                }
+
+        /* Style the tab content */
+        .tabcontent {
+            float: left;
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            width: 85%;
+            border-left: none;
+            height: auto;
+        }
+
+        h3 {
+            text-align: center;
+            padding: 10px;
+        }
+
+        .tabcontent p {
+            text-align: center;
+            color: #FF3333;
+        }
+
+        .input-group p {
+            font-weight: 700;
+        }
+    </style>
+
+    <style>
+        #show1, #show2, #local, #Parent, #Education, #Photo, #Declaration, #div1, #div2, #disabilitydesc, #SpCaredec {
+            display: none;
+        }
+
+        .text-danger {
+            font-weight: 700;
+            color: red;
+        }
+
+        #SignaturePreview, #imagePreview {
+            border: 1px solid black;
+        }
+
+        .control-label {
+            text-align: center;
+            font-weight: 700;
+            margin: 10px;
+        }
+
+        .col-md-2 {
+            text-align: center;
+        }
+    </style>
+
+</head>
+<body>
+    <br />
+    <br />
+    <br />
+    <br />
+    @foreach (var stu_details in Model.StudentDetails)
+    {
+
+        stu_stepOne_status = @stu_details.StepOne_status;
+        stu_id = @stu_details.Student_Id;
+        stu_first_name = @stu_details.first_name;
+        stu_middle_name = @stu_details.middle_name;
+        stu_last_name = @stu_details.last_name;
+        stu_CurrentAddress1 = @stu_details.CurrentAddress1;
+        stu_CurrentAddress2 = @stu_details.CurrentAddress2;
+        stu_currentzipcode = @stu_details.currentzipcode;
+        stu_CountryId = @stu_details.CountryId;
+        stu_StateId = @stu_details.StateId;
+        stu_CityId = @stu_details.CityId;
+        stu_PermanentAddress1 = @stu_details.PermanentAddress1;
+        stu_PermanentAddress2 = @stu_details.PermanentAddress2;
+        stu_permanentzipcode = @stu_details.permanentzipcode;
+        stu_DOB = @stu_details.DOB;
+        stu_POB = @stu_details.POB;
+        stu_BCN = @stu_details.BCN;
+        stu_CitizenCountryId = @stu_details.CitizenCountryId;
+        stu_IdProof_Id = @stu_details.IdProof_Id;
+        stu_IdProof_Number = @stu_details.IdProof_Number;
+        stu_PassPort_Number = @stu_details.PassPort_Number;
+        stu_BloodGroup_Id = @stu_details.BloodGroup_Id;
+        stu_BirthCertificatePath = @stu_details.BirthCertificatePath;
+        stu_Special_Care = @stu_details.Special_Care;
+        stu_Special_Care_Description = @stu_details.Special_Care_Description;
+        stu_Disability = @stu_details.Disability;
+        stu_Disability_Percentage = @stu_details.Disability_Percentage;
+        stu_Disability_Description = @stu_details.Disability_Description;
+        stu_Disability_Certificate_Number = @stu_details.Disability_Certificate_Number;
+        stu_DisabilityCertificatePath = @stu_details.DisabilityCertificatePath;
+
+
+
+        stu_FatherName = @stu_details.FatherName;
+        stu_FatherContactNumber = @stu_details.FatherContactNumber;
+        stu_FatherEmail = @stu_details.FatherEmail;
+        stu_MotherName = @stu_details.MotherName;
+        stu_MotherContactNumber = @stu_details.MotherContactNumber;
+        stu_MotherEmail = @stu_details.MotherEmail;
+        stu_HomeContactNumber = @stu_details.HomeContactNumber;
+        stu_LocalGurdianValue = @stu_details.LocalGurdianValue;
+        stu_LocalGurdianEmail = @stu_details.LocalGurdianEmail;
+        stu_LocalGurdianName = @stu_details.LocalGurdianName;
+        stu_LocalGurdianPhone = @stu_details.LocalGurdianPhone;
+
+        stu_AdmissionClass_Id = @stu_details.AdmissionClass_Id;
+        stu_Last_School_Name = @stu_details.Last_School_Name;
+        stu_SchoolBoard_Id = @stu_details.SchoolBoard_Id;
+        stu_Last_School_Year = @stu_details.Last_School_Year;
+        stu_Last_School_Class = @stu_details.Last_School_Class;
+        stu_School_Transfer_Certifiate_Number = @stu_details.School_Transfer_Certifiate_Number;
+        stu_SchoolTransferCertificatePath = @stu_details.SchoolTransferCertificatePath;
+        stu_Last_School_Exam_Marks = @stu_details.Last_School_Exam_Marks;
+        stu_Last_School_Total_Marks = @stu_details.Last_School_Total_Marks;
+        stu_Last_School_Marks_Percentage = @stu_details.Last_School_Marks_Percentage;
+        stu_FinalExamResultPath = @stu_details.FinalExamResultPath;
+        stu_Board_Exam_Marks = @stu_details.Board_Exam_Marks;
+        stu_Board_Total_Marks = @stu_details.Board_Total_Marks;
+        stu_Marks_Percentage = @stu_details.Marks_Percentage;
+        stu_Board_Certificate_Number = @stu_details.Board_Certificate_Number;
+        stu_BoardExamCertificatePath = @stu_details.BoardExamCertificatePath;
+        stu_BoardExamResultPath = @stu_details.BoardExamResultPath;
+
+
+        stu_ImagePath = @stu_details.ImagePath;
+        stu_SignaturePath = @stu_details.SignaturePath;
+
+
+    }
+
+
+    <div class="tab">
+        <button class="tablinks" onclick="openCity(event, 'Student')"><i class="fa fa-info fa-2x"></i><p><small>Student<br />Information</small></p> </button>
+
+        @if (stu_first_name != null)
+        {
+            <button class="tablinks" onclick="openCity(event, 'Parent')"><i class="fa fa-file-text-o fa-2x"></i><p><small>Parent<br />Information</small></p> </button>
+
+        }
+        @if (stu_FatherName != null)
+        {
+            <button class="tablinks" onclick="openCity(event, 'Education')"><i class="fa fa-cogs fa-2x"></i><p><small>Educational<br />Qualification</small></p> </button>
+        }
+        @if (stu_Last_School_Name != null)
+        {
+            <button class="tablinks" onclick="openCity(event, 'Photo')"><i class="fa fa-file-image-o fa-2x"></i><p><small>Photo<br />Upload</small></p> </button>
+        }
+
+        @if (stu_ImagePath != null)
+        {
+            <button class="tablinks" onclick="openCity(event, 'Declaration')"><i class="fa fa-file fa-2x"></i><p><small>Final <br />Declaration</small></p> </button>
+        }
+    </div>
+
+    @using (Html.BeginForm("StudentFormFillup", "StudentAdmission", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Query_step, new { Value = "Step1" })
+
+
+        @Html.HiddenFor(model => model.StepOne_status, new { Value = @stu_stepOne_status })
+
+        <div id="Student" class="tabcontent">
+            @if (TempData["msg"] != null)
+            {
+                <p class="alert alert-success" id="successMessage" style="color:#5cb85c;text-align:center">@TempData["msg"]</p>
+            }
+            <br />
+            <h3>Student Information</h3>
+            <p>Please Fill Up All necessary Information mentioned in below Fields.</p>
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="input-group">
+
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                            @Html.EditorFor(model => model.first_name, new { htmlAttributes = new { @class = "form-control", Value = @stu_first_name, @Placeholder = "Enter  Student First Name" } })
+
+                        </div>
+
+                        @Html.ValidationMessageFor(model => model.first_name, "", new { @class = "text-danger" })
+
+
+                    </div>
+
+                    <div class="col-sm-3">
+                        <div class="input-group">
+
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                            @Html.EditorFor(model => model.middle_name, new { htmlAttributes = new { @class = "form-control", Value = @stu_middle_name, @Placeholder = "Enter Student Middle Name" } })
+
+                        </div>
+
+                        @Html.ValidationMessageFor(model => model.middle_name, "", new { @class = "text-danger" })
+
+
+                    </div>
+
+                    <div class="col-sm-4">
+                        <div class="input-group">
+
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                            @Html.EditorFor(model => model.last_name, new { htmlAttributes = new { @class = "form-control", Value = @stu_last_name, @Placeholder = "Enter Student Last Name" } })
+
+                        </div>
+
+                        @Html.ValidationMessageFor(model => model.last_name, "", new { @class = "text-danger" })
+
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="input-group">
+
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-road"></i></span>
+                            @Html.EditorFor(model => model.CurrentAddress1, new { htmlAttributes = new { @class = "form-control", Value = @stu_CurrentAddress1, @Placeholder = "Address line 1" } })
+
+                        </div>
+
+                        @Html.ValidationMessageFor(model => model.CurrentAddress1, "", new { @class = "text-danger" })
+
+                    </div>
+                    <div class="col-sm-5">
+                        <div class="input-group">
+
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-road"></i></span>
+                            @Html.EditorFor(model => model.CurrentAddress2, new { htmlAttributes = new { @class = "form-control", Value = @stu_CurrentAddress2, @Placeholder = "Address line 2" } })
+
+                        </div>
+
+                        @Html.ValidationMessageFor(model => model.CurrentAddress2, "", new { @class = "text-danger" })
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
+                            @Html.DropDownListFor(m => m.CountryId, Model.Countries, "Please Select Country", new { @class = "form-control" })
+
+                            @* @Html.DropDownList("CountryId", new SelectList(Model.Countries, "Value", "Text"), "Please select", new { @class = "form-control", @stu_CountryId = "Value" })*@
+
+                            @*@Html.DropDownList("CountryId", Model.Countries) *@
+
+
+
+                            @*   <select name="CountryId" id="CountryId" class="form-control" required>
+
+                                    <option value="">--Select Any--</option>
+
+
+
+                                   @foreach (var countr in Model.Countries)
+                                        {
+
+                                            <option selected value="@countr.Value" ( @countr.Value == "@stu_CountryId" ) ?  Selected = "selected" : ""   >@countr.Text</option>
+
+                                        }
+
+
+                                </select>*@
+
+
+
+
+
+
+
+                        </div>
+
+                        @Html.ValidationMessageFor(m => m.CountryId, "", new { @class = "text-danger" })
+                    </div>
+
+
+                    <div class="col-sm-4">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-flag"></i></span>
+                            @Html.DropDownListFor(m => m.StateId, Model.States, "Please select State", new { @class = "form-control" })
+
+                        </div>
+
+                        @Html.ValidationMessageFor(m => m.StateId, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="input-group">
+
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-map-marker"></i></span>
+                            @Html.DropDownListFor(m => m.CityId, Model.Cities, "Please Select City", new { @class = "form-control" })
+
+
+                        </div>
+
+                        @Html.ValidationMessageFor(m => m.CityId, "", new { @class = "text-danger" })
+                    </div>
+
+
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-road"></i></span>
+                            @Html.EditorFor(model => model.currentzipcode, new { htmlAttributes = new { @class = "form-control", Value = @stu_currentzipcode, @Placeholder = "Enter Your ZipCode" } })
+
+                        </div>
+
+                        @Html.ValidationMessageFor(model => model.currentzipcode, "", new { @class = "text-danger" })
+
+                    </div>
+
+
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-11">
+                        <div class="input-group">
+                            <p>Current Adddress Same as Permanent Address.Click Here <input id="sameadd" name="sameadd" type="checkbox" value="Sameadd" onChange="CopyAdd();" /></p>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="input-group">
+
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-road"></i></span>
+                            @Html.EditorFor(model => model.PermanentAddress1, new { htmlAttributes = new { @class = "form-control", Value = @stu_PermanentAddress1, @Placeholder = "Address line 2" } })
+
+                        </div>
+
+                        @Html.ValidationMessageFor(model => model.PermanentAddress1, "", new { @class = "text-danger" })
+
+                    </div>
+
+                    <div class="col-sm-5">
+                        <div class="input-group">
+
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-road"></i></span>
+                            @Html.EditorFor(model => model.PermanentAddress2, new { htmlAttributes = new { @class = "form-control", Value = @stu_PermanentAddress2, @Placeholder = "Address line 2" } })
+
+                        </div>
+
+                        @Html.ValidationMessageFor(model => model.PermanentAddress2, "", new { @class = "text-danger" })
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="input-group">
+
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-road"></i></span>
+                            @Html.EditorFor(model => model.permanentzipcode, new { htmlAttributes = new { @class = "form-control", Value = @stu_permanentzipcode, @Placeholder = "Enter Your Zip Code" } })
+
+                        </div>
+
+                        @Html.ValidationMessageFor(model => model.permanentzipcode, "", new { @class = "text-danger" })
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="input-group">
+
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                            @Html.EditorFor(model => model.DOB, new { htmlAttributes = new { @class = "form-control datepicker", Value = @stu_DOB, @Placeholder = "Enter Student Date of Birth  Here" } })
+                        </div>
+
+                        @Html.ValidationMessageFor(model => model.DOB, "", new { @class = "text-danger" })
+
+                    </div>
+
+                    <div class="col-sm-4">
+                        <div class="input-group">
+
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-road"></i></span>
+                            @Html.EditorFor(model => model.POB, new { htmlAttributes = new { @class = "form-control", Value = @stu_POB, @Placeholder = "Please Enter Place of Birth" } })
+
+                        </div>
+
+                        @Html.ValidationMessageFor(model => model.POB, "", new { @class = "text-danger" })
+
+                    </div>
+
+                    <div class="col-sm-4">
+                        <div class="input-group">
+
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-road"></i></span>
+                            @Html.EditorFor(model => model.BCN, new { htmlAttributes = new { @class = "form-control", Value = @stu_BCN, @Placeholder = "Please Enter Birth Cerificate Number" } })
+
+                        </div>
+
+                        @Html.ValidationMessageFor(model => model.BCN, "", new { @class = "text-danger" })
+
+                    </div>
+
+
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-11">
+
+                        <p>@Html.LabelFor(model => model.BirthCertificatePath, new { @class = "control-label col-md-2", Value = @stu_BirthCertificatePath })</p>
+                        <div class="input-group">
+                            <input type="file" id="BirthCertificateUpload" name="BirthCertificateUpload" required="required" style="margin:10px;" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    <div class="col-sm-3">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
+                            @Html.DropDownListFor(m => m.CitizenCountryId, Model.citizenCountry, "Please select Nationality", new { @class = "form-control", Value = @stu_CitizenCountryId, @onchange = " CheckColors(this.value);" })
+
+                        </div>
+
+                        @Html.ValidationMessageFor(m => m.CitizenCountryId, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div id="show1">
+                        <div class="col-sm-4">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+                                @Html.DropDownListFor(m => m.IdProof_Id, Model.IdProof_Type, "Please select Identity Proof Type", new { @class = "form-control", @onchange = " NoIdentity(this.value);" })
+
+                            </div>
+
+                            @Html.ValidationMessageFor(m => m.IdProof_Id, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="col-sm-4" id="IdProof_Number">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                                @Html.EditorFor(model => model.IdProof_Number, new { htmlAttributes = new { @class = "form-control", Value = @stu_IdProof_Number, @Placeholder = "Please Enter Identity Proof Number" } })
+
+                            </div>
+
+                            @Html.ValidationMessageFor(model => model.IdProof_Number, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+
+                    <div id="show2">
+                        <div class="col-sm-4">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                                @Html.EditorFor(model => model.PassPort_Number, new { htmlAttributes = new { @class = "form-control", Value = @stu_PassPort_Number, @Placeholder = "Please Enter Your PassPort Number" } })
+
+                            </div>
+
+                            @Html.ValidationMessageFor(model => model.PassPort_Number, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+                            @Html.DropDownListFor(m => m.BloodGroup_Id, Model.BloodGroup_Name, "Please select Students Blood Group", new { @class = "form-control" })
+
+                        </div>
+
+                        @Html.ValidationMessageFor(m => m.BloodGroup_Id, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+                            @Html.DropDownListFor(m => m.Special_Care, new List<SelectListItem>
+                           {
+                                new SelectListItem() {Text = "Speical Care Needed?", Value=""},
+                                new SelectListItem() {Text = "Yes", Value="1"},
+                                new SelectListItem() {Text = "No", Value="2"}
+                           }, new { @class = "form-control", @onchange = " SpCare(this.value); " })
+
+                        </div>
+                        @Html.ValidationMessageFor(m => m.Special_Care, "", new { @class = "text-danger" })
+
+                    </div>
+                    <div id="SpCaredec">
+                        <div class="col-sm-3">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                                @Html.EditorFor(model => model.Special_Care_Description, new { htmlAttributes = new { @class = "form-control", Value = @stu_Special_Care_Description, @Placeholder = "Please Write About Special Care" } })
+
+                            </div>
+
+                            @Html.ValidationMessageFor(model => model.Special_Care_Description, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+                            @Html.DropDownListFor(m => m.Disability, new List<SelectListItem>
+                           {
+                                new SelectListItem() {Text = "Physically Handicapped?"},
+                                new SelectListItem() {Text = "Yes", Value="1"},
+                                new SelectListItem() {Text = "No", Value="2"}
+                           }, new { @class = "form-control", @onchange = " Disable(this.value); " })
+
+                        </div>
+                        @Html.ValidationMessageFor(m => m.Disability, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div id="disabilitydesc">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                                @Html.EditorFor(model => model.Disability_Percentage, new { htmlAttributes = new { @class = "form-control", Value = stu_Disability_Percentage, @Placeholder = "Please Enter Your Disability Percentage" } })
+
+                            </div>
+
+                            @Html.ValidationMessageFor(model => model.Disability_Percentage, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                                @Html.EditorFor(model => model.Disability_Description, new { htmlAttributes = new { @class = "form-control", Value = @stu_Disability_Description, @Placeholder = "Please Enter Your Disability Description" } })
+
+                            </div>
+
+                            @Html.ValidationMessageFor(model => model.Disability_Description, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                                @Html.EditorFor(model => model.Disability_Certificate_Number, new { htmlAttributes = new { @class = "form-control", Value = @stu_Disability_Certificate_Number, @Placeholder = "Please Enter Your Disability Certificate Number" } })
+
+
+                            </div>
+
+                            @Html.ValidationMessageFor(model => model.Disability_Certificate_Number, "", new { @class = "text-danger" })
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-11">
+
+                            <p>@Html.LabelFor(model => model.DisabilityCertificatePath, new { Value = @stu_DisabilityCertificatePath, @class = "control-label col-md-2" })</p>
+                            <div class="input-group">
+                                <input type="file" name="DisabilityCertificateUpload" required="required" style="margin:10px;" />
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+
+            <ul class="list-unstyled list-inline pull-right">
+                <li><input type="submit" id="btReload" value="Submit" class="btn btn-success" onclick="fnTabChanges();refreshPage();" /></li>
+            </ul>
+
+        </div>
+        // }
+    }
+
+    @using (Html.BeginForm())
+    {
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Query_step, new { Value = "Step2" })
+        <div id="Parent" class="tabcontent">
+            @if (TempData["msg"] != null)
+            {
+                <p class="alert alert-success" id="successMessage" style="color:#5cb85c;text-align:center">@TempData["msg"]</p>
+            }
+            <br />
+
+            <h3>Parent Information</h3>
+            <p>Please Fill Up All necessary Information mentioned in below Fields.</p>
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                            @Html.EditorFor(model => model.FatherName, new { htmlAttributes = new { @class = "form-control", Value = @stu_FatherName, @Placeholder = "Please Enter Your Father Name" } })
+
+                        </div>
+
+                        @Html.ValidationMessageFor(model => model.FatherName, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="col-sm-4">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                            @Html.EditorFor(model => model.FatherContactNumber, new { htmlAttributes = new { @class = "form-control", Value = @stu_FatherContactNumber, @Placeholder = "Please Enter Your Father Contact Number" } })
+
+                        </div>
+
+                        @Html.ValidationMessageFor(model => model.FatherContactNumber, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="col-sm-4">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                            @Html.EditorFor(model => model.FatherEmail, new { htmlAttributes = new { @class = "form-control", Value = @stu_FatherEmail, @Placeholder = "Please Enter Father Email Id Here" } })
+
+                        </div>
+
+                        @Html.ValidationMessageFor(model => model.FatherEmail, "", new { @class = "text-danger" })
+                    </div>
+
+
+
+                </div>
+                <div class="row">
+
+                    <div class="col-sm-3">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-phone"></i></span>
+                            @Html.EditorFor(model => model.MotherName, new { htmlAttributes = new { @class = "form-control", Value = @stu_MotherName, @Placeholder = "Please Enter Mother  Name " } })
+
+                        </div>
+
+                        @Html.ValidationMessageFor(model => model.MotherName, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="col-sm-4">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-phone-alt"></i></span>
+                            @Html.EditorFor(model => model.MotherContactNumber, new { htmlAttributes = new { @class = "form-control", Value = @stu_MotherContactNumber, @Placeholder = "Please Enter Mother  Contact Number" } })
+
+                        </div>
+
+                        @Html.ValidationMessageFor(model => model.MotherContactNumber, "", new { @class = "text-danger" })
+
+
+                    </div>
+
+                    <div class="col-sm-4">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                            @Html.EditorFor(model => model.MotherEmail, new { htmlAttributes = new { @class = "form-control", Value = @stu_MotherEmail, @Placeholder = "Please Enter Mother Email Id Here" } })
+
+                        </div>
+
+                        @Html.ValidationMessageFor(model => model.MotherEmail, "", new { @class = "text-danger" })
+
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-phone-alt"></i></span>
+                            @Html.EditorFor(model => model.HomeContactNumber, new { htmlAttributes = new { @class = "form-control", Value = @stu_HomeContactNumber, @Placeholder = "Please Enter Home  Contact Number" } })
+
+                        </div>
+
+                        @Html.ValidationMessageFor(model => model.HomeContactNumber, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-sm-10" style="background-color:lavender;">
+                        <div class="input-group">
+                            @if (stu_LocalGurdianValue == "Yes")
+                            {
+
+                                <p>Have Any Local Guardian?.Click Here <input type="checkbox" id="LocalGurdian" name="LocalGurdian" value="Yes" checked="checked" onChange="LocalGuradian();" /></p>
+
+
+                            }
+                            else
+                            {
+
+                                <p>Have Any Local Guardian?.Click Here <input type="checkbox" id="LocalGurdian" name="LocalGurdian" value="Yes" onChange="LocalGuradian();" /></p>
+                            }
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row" id="local">
+                    <div class="col-sm-3">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-phone-alt"></i></span>
+                            @Html.EditorFor(model => model.LocalGurdianName, new { htmlAttributes = new { @class = "form-control", Value = @stu_LocalGurdianName, @Placeholder = "Please Enter Local Gurdian Name" } })
+
+                        </div>
+
+                        @Html.ValidationMessageFor(model => model.LocalGurdianName, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="col-sm-4">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-phone-alt"></i></span>
+                            @Html.EditorFor(model => model.LocalGurdianEmail, new { htmlAttributes = new { @class = "form-control", Value = @stu_LocalGurdianEmail, @Placeholder = "Please Enter Local Gurdian Email" } })
+
+                        </div>
+
+                        @Html.ValidationMessageFor(model => model.LocalGurdianEmail, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="col-sm-4">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-phone-alt"></i></span>
+                            @Html.EditorFor(model => model.LocalGurdianPhone, new { htmlAttributes = new { @class = "form-control", Value = @stu_LocalGurdianPhone, @Placeholder = "Please Enter Local Gurdian Phone" } })
+
+                        </div>
+
+                        @Html.ValidationMessageFor(model => model.LocalGurdianPhone, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            <ul class="list-unstyled list-inline pull-right">
+                <li><input type="submit" value="Submit" id="btReload" class="btn btn-success" onclick="fnTabChanges();refreshPage();" /></li>
+            </ul>
+        </div>
+
+    }
+
+
+    @using (Html.BeginForm("StudentFormFillup", "StudentAdmission", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Query_step, new { Value = "Step3" })
+        <div id="Education" class="tabcontent">
+            @if (TempData["msg"] != null)
+            {
+                <p class="alert alert-success" id="successMessage" style="color:#5cb85c;text-align:center">@TempData["msg"]</p>
+            }
+            <br />
+
+            <h3>Educational Information</h3>
+            <p>Please Fill Up All necessary Information mentioned in below Fields.</p>
+            <div class="container">
+
+                <div class="row">
+                    <div class="col-sm-3">
+                    </div>
+
+                    <div class="col-sm-4">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+                            @Html.DropDownListFor(m => m.AdmissionClass_Id, Model.AdmissionClass_Name, "Please Select A Class", new { @class = "form-control", @onchange = "Education(this.value);" })
+
+                        </div>
+
+                        @Html.ValidationMessageFor(m => m.AdmissionClass_Id, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="col-sm-4">
+                    </div>
+                </div>
+
+
+                <div class="row">
+
+                    <div class="col-sm-4">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+                            @Html.EditorFor(model => model.Last_School_Name, new { htmlAttributes = new { @class = "form-control", Value = @stu_Last_School_Name, @Placeholder = "Please Enter Previous School Name" } })
+
+                        </div>
+
+                        @Html.ValidationMessageFor(model => model.Last_School_Name, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="col-sm-4">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+                            @Html.DropDownListFor(m => m.SchoolBoard_Id, Model.SchoolBoard_Name, "Please Select  School Board", new { @class = "form-control" })
+
+                        </div>
+
+                        @Html.ValidationMessageFor(m => m.SchoolBoard_Id, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="col-sm-3">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                            @Html.EditorFor(model => model.Last_School_Year, new { htmlAttributes = new { @class = "form-control", Value = @stu_Last_School_Year, @Placeholder = "Please Enter Previous School Year" } })
+
+                        </div>
+
+                        @Html.ValidationMessageFor(model => model.Last_School_Year, "", new { @class = "text-danger" })
+                    </div>
+
+
+
+                </div>
+                <div class="row">
+
+                    <div class="col-sm-4">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                            @Html.EditorFor(model => model.Last_School_Class, new { htmlAttributes = new { @class = "form-control", Value = @stu_Last_School_Class, @Placeholder = "Please Enter Previous School Class" } })
+
+                        </div>
+
+                        @Html.ValidationMessageFor(model => model.Last_School_Class, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                            @Html.EditorFor(model => model.School_Transfer_Certifiate_Number, new { htmlAttributes = new { @class = "form-control", Value = @stu_School_Transfer_Certifiate_Number, @Placeholder = "Please Enter  School Transfer Certificate" } })
+
+                        </div>
+
+                        @Html.ValidationMessageFor(model => model.School_Transfer_Certifiate_Number, "", new { @class = "text-danger" })
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-sm-11">
+
+                        <p>@Html.LabelFor(model => model.SchoolTransferCertificatePath, new { @class = "control-label col-md-2", Value = @stu_SchoolTransferCertificatePath })</p>
+                        <div class="input-group">
+                            <input type="file" name="SchoolTransferCertificateUpload" style="margin:10px;" required="required" />
+                        </div>
+                    </div>
+                </div>
+
+
+                <div id="div1">
+
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                                @Html.EditorFor(model => model.Last_School_Exam_Marks, new { htmlAttributes = new { @class = "form-control", Value = @stu_Last_School_Exam_Marks, @Placeholder = "Please Enter Last School Exam Marks", @onchange = " ExamPercent(this.value);" } })
+
+                            </div>
+
+                            @Html.ValidationMessageFor(model => model.Last_School_Exam_Marks, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="col-sm-4">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                                @Html.EditorFor(model => model.Last_School_Total_Marks, new { htmlAttributes = new { @class = "form-control", Value = @stu_Last_School_Total_Marks, @Placeholder = "Please Enter Last School Exam Total Marks", @onchange = " ExamPercent(this.value);" } })
+
+                            </div>
+
+                            @Html.ValidationMessageFor(model => model.Last_School_Total_Marks, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="col-sm-3">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+                                @Html.EditorFor(model => model.Last_School_Marks_Percentage, new { htmlAttributes = new { @class = "form-control", Value = @stu_Last_School_Marks_Percentage, @Placeholder = "Percentage of Marks", @readonly = "readonly" } })
+
+                            </div>
+
+                            @Html.ValidationMessageFor(model => model.Last_School_Marks_Percentage, "", new { @class = "text-danger" })
+                        </div>
+
+
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-sm-7">
+                            <p>@Html.LabelFor(model => model.FinalExamResultPath, new { @class = "control-label col-md-2", Value = @stu_FinalExamResultPath })</p>
+                            <div class="input-group">
+                                <input type="file" name="FinalExamResultUpload" style="margin:10px;" required="required" />
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <div id="div2">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                                @Html.EditorFor(model => model.Board_Exam_Marks, new { htmlAttributes = new { @class = "form-control", Value = @stu_Board_Exam_Marks, @Placeholder = "Please Enter  Marks of Board Examination of 10th Standard", @onchange = " BoardPercent(this.value);" } })
+
+                            </div>
+
+                            @Html.ValidationMessageFor(model => model.Board_Exam_Marks, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                                @Html.EditorFor(model => model.Board_Total_Marks, new { htmlAttributes = new { @class = "form-control", Value = @stu_Board_Total_Marks, @Placeholder = "Please Enter  Total Marks  of Board Examination", @onchange = " BoardPercent(this.value);" } })
+
+                            </div>
+
+                            @Html.ValidationMessageFor(model => model.Board_Total_Marks, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+                                @Html.EditorFor(model => model.Marks_Percentage, new { htmlAttributes = new { @class = "form-control", Value = @stu_Marks_Percentage, @Placeholder = "Percentage of Marks", @readonly = "readonly" } })
+
+                            </div>
+
+                            @Html.ValidationMessageFor(model => model.Marks_Percentage, "", new { @class = "text-danger" })
+                        </div>
+
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+                                @Html.EditorFor(model => model.Board_Certificate_Number, new { htmlAttributes = new { @class = "form-control", Value = @stu_Board_Certificate_Number, @Placeholder = "Enter Board Examination Certificate Number" } })
+
+                            </div>
+
+                            @Html.ValidationMessageFor(model => model.Board_Certificate_Number, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="col-sm-7">
+                            <p>@Html.LabelFor(model => model.BoardExamCertificatePath, new { @class = "control-label col-md-2", Value = @stu_BoardExamCertificatePath })</p>
+                            <div class="input-group">
+                                <input type="file" name="BoardExamCertificateUpload" required="required" style="margin:10px;" />
+                            </div>
+                        </div>
+
+                    </div>
+                  @*  <div class="row">
+
+                        <div class="col-sm-7">
+                            <p>@Html.LabelFor(model => model.BoardExamResultPath, new { @class = "control-label col-md-2", Value = @stu_BoardExamResultPath })</p>
+                            <div class="input-group">
+                                <input type="file" name="BoardExamResultUpload" required="required" style="margin:10px;" />
+                            </div>
+                        </div>
+
+                    </div>*@
+
+
+                </div>
+
+
+            </div>
+
+            <ul class="list-unstyled list-inline pull-right">
+                <li><input type="submit" value="Submit" id="btReload" class="btn btn-success" onclick="fnTabChanges();refreshPage();" /></li>
+            </ul>
+
+        </div>
+
+    }
+
+
+    @using (Html.BeginForm("StudentFormFillup", "StudentAdmission", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Query_step, new { Value = "Step4" })
+        <div id="Photo" class="tabcontent">
+            @if (TempData["msg"] != null)
+            {
+                <p class="alert alert-success" id="successMessage" style="color:#5cb85c;text-align:center">@TempData["msg"]</p>
+            }
+            <br />
+
+            <h3>Photo & Signature Upload</h3>
+            <p>Please Upload Your Photo & Signature.</p>
+            <div class="container">
+
+                <div class="row">
+                    @Html.LabelFor(model => model.ImagePath, new { @class = "control-label col-md-2" })
+                </div>
+
+                <div class="row">
+
+                    <div class="col-sm-5">
+                        @if (@stu_ImagePath != null)
+                        {<img src="@Url.Content("~/AppFiles/Images/" + @stu_ImagePath)" style="margin:10px" height="200" width="200" id="imagePreview" /> }
+                        else
+                        {<img src="@Url.Content(Model.ImagePath)" style="margin:10px" height="200" width="200" id="imagePreview" />}
+                        <input type="file" name="ImageUpload" style="margin:10px;" accept="image/jpeg, image/png" onchange="ShowImagePreview(this,document.getElementById('imagePreview'))" required="required" />
+
+                    </div>
+                    @*<input type="" value="Upload" />
+                        <br />
+                        <span style="color:green">@ViewBag.Message</span>*@
+
+                    <div class="col-sm-4" style="border:1px solid black; padding:10px">
+
+                        <ul style="padding:20px">
+                            <li> Select “Pages” from the top left to navigate the UT web site and navigate to the folder that you wish to add an image or file.</li>
+                            <li>Select “Upload” and use the “Browse” button to then navigate to the file you wish to upload.</li>
+                            <li>A screen will confirm your image and/or files have been uploaded.</li>
+                        </ul>
+
+                    </div>
+
+                </div>
+                <div class="row">@Html.LabelFor(model => model.SignaturePath, new { @class = "control-label col-md-2" })</div>
+
+                <div class="row">
+
+                    <div class="col-sm-5">
+                        @if (@stu_SignaturePath != null)
+                        {<img src="@Url.Content("~/AppFiles/Images/" + @stu_SignaturePath)" style="margin:10px" height="200" width="200" id="imagePreview" /> }
+                        else
+                        {
+
+                            <img src="@Url.Content(Model.SignaturePath)" style="margin:10px;" height="200" width="200" id="SignaturePreview" />}
+
+                        <input type="file" name="SignatureUpload" style="margin:10px;" accept="image/jpeg, image/png" onchange="ShowSignaturePreview(this,document.getElementById('SignaturePreview'))" />
+                    </div>
+
+                    <div class="col-sm-4" style="border:1px solid black; padding:10px">
+
+
+                        <ul style="padding:20px">
+                            <li> Select “Pages” from the top left to navigate the UT web site and navigate to the folder that you wish to add an image or file.</li>
+                            <li>Select “Upload” and use the “Browse” button to then navigate to the file you wish to upload.</li>
+                            <li>A screen will confirm your image and/or files have been uploaded.</li>
+                        </ul>
+
+
+                    </div>
+                </div>
+
+
+            </div>
+            <ul class="list-unstyled list-inline pull-right">
+                <li><input type="submit" value="Submit" id="btReload" class="btn btn-success" onclick="fnTabChanges();refreshPage();" /></li>
+            </ul>
+        </div>
+
+    }
+
+
+    @using (Html.BeginForm())
+    {
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Query_step, new { Value = "Step5" })
+        <div id="Declaration" class="tabcontent">
+            @if (TempData["msg"] != null)
+            {
+                <p class="alert alert-success" id="successMessage" style="color:#5cb85c;text-align:center">@TempData["msg"]</p>
+            }
+            <br />
+
+            <h3>Declaration</h3>
+            <p>Please Read All Instrution Below Before You Finally ting The Application Form.</p>
+            <div class="container">
+
+                <div class="row">
+                    <div class="col-sm-11" style="border:1px solid black; padding:10px">
+
+                        <ul style="padding:20px">
+                            <li> Select “Pages” from the top left to navigate the UT web site and navigate to the folder that you wish to add an image or file.</li>
+                            <li>Select “Upload” and use the “Browse” button to then navigate to the file you wish to upload.</li>
+                            <li>A screen will confirm your image and/or files have been uploaded.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-4"></div>
+                    <div class="col-sm-3">
+                        <div class="input-group">
+                            @Html.CheckBoxFor(model => model.TermsAndConditions, new { htmlAttributes = new { @class = "form-control", @Placeholder = "Please Enter Previous School Name" } })
+                            @Html.LabelFor(model => model.TermsAndConditions)
+                        </div>
+
+
+                    </div>
+
+                    <div class="col-sm-4"></div>
+
+                </div>
+
+            </div>
+
+            <ul class="list-unstyled list-inline pull-right">
+                <li><input type="submit" value="Submit" id="btn1" class="btn btn-success" onclick="javascript:return alert('Are you sure to submit student data')" /></li>
+            </ul>
+
+        </div>
+
+    }
+
+
+
+    <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+
+    @section Scripts
+   {
+        @Scripts.Render("~/bundles/jqueryval")
+
+
+        @Styles.Render("~/Content/cssjqryUi")
+
+
+
+        @* <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+            <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+            <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+            <script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+            <script type="text/javascript" src="Scripts/jquery_calendar/jquery-ui.js"></script>
+            <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>*@
+
+
+
+        <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+        <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+        <link href="~/CSS/StyleSheet5.css" rel="stylesheet" />
+        <link href="~/CSS/Table.css" rel="stylesheet" />
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+
+        <script>
+            /*  $(function () {
+                  $(".datepicker").datepicker(
+                      {
+                          dateFormat: 'dd/mm/yy',
+                          showStatus: true,
+                          showWeeks: true,
+                          highlightWeek: true,
+                          numberOfMonths: 1,
+                          showAnim: "scale",
+                          showOptions: { origin: ["top", "left"] }
+                      }
+                  );
+              });*/
+        </script>
+
+        <script>
+            $(function () {
+                $('input[name="DOB"]').daterangepicker(
+                    {
+                        singleDatePicker: true,
+                        timePicker: false,
+                        showDropdowns: true,
+                        minYear: 2001,
+
+                        locale: {
+                            format: 'DD/MM/YYYY'
+                        }
+                    }
+                );
+            });
+        </script>
+
+        <script type="text/javascript">
+            $(function () {
+
+                var lc1 = document.getElementById('LocalGurdian');
+
+                if (lc1.checked) {
+                    $("#local").show();
+                }
+                else {
+                    $("#local").hide();
+                }
+
+            });
+        </script>
+
+
+        <script type="text/javascript">
+
+            function CheckColors(val) {
+
+                //var element = document.getElementById('PassPort_Number');
+                if (val == '1') {
+                    $("#show1").show();
+                    $("#show2").hide();
+                }
+                else {
+                    $("#show2").show();
+                    $("#show1").hide();
+
+                }
+            }
+
+            function Disable(val) {
+                // alert('Hello');
+                //var element = document.getElementById('PassPort_Number');
+                if (val == '1') {
+
+                    $("#disabilitydesc").show();
+                    //$("#show2").hide();
+                }
+                else {
+
+                    $("#disabilitydesc").hide();
+
+                }
+            }
+
+            function SpCare(val) {
+                //  alert('Hello');
+                //var element = document.getElementById('PassPort_Number');
+                if (val == '1') {
+
+                    $("#SpCaredec").show();
+                    //$("#show2").hide();
+                }
+                else {
+
+                    $("#SpCaredec").hide();
+
+                }
+            }
+
+
+            function NoIdentity(val) {
+
+                //var element = document.getElementById('PassPort_Number');
+                if (val == '6') {
+                    $("#IdProof_Number").hide();
+                    //$("#show2").hide();
+                }
+                else {
+                    //    $("#show2").show();
+                    //    $("#show1").hide();
+                    $("#IdProof_Number").show();
+
+                }
+            }
+
+            function BoardPercent(val) {
+
+                var element1 = document.getElementById('Board_Exam_Marks').value;
+                //alert(element1);
+                var element2 = document.getElementById('Board_Total_Marks').value;
+                //  ss
+                element3 = parseFloat(element1) * 100;
+                //  alert(element3);
+                element4 = (element3) / parseFloat(element2);
+                element5 = element4.toFixed(2);
+                // alert(element5);
+                if (!isNaN(element5)) {
+                    document.getElementById('Marks_Percentage').value = element5;
+                }
+
+            }
+
+
+            function ExamPercent(val) {
+
+                var element1 = document.getElementById('Last_School_Exam_Marks').value;
+                //  alert(element1);
+                var element2 = document.getElementById('Last_School_Total_Marks').value;
+                //  ss
+                element3 = parseFloat(element1) * 100;
+                // alert(element3);
+                element4 = (element3) / parseFloat(element2);
+                element5 = element4.toFixed(2);
+                //alert(element5);
+                if (!isNaN(element5)) {
+                    document.getElementById('Last_School_Marks_Percentage').value = element5;
+                }
+
+            }
+
+
+
+            function Education(val) {
+
+                //var element = document.getElementById('PassPort_Number');
+                if (val == '1' || val == '2' || val == '3' || val == '4' || val == '5' || val == '6' || val == '7' || val == '8' || val == '9' || val == '10' || val == '11' || val == '12' || val == '13' || val == '15' || val == '18') {
+                    $("#div1").show();
+                    $("#div2").hide();
+                  //  $("#show2").hide();
+
+                }
+                //else if (val == '11' || val == '12') {
+
+                //    $("#div2").show();
+                //    $("#div1").hide();
+                //}
+
+                else if (val == '14') {
+
+                    $("#div2").hide();
+                    $("#div1").hide();
+                }
+
+
+                else {
+                    //    $("#show2").show();
+                    //    $("#show1").hide();
+                    $("#div1").hide();
+                    $("#div2").hide();
+                }
+            }
+
+
+
+            function LocalGuradian() {
+
+                var lc1 = document.getElementById('LocalGurdian');
+
+                if (lc1.checked) {
+                    $("#local").show();
+                }
+                else {
+                    $("#local").hide();
+                }
+
+            }
+        </script>
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+
+                $("#Gender").blur(function () {
+                    if ($("#Gender").val() == "") {
+                        // alert("There is no value in textbox");
+                        $("#Status").html('<font color="Red">Please Select Gender.</font>');
+                        $("#Gender").css("border-color", "Red");
+                    }
+
+                });
+            });
+        </script>
+
+
+        <script>
+            //$(function () {
+            //    $("#loaderbody").addClass('hide');
+            //    $(document).bind('ajaxStart', function () {
+            //        $("#loaderbody").removeClass('hide');
+            //    }).bind('ajaxStop', function () {
+            //        $("#loaderbody").addClass('hide');
+            //    });
+            //});
+
+
+            function ShowImagePreview(imageUploader, previewImage) {
+                if (imageUploader.files && imageUploader.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        $(previewImage).attr('src', e.target.result);
+                    }
+                    reader.readAsDataURL(imageUploader.files[0]);
+                }
+            }
+
+            function ShowSignaturePreview(imageUploader, previewImage) {
+                if (imageUploader.files && imageUploader.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        $(previewImage).attr('src', e.target.result);
+                    }
+                    reader.readAsDataURL(imageUploader.files[0]);
+                }
+            }
+
+        </script>
+
+
+
+    }
+
+   @* <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.3/jquery.min.js"></script>*@
+    <script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.js"></script>
+    <script src="//ajax.aspnetcdn.com/ajax/mvc/5.2.3/jquery.validate.unobtrusive.js"></script>
+   @* <script src="http://code.jquery.com/ui/1.11.1/jquery-ui.min.js"></script>*@
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.css" rel="stylesheet">
+    @*<script type="text/javascript">$(function () { $("#datepicker").datepicker(); });</script>*@
+
+    @*<script>
+            // extend jquery range validator to work for required checkboxes
+            var defaultRangeValidator = $.validator.methods.range;
+            $.validator.methods.range = function (value, element, param) {
+                if (element.type === 'checkbox') {
+                    // if it's a checkbox return true if it is checked
+                    return element.checked;
+                    //return ErrorMessage = "You gotta tick the box!"
+                } else {
+                    // otherwise run the default validation function
+                    return defaultRangeValidator.call(this, value, element, param);
+                }
+            }
+        </script>*@
+    <script>
+        var checkboxes = $("input[type='checkbox']"),
+            Butt = $("input[type='']");
+
+        checkboxes.click(function () {
+            Butt.attr("disabled", !checkboxes.is(":checked"));
+        });
+
+    </script>
+    <script>
+        function openCity(evt, cityName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(cityName).style.display = "block";
+            evt.currentTarget.className += " active";
+            // window.location.reload();
+        }
+
+        // Get the element with id="defaultOpen" and click on it
+        //document.getElementById("defaultOpen").click();
+    </script>
+
+
+    <script>
+
+        function CopyAdd() {
+
+            var cb1 = document.getElementById('sameadd');
+            var a1 = document.getElementById('CurrentAddress1');
+            var al1 = document.getElementById('PermanentAddress1');
+            var a1A = document.getElementById('CurrentAddress2');
+            var al1A = document.getElementById('PermanentAddress2');
+            var t1 = document.getElementById('currentzipcode');
+            //alert('t1');
+            var t11 = document.getElementById('permanentzipcode');
+            //alert('t11');
+            var a2 = document.getElementById('current_country');
+            var al2 = document.getElementById('permanent_country');
+            var a3 = document.getElementById('current_state');
+            var al3 = document.getElementById('permanent_state');
+            var v1 = document.getElementById('current_city');
+            var vl1 = document.getElementById('permanent_city');
+
+
+
+            if (cb1.checked) {
+                al1.value = a1.value;
+                al1A.value = a1A.value;
+                t11.value = t1.value;
+                al2.value = a2.value;
+                al3.value = a3.value;
+                vl1.value = v1.value;
+
+            }
+
+            else {
+                al1.value = '';
+                al1A.value = '';
+                al2.value = '';
+                al3.value = '';
+                vl1.value = '';
+                t11.value = '';
+            }
+        }
+    </script>
+
+    <script type="text/javascript">
+        $(function () {
+            //  self.location.reload()
+
+            //   /* $("select").each(function (){
+            $('#CountryId,#StateId').change(function () {
+                if ($(this).find("option").length <= 1) {
+                    //$(this).attr("disabled", "disabled");
+                }
+            });
+
+            $("select").change(function () {
+                var value = 0;
+                if ($(this).val() != "") {
+                    value = $(this).val();
+                }
+                var id = $(this).attr("id")
+                    ;
+                $.ajax({
+                    type: "POST",
+                    url: "/SchoolRegistration/AjaxMethod",
+                    data: '{type: "' + id + '", value: ' + value + '}',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        var dropDownId;
+                        var list;
+                        switch (id) {
+                            case "CountryId":
+                                list = response.States;
+                                DisableDropDown("#StateId");
+                                DisableDropDown("#CityId");
+                                PopulateDropDown("#StateId", list);
+                                break;
+                            case "StateId":
+                                dropDownId = "#CityId";
+                                list = response.Cities;
+                                DisableDropDown("#CityId");
+                                PopulateDropDown("#CityId", list);
+                                break;
+                        }
+
+                    },
+                    failure: function (response) {
+                        alert(response.responseText);
+                    },
+                    error: function (response) {
+                        alert(response.responseText);
+                    }
+                });
+            });
+        });
+
+        function DisableDropDown(dropDownId) {
+            //$(dropDownId).attr("disabled", "disabled");
+            $(dropDownId).empty().append('<option selected="selected" value="0">Please select</option>');
+        }
+
+        function PopulateDropDown(dropDownId, list) {
+            if (list != null && list.length > 0) {
+                //$(dropDownId).removeAttr("disabled");
+                $.each(list, function () {
+                    $(dropDownId).append($("<option></option>").val(this['Value']).html(this['Text']));
+                });
+            }
+        }
+
+        $(function () {
+            if ($("#CountryId").val() != "" && $("#StateId").val() != "" && $("#CityId").val() != "") {
+                var message = "Country: " + $("#CountryId option:selected").text();
+                message += "\nState: " + $("#StateId option:selected").text();
+                message += "\nCity: " + $("#CityId option:selected").text();
+                // alert(message);
+            }
+
+        });
+
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            //            location.reload();
+            $('#btReload').click(function () {
+                //  location.reload(true);
+                setInterval('refreshPage()', 5000);
+            });    // RELOAD PAGE ON BUTTON CLICK EVENT.
+        });
+
+        function fnTabChanges() {
+            alert('Are you sure to submit student data');
+        }
+
+                      //  function refreshPage(){
+                           // location.reload();
+                     //   }
+
+    </script>
+
+</body>
+</html>

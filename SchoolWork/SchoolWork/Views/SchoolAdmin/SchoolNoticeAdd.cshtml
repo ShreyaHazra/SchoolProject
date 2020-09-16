@@ -1,0 +1,176 @@
+﻿@model SchoolWork.Models.SchoolNoticeAdd
+@{
+    ViewBag.Title = "SchoolNoticeAdd";
+}
+<h2>School Notice Add</h2>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    @*<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>*@
+
+    <link href="~/CSS/stylesheet2.css" rel="stylesheet" />
+    <style>
+        .text-danger {
+            font-weight: 700;
+            color: red;
+        }
+    </style>
+
+</head>
+<body id="LoginForm" style="background-color:cadetblue">
+    <div class="container">
+        <h1 class="form-heading"></h1>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <div class="login-form">
+            <div class="body-div" style="background-color:blanchedalmond; max-width:100%">
+
+                <h1 style="color:blueviolet; margin-top:-30px"><b>SCHOOL NOTICE BOARD</b></h1>
+                <br />
+                <br />
+
+
+                @using (Html.BeginForm())
+                {
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+
+                    <div class="input-group">
+
+                        @Html.EditorFor(model => model.School_Id, new { htmlAttributes = new { @class = "form-control", @type = "hidden", @onkeydown = "return false", @Value = Session["School_Id"] } })
+
+                    </div>
+                    @Html.ValidationMessageFor(model => model.School_Id, "", new { @class = "text-danger" })
+
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="input-group">
+
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-barcode"></i></span>
+                                @Html.EditorFor(model => model.School_Code, new { htmlAttributes = new { @class = "form-control", @onkeydown = "return false", @Value = Session["School_Code"] } })
+                            </div>
+
+                            @Html.ValidationMessageFor(model => model.School_Code, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="input-group">
+
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+                                @Html.EditorFor(model => model.School_Name, new { htmlAttributes = new { @class = "form-control", @onkeydown = "return false", @Value = Session["School_Name"] } })
+                            </div>
+
+                            @Html.ValidationMessageFor(model => model.School_Name, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="input-group">
+
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-education"></i></span>
+                                @Html.DropDownListFor(m => m.User_Type_Id, Model.User_Type_Name, "Please select An User", new { @class = "form-control" })
+
+                            </div>
+
+                            @Html.ValidationMessageFor(m => m.User_Type_Id, "", new { @class = "text-danger" })
+
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="input-group">
+
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-book"></i></span>
+                                @Html.EditorFor(model => model.Notice_Title, new { htmlAttributes = new { @class = "form-control", @Placeholder = "Enter Notice  Title Here" } })
+                            </div>
+                            @Html.ValidationMessageFor(model => model.Notice_Title, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="input-group">
+
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-barcode"></i></span>
+                                @Html.EditorFor(model => model.Notice_Description, new { htmlAttributes = new { @class = "form-control", @Placeholder = "Enter Notice Description Here" } })
+
+                            </div>
+                            @Html.ValidationMessageFor(model => model.Notice_Description, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="input-group">
+
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                @Html.EditorFor(model => model.Notice_Published_On, new { htmlAttributes = new { @class = "form-control datepicker", @Placeholder = "Enter Notice Published  Date" } })
+                            </div>
+
+                            @Html.ValidationMessageFor(model => model.Notice_Published_On, "", new { @class = "text-danger" })
+
+                        </div>
+                    </div>
+
+                    <br>
+
+                    <div class="form-group">
+
+                        <input type="submit" value="Submit" class="btn btn-success" />
+                        &nbsp;&nbsp;
+                        <input type="reset" value="Reset" class="btn btn-warning">
+                        &nbsp;&nbsp;
+                        <input type="button" value="Home" class="btn btn-info" onclick="@("window.location.href='" + @Url.Action("AdminHeaderBoard", "DashBoard") + "'");" />
+                        <input type="button" onclick="history.go(-1)" value="Return" class="btn btn-info" />
+                    </div>
+
+
+                }
+            </div>
+        </div>
+    </div>
+    <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+    @section Scripts
+    {
+        @Scripts.Render("~/bundles/jqueryval")
+        @Styles.Render("~/Content/cssjqryUi")
+
+
+        @* Adding Colours To Daterange picker *@
+
+        <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+        <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+         <link href="~/CSS/Table.css" rel="stylesheet" />
+
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+        <script>
+            $(function () {
+                $('input[name="Notice_Published_On"]').daterangepicker(
+                    {
+                        singleDatePicker: true,
+                        timePicker: false,
+                        showDropdowns: true,
+                        minYear: 2001,
+
+                        locale: {
+                            format: 'DD/MM/YYYY'
+                        }
+                    }
+                );
+            });
+        </script>
+    }
+</body>
+</html>

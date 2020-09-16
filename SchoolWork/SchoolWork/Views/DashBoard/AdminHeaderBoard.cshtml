@@ -1,0 +1,117 @@
+﻿@model IEnumerable<SchoolWork.Models.WorkRole_Header>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <link href="~/CSS/stylesheet2.css" rel="stylesheet" />
+    <style>
+        .text-danger {
+            font-weight: 700;
+            color: red;
+        }
+
+        .glyphicon {
+            font-size: 30px;
+            color: #EE7F11;
+            padding: 10px;
+            -webkit-text-stroke: 1px black;
+        }
+
+        .col-sm-3 {
+            border: 2px solid #299B08;
+            padding: 10px;
+            margin: 10px;
+            width: 257px;
+            border-radius: 30px;
+            text-align: justify;
+        }
+    </style>
+
+</head>
+<body id="LoginForm" style="background-color:cadetblue">
+    <div class="container">
+        <h1 class="form-heading"></h1>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <div class="login-form">
+            <div class="body-div" style="background-color:aliceblue; max-width:100%">
+
+                <h1 style="color:#C70039; margin-top:-30px;-webkit-text-stroke: 1px black;"><b>SCHOOL ADMIN DASHBOARD </b></h1>
+
+                @if (Session["School_Name"] != null)
+                {<p style="font-size:20px;text-align:center">
+                        <b>Hi</b><b style="font-size:20px;color:darkcyan;-webkit-text-stroke: 1px black;"> @Session["School_Name"] </b>
+                    </p>
+                    @*<h1>Hi  @Session["School_Code"] </h1><h1>Hi  @Session["School_Id"] </h1>*@
+                }
+
+                @if (TempData["msg"] != null)
+                {
+                    <p class="alert alert-success" id="successMessage" style="color:orangered">@TempData["msg"]</p>
+                }
+                <br>
+
+                @using (Html.BeginForm())
+                {
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="row">
+                        @foreach (var item in Model)
+                        {
+
+                            <div class="col-sm-3">
+                                <div class="input-group">
+                                    <span class="glyphicon glyphicon-off"></span>
+
+                                    @Html.ActionLink(item.WorkGroup_Name, item.Parent_Menu_Fn, new { id = item.WorkGroup_Id })
+
+                                </div>
+                            </div>
+                        }
+                        <br />
+                    </div>
+
+
+
+
+
+
+
+                    <br>
+
+                }
+            </div>
+        </div>
+        <br />
+        <br />
+    </div>
+    @section Scripts
+    {
+        @Scripts.Render("~/bundles/jqueryval")
+    }
+</body>
+</html>
+
+<script type="text/javascript">
+
+
+    var colors = ['#ffffff', '#ffffff', '#ffffff', '#ffffff'];
+
+    i = 0;
+
+    $(".body-div").click(function () {
+        $(".body-div").css("backgroundColor", colors[i++]);
+        if (i >= colors.length)
+            i = 0;
+
+    });
+
+</script>

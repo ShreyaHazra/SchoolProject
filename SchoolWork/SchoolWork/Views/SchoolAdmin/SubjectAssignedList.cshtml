@@ -1,0 +1,303 @@
+﻿
+@model SchoolWork.Models.RoleAssigned
+<h2></h2>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="~/CSS/StyleSheet1.css" rel="stylesheet" />
+    <link href="~/CSS/Table.css" rel="stylesheet" />
+    <style>
+        .text-danger {
+            font-weight: 700;
+            color: red;
+        }
+
+        p {
+            text-align: center;
+        }
+        table{
+
+
+            border-style: solid;
+            border-color: indigo;
+        }
+
+
+    </style>
+
+
+</head>
+<body id="LoginForm" style="background-color:gainsboro;padding:10px;" >
+    @*<div class="container" >*@
+    <h1 class="form-heading"></h1>
+    <br />
+    <br />
+    <br />
+    <br />
+    @*<div class="login-form">
+        <div class="body-div" style="border:1px solid black;background-color:gainsboro; max-width:100%">*@
+
+    <h1 style="color:green; margin-top:-30px; text-align:center"><b>Student List</b></h1>
+
+    @if (TempData["msg"] != null)
+    {
+        <p class="alert alert-success" id="successMessage" style="color:#5cb85c;text-align:center">@TempData["msg"]</p>
+    }
+
+    <h3 style="text-align:right;margin-top:-15px">
+        @*<a class="btn btn-primary btn-product" onclick="@("window.location.href='" + @Url.Action("SchoolNoticeAdd", "SchoolAdmin") + "'");"><span class="glyphicon glyphicon-pencil"></span>Add Notice</a>*@
+        <a class="btn btn-info" onclick="@("window.location.href='" + @Url.Action("AdminHeaderBoard", "DashBoard") + "'");"><span class="glyphicon glyphicon-home"></span> &nbsp; Home</a>
+
+        <input type="button" onclick="history.go(-1)" value="Return" class="btn btn-info" />
+
+    </h3>
+    @using (Html.BeginForm("RoleAssigned", "SchoolAdmin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div id="Education" class="tabcontent">
+
+            
+            <div class="container">
+
+                <div class="row">
+                    
+                    
+                    <div class="col-sm-5">
+                        
+                        <div class="input-group">
+                             <span class="input-group-addon">@*<i class="glyphicon glyphicon-list"></i>*@
+                                <font color="brown"> Select Teacher</font>
+                            
+                            </span>
+
+                            
+                            @Html.DropDownListFor(m => m.Emp_Code, Model.Emp_Name, "Please Select An Employee", new { @class = "form-control", @onchange = "getAllChange()" })
+
+                        </div>
+
+                        @Html.ValidationMessageFor(m => m.Emp_Code, "", new { @class = "text-danger" })
+                    </div>
+
+
+                </div>
+
+                <div id="subject">
+
+
+                </div>
+                <br>
+            </div>
+            
+
+        </div>
+
+    }
+
+    <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+
+    @section Scripts
+   {
+        @Scripts.Render("~/bundles/jqueryval")
+
+
+        @Styles.Render("~/Content/cssjqryUi")
+        <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+        <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+        <link href="~/CSS/StyleSheet5.css" rel="stylesheet" />
+        <link href="~/CSS/Table.css" rel="stylesheet" />
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+        <script type="text/javascript">
+            var num = 0;
+           
+            function getAllChange() {
+               alert(document.getElementById("Emp_Code").value);
+
+
+                $.ajax({
+                    type: "POST",
+                    url: "/SchoolAdmin/AjaxGetEmployee",
+                    data: '{emp: ' + document.getElementById("Emp_Code").value + ' }',
+
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    // alert("before");
+
+                    success: function (response) {
+                        var str="",sub;
+                        str += "<table  id='subassign'>";
+                        str += "<tr >";
+                        str += "<td colspan='4'>";
+                        str += "<font size='6' color='Indigo'> Class Assigned To Teacher</font>";
+                        str += "</td>";
+                        str+="</tr>"
+                        str += "<tr>";
+                            str += "<td class='col-sm-3'>";
+                                str += "<font size='5' color='cornflowerblue'>Subject </font>";
+                            str += "</td>";
+                            str += "<td class='col-sm-3'>";
+                                str += "<font size='5' color='cornflowerblue'>Class</font>";
+                        str += "</td>";
+                         str += "<td class='col-sm-3'>";
+                                str += "<font size='5' color='cornflowerblue'>Section</font>";
+                        str += "</td>";
+                        str += "<td class='col-sm-3'>";
+                                str += "<font size='5' color='cornflowerblue'>Action</font>";
+                        str += "</td>";
+                        str += "</tr>";
+                        
+                        var list = response.RoleList;
+
+                       //alert(list.length);
+                        if (list != null && list.length > 0) {
+                            var count = 2;
+                            $.each(list, function () {
+                                str += "<tr>";
+                                    str += "<td class='col-sm-3'>";
+                                            str += this['subject_name'];
+                                    str += "</td>";
+                                    str += "<td class='col-sm-3'>";
+                                             str += this['class_name'];
+                                     str += "</td>";
+                                     str += "<td class='col-sm-3'>";
+                                             str += this['sec_name'];
+                                    str += "</td>";
+
+                                
+                                    str += "<td class='col-sm-3'>";
+                                    str += "<a href=";
+                                    str += "javascript:";
+                                str += "Rem(" + count;
+                                str += ")>";
+                                str += "Delete";
+                                str += "</a>|  "
+
+                                
+                                str += "<a href=";
+                                    str += "javascript:";
+                                str += "Edit(" + count;
+
+                                str += ","+this['ID'];
+                                str += ")>";
+                                str += "Edit";
+                                str += "</a>";
+
+                                count++;
+                                 str += "</td>";
+                                str += "</tr>";
+                                
+
+                            });
+                        }
+                        else {
+
+                            str += "<tr >";
+                                str += "<td colspan='4'  class='col-sm-12'>";
+                                    str += "<p><font size='3' color='cornflowerblue'>No Data Found</font></p>";
+                                str += "</td>";
+                            str += "</tr>";
+                            //str += "<div class='col-sm-12'>";
+                            //str += "No Data Found";
+                            //str += "</div>";
+
+                        }
+                        //str += "</div>";
+                        str += "</table>";
+                       // alert(str);
+                        document.getElementById("subject").innerHTML = str;
+
+
+                    },
+                    failure: function (response) {
+                        alert("from failure" + response.responseText);
+                    },
+                    error: function (response) {
+                        alert("from error  " + response.responseText);
+                    }
+
+
+                });
+
+
+            }
+
+            function Edit(i,id) {
+                
+                var table = document.getElementById("subassign");
+                var sub = (table.rows[i].cells[0].innerHTML).toString();
+
+                
+                var cls = (table.rows[i].cells[1].innerHTML).toString();
+
+                
+                 var sec = (table.rows[i].cells[2].innerHTML).toString();
+                var eid = document.getElementById("Emp_Code").value;
+                
+                location.href = '@Url.Action("EditSubject", "SchoolAdmin")?eid=' + eid + '&ID=' + id;
+                
+
+
+            }
+
+            function Rem(i) {
+                
+
+                if (confirm("Do you want to delete? ")) {
+                   // var i = r.parentNode.parentNode.rowIndex;
+                   // var i = r.rowIndex;
+
+                    var table = document.getElementById("subassign");
+                    //alert( Number(r.parentNode.rowIndex));
+                    var sub=(table.rows[i].cells[0].innerHTML).toString();
+                    var cls = (table.rows[i].cells[1].innerHTML).toString();
+                    var sec = (table.rows[i].cells[2].innerHTML).toString();
+                    
+                    $.ajax({
+                        type: "POST",
+                        url: "/SchoolAdmin/AjaxDelClass",
+                        data: '{emp:"'+ document.getElementById("Emp_Code").value +'",sub:"' + sub + '",cls:"' + cls + '",sec:"'+sec+'" }',
+
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        // alert("before");
+
+                        success: function (response) {
+
+                            alert("Row Deleted!!");
+
+
+                        },
+                        failure: function (response) {
+                            alert("from failure" + response.responseText);
+                        },
+                        error: function (response) {
+                            alert("from error  " + response.responseText);
+                        }
+
+                    });
+
+
+
+
+                    document.getElementById("subassign").deleteRow(i);
+                }
+                else
+                    ;
+
+            }
+
+        </script>
+    }
+</body>
+
+
+
+</html>

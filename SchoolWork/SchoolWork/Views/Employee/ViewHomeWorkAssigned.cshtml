@@ -1,0 +1,424 @@
+﻿@model SchoolWork.Models.Homework
+
+@{
+
+    ViewBag.Title = "Assignment";
+
+}
+<h2>View HomeWork Assignment</h2>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+    @*<meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>*@
+
+    <link href="~/CSS/stylesheet2.css" rel="stylesheet" />
+    <style>
+        .text-danger {
+            font-weight: 700;
+            color: red;
+        }
+    </style>
+
+</head>
+<body id="LoginForm" style="background-color:cadetblue">
+    <div class="container">
+        <h1 class="form-heading"></h1>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <div class="login-form">
+            <div class="body-div" style="background-color:blanchedalmond; max-width:100%">
+
+                <h1 style="color:blueviolet; margin-top:-30px"><b>View Homework Assigned </b></h1>
+                <br />
+                <br />
+
+                @if (TempData["msg"] != null)
+                {
+                    <p class="alert alert-success" id="successMessage" style="color:green">@TempData["msg"]</p>
+                }
+                <br/>
+                @using (Html.BeginForm())
+                {
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <input type="button" value="Home" class="btn btn-info" onclick="@("window.location.href='" + @Url.Action("EmployeeHeaderBoard", "DashBoard") + "'");" />
+                            &nbsp;&nbsp;
+                            <input type="button" onclick="history.go(-1)" value="Return" class="btn btn-danger" />
+
+                        </div>
+                        <div class="col-sm-9">
+
+                        </div>
+
+
+
+                    </div>
+
+
+
+                    <div class="row">
+                        <div class="col-sm-6">
+
+                        </div>
+
+                        <div class="col-sm-2 col-sm-pull-0">
+                            <font color="brown"> Due Date</font>
+                        </div>
+                        <div class="col-sm-2">
+                            <font color="brown">Date Assigned</font>
+                        </div>
+
+                    </div>
+                    <div class="well-sm">
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+                                    @Html.DropDownListFor(m => m.stu_id, Model.Student_Name, "Please Select Student", new { @class = "form-control" })
+
+                                </div>
+
+                                @* @Html.ValidationMessageFor(m => m.stu_id, "", new { @class = "text-danger" })*@
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+                                    @Html.DropDownListFor(m => m.class_id, Model.Class_Name, "Please Select Student", new { @class = "form-control" })
+
+                                </div>
+
+                                @* @Html.ValidationMessageFor(m => m.class_id, "", new { @class = "text-danger" })*@
+                            </div>
+
+                            <div class="col-sm-2">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+                                    @Html.DropDownListFor(m => m.sec_id, Model.Section_Name, "Please Select Student", new { @class = "form-control" })
+
+                                </div>
+
+                                @*@Html.ValidationMessageFor(m => m.sec_id, "", new { @class = "text-danger" })*@
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+                                    @Html.EditorFor(m => m.due_date, "Please Select Due Date", new { @class = "form-control" })
+
+                                </div>
+
+                                @*@Html.ValidationMessageFor(m => m.due_date, "", new { @class = "text-danger" })*@
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+                                    @Html.EditorFor(m => m.date_assigned, new { @class = "form-control" })
+
+                                </div>
+
+                                @*@Html.ValidationMessageFor(m => m.date_assigned, "", new { @class = "text-danger" })*@
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2">
+
+
+                            </div>
+                            <div class="col-sm-2">
+
+
+                            </div>
+
+                            <div class="col-sm-4">
+
+                            </div>
+                            <div class="col-sm-4">
+                                <input type="button" value="Get Data" class="btn btn-success" id="btnSub" />
+                                &nbsp;&nbsp;
+                                <input type="reset" value="Reset" class="btn btn-warning">
+                            </div>
+
+                        </div>
+                    </div>
+                    <br>
+
+                    <div style="background-color:blanchedalmond;" class="well" id="subject">
+
+                    </div>
+
+
+
+                }
+            </div>
+
+
+
+
+
+
+        </div>
+    </div>
+    @section Scripts
+    {
+
+        @Scripts.Render("~/bundles/jqueryval")
+
+
+        @Styles.Render("~/Content/cssjqryUi")
+
+
+
+        <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+        <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+        <link href="~/CSS/StyleSheet5.css" rel="stylesheet" />
+        <link href="~/CSS/Table.css" rel="stylesheet" />
+
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+
+
+
+        <script>
+            $(function () {
+
+
+                $('input[name="due_date"]').daterangepicker(
+                    {
+                        singleDatePicker: true,
+                        timePicker: false,
+                        showDropdowns: true,
+                        minYear: 2001,
+
+                        locale: {
+                            format: 'YYYY/MM/DD'
+                        }
+                    }
+                );
+            });
+
+
+
+            $(function () {
+
+
+                $('input[name="date_assigned"]').daterangepicker(
+                    {
+
+                        singleDatePicker: true,
+                        timePicker: false,
+                        showDropdowns: true,
+                        minYear: 2001,
+
+                        locale: {
+                            format: 'YYYY/MM/DD'
+
+                        }
+                    }
+                );
+            });
+
+            $(function () {
+
+                $("#btnSub").click(function () {
+
+                    
+                    var stid = document.getElementById("stu_id").value;
+                    
+                    if (stid.length == 0)
+                        stid = 0;
+                    var clsid = document.getElementById("class_id").value;
+                    if (clsid.length == 0)
+                        clsid = 0;
+
+                    var secid = document.getElementById("sec_id").value;
+
+                    if (secid.length == 0)
+                        secid = 0;
+                    var duedt = document.getElementById("due_date").value;
+
+
+                    var dtassign = document.getElementById("date_assigned").value;
+                    //alert("Before");
+                    $.ajax({
+                        type: "POST",
+                        url: "/Employee/AjaxGetResult",
+                        data: '{stu_id: ' + stid + ',class_id:' + clsid + ',sec_id:' + secid + ',due_date:"' + duedt + '",date_assigned:"' + dtassign + '"}',
+
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        // alert("before");
+
+                        success: function (response) {
+                            var str = "", sub;
+                            str += "<table class='form-controll' id='subassign'>";
+                            str += "<tr>";
+                            str += "<td class='col-sm-3'>";
+                            str += "<font size='4' color='cornflowerblue'>Class </font>";
+                            str += "</td>";
+                            str += "<td class='col-sm-3'>";
+                            str += "<font size='4' color='cornflowerblue'>Section</font>";
+                            str += "</td>";
+                            str += "<td class='col-sm-3'>";
+                            str += "<font size='4' color='cornflowerblue'>Attachment</font>";
+                            str += "</td>";
+
+                            str += "<td class='col-sm-3'>";
+                            str += "<font size='4' color='cornflowerblue'>Action</font>";
+                            str += "</td>";
+                            str += "</tr>";
+                            
+                            var list = response.Templist;
+
+                            //alert(list.length);
+                            if (list != null && list.length > 0) {
+                                var count = 0;
+                                $.each(list, function () {
+
+                                    str += "<tr>";
+                                    str += "<td class='col-sm-3'>";
+                                    str += this["ClassName"];
+                                    str += "</td>";
+                                    str += "<td class='col-sm-3'>";
+                                    str += this["SectionName"];
+                                    str += "</td>";
+                                    str += "<td class='col-sm-3'>";
+                                   
+                                    var fname=this["File_Path"].toString() + this["File_Name"].toString();
+
+                                    str += "<a href='"+ fname+"'  download>" + fname + "</a>";
+                                    str += "</td>";
+                                    str += "<td class='col-sm-3'>";
+                                    str += "<a href=";
+                                    str += "javascript:Rem(";
+                                    str += this["ID"]
+                                    str += ",";
+                                    str += count++;
+                                    str+=") > Delete</a > | ";
+                                    
+                                    str += "<a href=";
+
+                                    str+="EditHomeWork?id="+this["ID"]+" > Edit</a > ";
+                                    //$.get("/Employee/EditHomeWork" + this["ID"]);
+                                    //@Html.ActionLink("Edit", "EditHomeWork", "Employee", new { id = "123" }, null)
+                                    str += "</td>";
+                                    str += "</tr>";
+
+
+                                });
+                            }
+                            else {
+
+                                str += "<tr class='col-sm-12'>";
+                                str += "<td colspan='4'>";
+                                str += "No Data Found";
+                                str += "</td>";
+                                str += "</tr>";
+                                //str += "<div class='col-sm-12'>";
+                                //str += "No Data Found";
+                                //str += "</div>";
+
+                            }
+                            //str += "</div>";
+                            str += "</table>";
+                            // alert(str);
+                            document.getElementById("subject").innerHTML = str;
+
+
+                        },
+                        failure: function (response) {
+                            alert("from failure" + response.responseText);
+                        },
+                        error: function (response) {
+                            alert("from error  " + response.responseText);
+                        }
+
+
+                    });
+
+
+
+
+                });
+
+
+            });
+
+        </script>
+
+        <script type="text/javascript">
+            function Rem(r,id) {
+
+              
+
+
+
+
+                if (confirm("Do you want to delete? ")) {
+
+                            //var i = id.parentNode.rowIndex;
+
+                            var table = document.getElementById("subassign");
+                            //alert(i);
+                            
+                            table.deleteRow(id);
+
+
+                    
+                    
+                         $.ajax({
+                        type: "POST",
+                        url: "/Employee/AjaxDelResult",
+                        data: '{ID:'+r+'}',
+
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        // alert("before");
+
+                        success: function (response) {
+
+
+                            
+
+                            alert("Row Deleted!!");
+                           
+                            
+                        },
+                        failure: function (response) {
+                            alert("from failure" + response.responseText);
+                        },
+                        error: function (response) {
+                            alert("from error  " + response.responseText);
+                        }
+
+
+                    });
+
+
+                    
+
+               
+
+                }
+            }
+
+        </script>
+    }
+
+
+</body>
+</html>
+

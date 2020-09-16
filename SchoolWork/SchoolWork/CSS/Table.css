@@ -1,0 +1,30 @@
+﻿table {
+    border-collapse: collapse;
+    width: 100%;
+    padding:0px;
+}
+
+th, td {
+    text-align: center;
+    padding: 8px;
+    padding: 20px;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2
+}
+
+th {
+    background-color:#5cb6ea;
+    color: black;
+}
+
+thead {
+    background-color: #5cb6ea;
+}
+
+#products {
+    border: 1px solid black;
+}
+
+

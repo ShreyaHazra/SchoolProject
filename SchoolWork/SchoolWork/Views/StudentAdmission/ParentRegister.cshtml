@@ -1,0 +1,148 @@
+﻿@*@model SchoolWork.Models.StudentAdmission
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    
+    <link href="~/CSS/stylesheet2.css" rel="stylesheet" />
+    <style>
+        .text-danger 
+        {
+
+            font-weight:700;
+            color:red;
+        }
+
+
+    </style>
+
+</head>
+
+<body id="LoginForm">
+    <div class="container">
+        <h1 class="form-heading"></h1>
+        <br />
+        <br />
+        <br />
+        <br />
+        <div class="login-form">
+            <div class="body-div" style="background-color:khaki;max-width:60%">
+
+                <h1 style="color:blueviolet; margin-top:-30px"><b>PARENTS REGISTER HERE</b></h1>
+                <br />
+                <br />
+
+                @using (Html.BeginForm())
+                {
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="input-group">
+
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                @Html.EditorFor(model => model.ParentName, new { htmlAttributes = new { @class = "form-control", @Placeholder = "Enter User Name" } })
+                            
+                            </div>
+
+                                @Html.ValidationMessageFor(model => model.ParentName, "", new { @class = "text-danger" })
+      
+                        </div>
+                        
+                        <div class="col-sm-6">
+                            <div class="input-group">
+
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
+                                @Html.EditorFor(model => model.ParentContact, new { htmlAttributes = new { @class = "form-control", @Placeholder = "Enter Contact Number" } })
+
+                            </div> 
+                            
+                                @Html.ValidationMessageFor(model => model.ParentContact, "", new { @class = "text-danger" })
+    
+                        </div>
+                    </div>
+                    
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="input-group">
+
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                                @Html.EditorFor(model => model.ParentEmail, new { htmlAttributes = new { @class = "form-control", @Placeholder = "Enter Your Email" } })
+                            
+                            </div>  
+
+                            @Html.ValidationMessageFor(model => model.ParentEmail, "", new { @class = "text-danger" })
+
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="input-group">
+
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                                @Html.EditorFor(model => model.ParentConEmail, new { htmlAttributes = new { @class = "form-control", @Placeholder = "Confirm Your  Email" } })
+                            
+                            </div> 
+                            
+                            @Html.ValidationMessageFor(model => model.ParentConEmail, "", new { @class = "text-danger" })
+      
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="input-group">
+
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                @Html.EditorFor(model => model.ParentPassword, new { htmlAttributes = new { @class = "form-control", type = "password", @Placeholder = "Enter Your  Password" } })
+                            </div>
+                            
+                            @Html.ValidationMessageFor(model => model.ParentPassword, "", new { @class = "text-danger" })
+
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="input-group">
+
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                @Html.EditorFor(model => model.ParentConPassword, new { htmlAttributes = new { @class = "form-control", @Placeholder = "Enter Confirm Password" } })
+                            
+                            </div>
+                            
+                            @Html.ValidationMessageFor(model => model.ParentConPassword, "", new { @class = "text-danger" })
+
+                        </div>
+                     </div>
+                     <br />
+                        <div class="form-group">
+
+                                    <input type="submit" value="Submit" class="btn btn-success" />
+                                    &nbsp;&nbsp;
+                                    <input type="reset" value="Reset" class="btn btn-warning">
+
+                         </div>
+                          <br>
+                         <div class="form-group">
+
+                                    <p>Already Have an Account! <a href="ParentLogin"><b>Click Here To Sign-In</b></a></p>
+
+                         </div>
+
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+    @section Scripts 
+    {
+        @Scripts.Render("~/bundles/jqueryval")
+    }
+
+    
+</body>
+</html>*@

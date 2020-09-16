@@ -1,0 +1,297 @@
+﻿@model SchoolWork.Models.SchoolRoutine
+@{
+
+    ViewBag.Title = "SchoolRoutineData";
+
+}
+<h2>SectionMaster</h2>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+
+    <link href="~/CSS/stylesheet2.css" rel="stylesheet" />
+    <style>
+        .text-danger {
+            font-weight: 700;
+            color: red;
+        }
+
+        .glyphicon {
+            color: #16E736;
+            -webkit-text-stroke: 1px black;
+        }
+    </style>
+
+</head>
+<body id="LoginForm" style="background-color:cadetblue">
+    <div class="container">
+        <h1 class="form-heading"></h1>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <div class="login-form">
+            <div class="body-div" style="background-color:blanchedalmond; max-width:100%; border:2px solid #EEBE00">
+
+                <h1 style="color:blueviolet; margin-top:-30px;-webkit-text-stroke: 1px black;"><b>SCHOOL CLASS INFORMATION REGISTER</b></h1>
+                <br />
+                <br />
+
+
+                @using (Html.BeginForm())
+                {
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+
+                    <div class="input-group">
+
+                        @Html.EditorFor(model => model.School_Id, new { htmlAttributes = new { @class = "form-control", @type = "hidden", @onkeydown = "return false", @Value = Session["School_Id"] } })
+
+                    </div>
+                    @Html.ValidationMessageFor(model => model.School_Id, "", new { @class = "text-danger" })
+
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="input-group">
+
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-barcode"></i></span>
+                                @Html.EditorFor(model => model.School_Code, new { htmlAttributes = new { @class = "form-control", @onkeydown = "return false", @Value = Session["School_Code"] } })
+                            </div>
+
+                            @Html.ValidationMessageFor(model => model.School_Code, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="input-group">
+
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+                                @Html.EditorFor(model => model.School_Name, new { htmlAttributes = new { @class = "form-control", @onkeydown = "return false", @Value = Session["School_Name"] } })
+                            </div>
+
+                            @Html.ValidationMessageFor(model => model.School_Name, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="input-group">
+
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-education"></i></span>
+                                @Html.DropDownListFor(m => m.Class_Id, Model.Class_Name, "Please select Class", new { @class = "form-control" })
+
+                            </div>
+
+                            @Html.ValidationMessageFor(m => m.Class_Id, "", new { @class = "text-danger" })
+
+                        </div>
+
+                        <div class="col-sm-3">
+                            <div class="input-group">
+
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-education"></i></span>
+                                @Html.DropDownListFor(m => m.Section_Id, Model.Section_Name, "Please select Section", new { @class = "form-control" })
+
+                            </div>
+
+                            @Html.ValidationMessageFor(m => m.Section_Id, "", new { @class = "text-danger" })
+
+                        </div>
+
+
+
+
+
+                        <div class="col-sm-3">
+                            <div class="input-group">
+
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
+                                @Html.EditorFor(model => model.Start_Time, new { htmlAttributes = new { @class = "form-control", @type = "time", @placeholder = "Start Time" } })
+
+                            </div>
+
+                            @Html.ValidationMessageFor(model => model.Start_Time, "", new { @class = "text-danger" })
+                        </div>
+
+
+                        <div class="col-sm-3">
+                            <div class="input-group">
+
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-education"></i></span>
+                                @Html.EditorFor(model => model.End_Time, new { htmlAttributes = new { @class = "form-control", @type = "time", @placeholder = "Please Select Exam End Date" } })
+                            </div>
+
+                            @Html.ValidationMessageFor(model => model.End_Time, "", new { @class = "text-danger" })
+                        </div>
+
+
+
+
+
+
+
+
+
+                        @*<div class="col-sm-3">
+                                <div class="input-group">
+
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
+                                    @Html.EditorFor(model => model.End_Time, new { htmlAttributes = new { @class = "form-control", @type = "time", @min = "6:00", @max = "18:00", @placeholder = "End Time" } })
+
+                                </div>
+                                @Html.ValidationMessageFor(model => model.End_Time, "", new { @class = "text-danger" })
+                            </div>*@
+
+
+                    </div>
+                    <div class="row">
+
+                        <div class="col-sm-3">
+                            <div class="input-group">
+
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-education"></i></span>
+                                @Html.DropDownListFor(m => m.Employee_Id, Model.Employee_Name, "Please select Teacher", new { @class = "form-control" })
+
+                            </div>
+
+                            @Html.ValidationMessageFor(m => m.Employee_Id, "", new { @class = "text-danger" })
+
+                        </div>
+
+                        <div class="col-sm-3">
+                            <div class="input-group">
+
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-education"></i></span>
+                                @Html.DropDownListFor(m => m.Subject_Id, Model.Subject_Name, "Please select Subject", new { @class = "form-control" })
+
+                            </div>
+
+                            @Html.ValidationMessageFor(m => m.Subject_Id, "", new { @class = "text-danger" })
+
+                        </div>
+
+                        <div class="col-sm-3">
+                            <div class="input-group">
+
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-education"></i></span>
+                                @Html.DropDownListFor(m => m.Room_Id, Model.Room_Name, "Please select Room Number", new { @class = "form-control" })
+
+                            </div>
+
+                            @Html.ValidationMessageFor(m => m.Room_Id, "", new { @class = "text-danger" })
+
+                        </div>
+
+                        <div class="col-sm-3">
+                            <div class="input-group">
+
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-education"></i></span>
+                                @Html.DropDownListFor(m => m.Year, Model.Year_Name, "Please select Year", new { @class = "form-control" })
+
+                            </div>
+
+                            @Html.ValidationMessageFor(m => m.Year, "", new { @class = "text-danger" })
+
+                        </div>
+
+
+
+                        <div class="col-sm-3">
+                            <div class="input-group">
+
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-education"></i></span>
+                                @Html.DropDownListFor(m => m.Day_Id, Model.Day_Name, "Please select Day", new { @class = "form-control" })
+
+                            </div>
+
+                            @Html.ValidationMessageFor(m => m.Day_Id, "", new { @class = "text-danger" })
+
+                        </div>
+
+                        <div class="col-sm-3">
+                            <div class="input-group">
+
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-education"></i></span>
+                                @Html.DropDownListFor(m => m.Period_Id, Model.Period_Name, "Please select Period", new { @class = "form-control" })
+
+                            </div>
+
+                            @Html.ValidationMessageFor(m => m.Period_Id, "", new { @class = "text-danger" })
+
+                        </div>
+
+
+
+                    </div>
+
+                    <br>
+
+                    <div class="form-group">
+
+                        <input type="submit" value="Submit" id="s1" class="btn btn-success" />
+                        &nbsp;&nbsp;
+                        <input type="reset" value="Reset" id="s2" class="btn btn-warning">
+                        &nbsp;&nbsp;
+                        @* <input type="button" value="Return" id="s3" class="btn btn-info" onclick="@("window.location.href='" + @Url.Action("AdminDashBoard", "DashBoard") + "'");" />*@
+
+                    @*    <input type="button" value="Return" class="btn btn-info" onclick="@("window.location.href='" + @Url.Action("AdminHeaderBoard", "DashBoard") + "'");" />*@
+
+                        <input type="button" value="Home" id="s1" class="btn btn-success" onclick="@("window.location.href='" + @Url.Action("AdminHeaderBoard", "DashBoard") + "'");" />
+
+                        <input type="button" onclick="history.go(-1)" id="s1" value="Return" class="btn btn-success" />
+
+
+                    </div>
+
+
+                }
+            </div>
+        </div>
+    </div>
+    @section Scripts
+   {
+
+        @Scripts.Render("~/bundles/jqueryval")
+
+
+        @Styles.Render("~/Content/cssjqryUi")
+
+
+
+        <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+        <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+        <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+
+        <script type="text/javascript" src="Scripts/jquery_calendar/jquery-ui.js"></script>
+        <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+        <script>
+            $(function () {
+                $(".datepicker").datepicker(
+                    {
+                        dateFormat: 'dd/mm/yy',
+                        showStatus: true,
+                        showWeeks: true,
+                        highlightWeek: true,
+                        numberOfMonths: 1,
+                        showAnim: "scale",
+                        showOptions: { origin: ["top", "left"] }
+                    }
+                );
+            });
+        </script>
+    }
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.3/jquery.min.js"></script>
+    <script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.js"></script>
+    <script src="//ajax.aspnetcdn.com/ajax/mvc/5.2.3/jquery.validate.unobtrusive.js"></script>
+    <script src="http://code.jquery.com/ui/1.11.1/jquery-ui.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.css" rel="stylesheet">
+</body>
+</html>

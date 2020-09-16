@@ -1,0 +1,102 @@
+﻿@using SchoolWork.Models
+@model dynamic
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <title>Index</title>
+</head>
+<body>
+    @Html.DropDownList("Gender", new List<SelectListItem>{
+ new SelectListItem{ Text="Male", Value="Male"},
+ new SelectListItem{ Text="Female", Value="Female"}
+ }, "Select Gender")
+
+
+    <div class="row">
+        <label class="col-sm-2"></label>
+        <div class="col-sm-10">
+            <p id="Status" />
+        </div>
+    </div>
+
+
+
+    <table cellpadding="0" cellspacing="0">
+        <tr>
+            <th>CustomerID</th>
+            <th>Contact Name</th>
+            <th>City</th>
+            <th>Country</th>
+        </tr>
+        @foreach (ClassesModel classesvar in Model.AllClasses)
+        {
+            <tr>
+                <td>@classesvar.Class_Id</td>
+                <td>@classesvar.Class_Name</td>
+
+            </tr>
+        }
+    </table>
+    <hr />
+    <table cellpadding="0" cellspacing="0">
+        <tr>
+            <th>Employee ID</th>
+            <th>Employee Name</th>
+            <th>School Code</th>
+            <th></th>
+            <th>Class_Id</th>
+        </tr>
+        @foreach (StudentModel student in Model.Students)
+        {
+            <tr>
+                <td>@student.ST_Id</td>
+                <td>@student.ST_First_Name</td>
+                <td>@student.SCHL_Code</td>
+
+                @foreach (ClassesModel classesvar in Model.AllClasses)
+                {
+                    if (@classesvar.Class_Id == @student.ST_Class)
+                    {
+                        <td>@classesvar.Class_Name </td>}
+                }
+                <td>@student.ST_Class</td>
+            </tr>
+        }
+    </table>
+    @section Scripts
+   {
+        @Scripts.Render("~/bundles/jqueryval")
+
+
+    }
+</body>
+</html>
+<script type="text/javascript">
+   $(document).ready(function () {
+
+       if ($('#Status').val().length > 0) {
+           $('#Status').val("");
+       }
+       // $("#SubmitProject").click(function() {
+       $("#Gender").blur(function () {
+           if ($("#Gender").val() == "") {
+               // alert("There is no value in textbox");
+               $("#Status").html('<font color="Red">Please Select Gender.</font>');
+               $("#Gender").css("border-color", "Red");
+           }
+           else {
+
+               $('#Status').val(null);
+           }
+
+       });
+   });
+</script>

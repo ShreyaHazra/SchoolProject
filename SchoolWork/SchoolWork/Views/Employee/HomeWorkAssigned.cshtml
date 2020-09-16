@@ -1,0 +1,496 @@
+﻿@model SchoolWork.Models.Homework
+
+
+@{
+
+    ViewBag.Title = "Assignment Homework";
+
+}
+@{
+
+    int id = Model.id;
+    String dataupdt = "";
+    String msg = Convert.ToString(TempData["msg"]);
+
+
+}
+<h2>Student Assignment</h2>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+    @*<meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>*@
+
+    <link href="~/CSS/stylesheet2.css" rel="stylesheet" />
+    <style>
+        .text-danger {
+            font-weight: 700;
+            color: red;
+        }
+
+        .row {
+            align-content: center !important;
+        }
+
+        .marksDivClass {
+            border: 2px solid #46462d;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 10px;
+            width: 65%;
+        }
+
+        .percentageDivClass {
+            border: 2px solid #46462d;
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+
+
+
+        .Education {
+            border-color: lightyellow;
+            border-style: inset;
+            padding: 30px 20px;
+        }
+    </style>
+
+</head>
+
+
+
+<body id="LoginForm" style="background-color:cornflowerblue" onload="LoadFunction()">
+
+    <div class="container">
+        <div class="body-div" style="background-color:blanchedalmond; max-width:100%">
+            <div class="row">
+                <div class="col-sm-12 col-md-12">
+
+
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 col-md-12">
+                    @*<a class="btn btn-primary btn-product" onclick="@("window.location.href='" + @Url.Action("SchoolNoticeAdd", "SchoolAdmin") + "'");"><span class="glyphicon glyphicon-pencil"></span>Add Notice</a>*@
+                    <a class="btn btn-primary" onclick="@("window.location.href='" + @Url.Action("EmployeeHeaderBoard", "DashBoard") + "'");"><span class="glyphicon glyphicon-home"></span> &nbsp; Home</a>
+
+
+                    <a class="btn btn-danger" onclick="history.go(-1)"><span class="glyphicon glyphicon-arrow-left"></span> &nbsp; Return</a>
+
+
+                </div>
+                <div class="col-sm-12 col-md-12 text-center">
+                    @if (@id == 1)
+                    {
+                        <h1 style="color:blueviolet;"><b>Assigning Homework</b></h1>
+                    }
+                    @if (@id == 2)
+                    {
+                        <h1 style="color:blueviolet;"><b>Assigning Assignment</b></h1>
+                    }
+
+                    <p>Please Fill Up All necessary Information mentioned in below Fields.</p>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="row">
+                <div class="col-sm-12 col-md-10 col-md-offset-1 Education">
+                    <!--form start-->
+                    @using (Html.BeginForm("HomeWorkAssigned", "Employee", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        //@msg
+
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="col-sm-6 col-md-6">
+                            <label>
+                                @*<i class="glyphicon glyphicon-list"></i>*@ <font color="brown"> Select Class</font>
+                            </label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+                                @Html.DropDownListFor(m => m.class_id, Model.Class_Name, "--Select Class--", new { @class = "form-control" , @onchange="getData()"})
+                            </div>
+                            @Html.ValidationMessageFor(m => m.class_id, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-sm-6 col-md-6">
+                            <label>
+                                @*<i class="glyphicon glyphicon-list"></i>*@ <font color="brown"> Select Section</font>
+                            </label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+                                @Html.DropDownListFor(m => m.sec_id, Model.Section_Name, "--Select Section--", new { @class = "form-control" })
+
+                            </div>
+                            @Html.ValidationMessageFor(m => m.sec_id, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-sm-6 col-md-6">
+                            <label>
+                                @*<i class="glyphicon glyphicon-list"></i>*@ <font color="brown"> Select Subject</font>
+                            </label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+                                @Html.DropDownListFor(m => m.sub_id, Model.Subject_Name, "--Select Subject--", new { @class = "form-control" })
+
+                            </div>
+                            @Html.ValidationMessageFor(m => m.sub_id, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-sm-6 col-md-6">
+                            <label>
+                                @*<i class="glyphicon glyphicon-list"></i>*@ <font color="brown"> Topic</font>
+                            </label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+
+                                @Html.TextBoxFor(m => m.topic, new { @class = "form-control", Value = "Please Enter Topic" })
+                            </div>
+
+                            @Html.ValidationMessageFor(m => m.topic, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-sm-6 col-md-6">
+                            <label>
+                                @*<i class="glyphicon glyphicon-list"></i>*@ <font color="brown">Date Assigned</font>
+                            </label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                @Html.EditorFor(model => model.date_assigned, new { htmlAttributes = new { @class = "form-control datepicker", @Placeholder = "Assigned Date" } })
+                            </div>
+                            @Html.ValidationMessageFor(m => m.date_assigned, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-sm-6 col-md-6">
+                            <label>
+                                @*<i class="glyphicon glyphicon-list"></i>*@ <font color="brown">Due Date</font>
+                            </label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                @Html.EditorFor(model => model.due_date, new { htmlAttributes = new { @class = "form-control datepicker", @Placeholder = "Due Date" } })
+                            </div>
+                            @Html.ValidationMessageFor(m => m.due_date, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-sm-6 col-md-6">
+                            <label>
+                                @*<i class="glyphicon glyphicon-list"></i>*@ <font color="brown">Select Document</font>
+                            </label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+                                @*@Html.TextBoxFor(m => m.File_Name, new { @class = "form-control multiple", type = "file", accept = "application/pdf,application/vnd.ms-word,image/gif, image/jpeg" })*@
+
+                                <input type="file" multiple id="File_Name" name="File_Name">
+
+
+                            </div>
+                            @Html.ValidationMessageFor(m => m.File_Name, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-sm-6 col-md-6">
+                            <label>
+                                @*<i class="glyphicon glyphicon-list"></i>*@ <font color="brown">Description</font>
+                            </label>
+                            <div class="input-group" width="100%">
+                                @Html.TextAreaFor(m => m.Home_Desc, new { @Value = "Description Of Homework", cols = 45, @rows = 3 })
+                            </div>
+                            @Html.ValidationMessageFor(m => m.Home_Desc, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="clearfix"></div>
+                        @*if (@id == 2)
+                        {
+
+                            <div class="col-sm-6 col-md-6">
+                                <label>
+                                    <i class="glyphicon glyphicon-list"></i> <font color="brown"> Remarks</font>
+                                </label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+
+                                    @Html.TextBoxFor(m => m.remarks, new { @class = "form-control", Value = "Please Enter Topic" })
+                                </div>
+
+                                @Html.ValidationMessageFor(m => m.remarks, "", new { @class = "text-danger" })
+
+                            </div>
+
+                        
+                            <div class="col-sm-6 col-md-6">
+                                <label>
+                                    <font color="brown">Remark Description</font>
+                                </label>
+                                <div class="input-group" width="100%">
+                                    @Html.TextAreaFor(m => m.rem_desc, new { cols = 50, @rows = 3 })
+                                </div>
+                                @Html.ValidationMessageFor(m => m.rem_desc, "", new { @class = "text-danger" })
+                            </div>
+
+                        }*@
+                        <div class="clearfix"></div><br />
+                        <div class="col-sm-12 col-md-12" style="text-align  :right">
+                            <input type="submit" value="Submit" class="btn btn-success" />
+                            &nbsp;&nbsp;
+                            <input type="reset" value="Reset" class="btn btn-warning">
+                            &nbsp;&nbsp;
+                        </div>
+                        <div class="clearfix"></div>
+
+                    }
+                    <!--form end-->
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+    @section Scripts
+    {
+
+        @Scripts.Render("~/bundles/jqueryval")
+
+
+        @Styles.Render("~/Content/cssjqryUi")
+
+
+
+        <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+        <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+        <link href="~/CSS/StyleSheet5.css" rel="stylesheet" />
+        <link href="~/CSS/Table.css" rel="stylesheet" />
+
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+
+        <!--daterange picker-->
+
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+        <!--sweet alert-->
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+
+        <!-- DataTables CSS -->
+
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.5/css/jquery.dataTables.css">
+
+
+        <!-- DataTables -->
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.5/js/jquery.dataTables.js">
+        </script>
+
+        @*<script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+        <script>tinymce.init({ selector: 'textarea' });</script>*@
+
+
+        <script>
+
+           
+
+
+
+           
+            $(function () {
+
+
+                $('input[name="due_date"]').daterangepicker(
+                    {
+                        singleDatePicker: true,
+                        timePicker: false,
+                        showDropdowns: true,
+                        minYear: 2001,
+
+                        locale: {
+                            format: 'YYYY/MM/DD'
+                        }
+                    }
+                );
+            });
+
+
+
+            $(function () {
+
+
+                $('input[name="date_assigned"]').daterangepicker(
+                    {
+
+                        singleDatePicker: true,
+                        timePicker: false,
+                        showDropdowns: true,
+                        minYear: 2001,
+
+                        locale: {
+                            format: 'YYYY/MM/DD'
+
+                        }
+                    }
+                );
+            });
+
+
+           
+        </script>
+
+
+        <script type="text/javascript">
+
+                        @*$(document).ready(function () {
+                        $("#grade").click(function () {
+                            $("#marks").show();
+                            $("#Percentage").hide();
+                        });
+                            $("#percent").click(function () {
+                        $("#Percentage").show();
+                    $("#marks").hide();
+                            });
+
+
+                             alert("testing");
+                   // swal(@dataupdt);
+});*@
+
+           @*$(document).ready(function () {
+                if (@msg!= null) {
+
+                    alert(@msg);
+                }
+                
+            });*@
+             function LoadFunction() {
+               
+                
+            }
+
+            function getData() {
+
+
+                var class_id = $("#class_id").val();
+
+
+                //alert(class_id);
+
+                 $.ajax({
+                        type: "POST",
+                        url: "/Employee/GetSection",
+                        data: '{class_id:'+class_id+'}',
+
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function (response) {
+                            //var dropDownId;
+                            var list1, list2;
+
+                          
+
+                            list1 = response.Section_Name;
+
+                            
+                            DisableDropDown("#sec_id");
+                            PopulateDropDown("#sec_id", list1);
+
+
+                            list2 = response.Subject_Name;
+                            DisableDropDown("#sub_id");
+                            PopulateDropDown("#sub_id", list2);
+
+
+
+                        },
+                        failure: function (response) {
+                            alert("from failure" + response.responseText);
+                        },
+                        error: function (response) {
+                            alert("from error" + response.responseText);
+                        }
+                    });
+
+
+
+            }
+
+            function TopicAdd() {
+
+                    var filepath, filename="";
+                  // alert(window.FormData !== undefined);
+               if (window.FormData !== undefined) {
+
+                   var fileUpload = $("#File_Name").get(0);
+
+                   var files = fileUpload.files;
+
+
+                   if (files.length > 0) {
+                       // Create FormData object
+                       var fileData = new FormData();
+                       fileData.append(files[0].name, files[0]);
+
+                       filename = files[0].name;
+
+
+                       $.ajax({
+                           url: "/Employee/AjaxUploadFiles",
+                           type: "POST",
+
+                           contentType: false, // Not to set any content header
+                           processData: false, // Not to process data
+                           data: fileData,
+                           success: function (result) {
+                               //filepath = result;
+                               //count++;
+
+                               //FormInsert(filename, filepath,count,id);
+                           },
+                           error: function (err) {
+                               alert("Error: " + err.statusText);
+                           }
+                       });
+                   }
+                   else {
+
+                       FormInsert("", "",count,id);
+                   }
+
+
+
+
+
+                } else {
+                        swal("FormData is not supported.");
+                    }
+
+
+
+                }
+
+
+
+            function DisableDropDown(dropDownId) {
+                //$(dropDownId).attr("disabled", "disabled");
+                $(dropDownId).empty().append('<option selected="selected" value="0">--Select---</option>');
+            }
+
+            
+            function PopulateDropDown(dropDownId, list) {
+                if (list != null && list.length > 0) {
+                    //$(dropDownId).removeAttr("disabled");
+                    $.each(list, function () {
+                        $(dropDownId).append($("<option></option>").val(this['Value']).html(this['Text']));
+                    });
+                }
+            }
+
+        </script>
+    }
+
+
+</body>
+</html>
+
+
+@*h.w assigned*@

@@ -1,0 +1,146 @@
+body#LoginForm {
+    background-color: azure;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    padding: 10px;
+    height: 100%;
+}
+
+.form-heading {
+    color: #fff;
+    font-size: 35px;
+    margin-top: 20px
+}
+
+.panel h2 {
+    color: #444444;
+    font-size: 18px;
+    margin: 0 0 8px 0;
+}
+
+.panel p {
+    color: #777777;
+    font-size: 14px;
+    margin-bottom: 30px;
+    line-height: 24px;
+}
+
+.login-form .form-control {
+    background: #f7f7f7 none repeat scroll 0 0;
+    border: 1px solid #d4d4d4;
+    border-radius: 4px;
+    font-size: 12px;
+    height: 40px;
+    line-height: 40px;
+}
+
+.login-form .form-control2 {
+    background: #f7f7f7 none repeat scroll 0 0;
+    border: 1px solid #d4d4d4;
+    border-radius: 4px;
+    font-size: 12px;
+    margin-left: -30px;
+}
+
+.body-div {
+    background: #ffffff none repeat scroll 0 0;
+    /*margin: 10px auto 0px;*/
+    margin: 130px auto 0px;
+    max-width: 38%;
+    padding: 30px 25px 30px 25px;
+    border-radius: 30px;
+    border: 3px solid #0F135C;
+}
+
+.form-heading p {
+    text-align: center;
+    margin-top: -50px;
+}
+
+.login-form .form-group {
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.login-form {
+    text-align: center;
+}
+
+.forgot a {
+    color: #777777;
+    font-size: 14px;
+    text-decoration: underline;
+}
+
+.login-form .btn.btn-primary {
+    background: #f0ad4e none repeat scroll 0 0;
+    border-color: #f0ad4e;
+    color: #ffffff;
+    font-size: 14px;
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    padding: 0;
+}
+
+.forgot {
+    text-align: left;
+    margin-bottom: 30px;
+}
+
+.botto-text {
+    color: #ffffff;
+    font-size: 14px;
+    margin: auto;
+}
+
+.login-form .btn.btn-primary.reset {
+    background: #ff9900 none repeat scroll 0 0;
+}
+
+.back {
+    text-align: left;
+    margin-top: 10px;
+}
+
+    .back a {
+        color: #444444;
+        font-size: 13px;
+        text-decoration: none;
+    }
+
+h2 {
+    font-size: 14px;
+}
+
+#c1, #c2, #c3, #c4, #c5, #c6, #c7, #c7, #c8 {
+    color: #FF0000;
+    font-size: 14px;
+    margin-bottom: 30px;
+    line-height: 24px;
+    font-weight: 700;
+}
+
+.input-group {
+    padding-bottom: 10px;
+}
+
+.row {
+    padding-bottom: 10px;
+}
+
+.input-group-addon {
+    -webkit-text-stroke: 1px black;
+    color: #CAF00A;
+}
+
+#s1, #s2, #s3, #s5 {
+    border: 1px solid black;
+    border-radius: 30px;
+}
+
+
+    #s1:hover {
+        border-radius: 30px;
+    }

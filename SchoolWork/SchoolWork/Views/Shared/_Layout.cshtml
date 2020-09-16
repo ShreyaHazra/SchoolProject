@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - SCHOOL MANAGEMENT SYSTEM</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top" style="background-color:aliceblue;position:absolute;align-items:baseline;border:hidden;">
+        <div class="container" style="width:100%">
+            <div class="navbar-header">
+
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+
+            </div>
+            <div class="row">
+
+                <div class="col-sm-4">
+                    <img src="~/Images/education-png-23456.png" style="height:100px; width:100px;" />
+
+
+                    @if (Session["ParentName"] != null || Session["School_Name"] != null || Session["Employee_Name"] != null || Session["Student_Email"] != null)
+                    {
+                        <input type="button" value="Logout" class="btn btn-danger" onclick="location.href='@Url.Action("Logout", "ParentDetails")'" />
+                    }
+
+
+                </div>
+
+                <div class="col-sm-4">
+                    <h1 style="text-align:center">SCHOOL DAYS</h1>
+                </div>
+
+                <div class="col-sm-4" style="text-align:end">
+                    <h4 style="color:black;margin-right:20px;align-self:center;line-height:25px">&copy; @DateTime.Now.Year - Powered By <br /><b style="color:cornflowerblue"> Protista Technologies Pvt Ltd</b></h4>
+
+                </div>
+
+            </div>
+
+
+
+        </div>
+    </div>
+    <!--<div class="container body-content">--->
+    <div class="container-fluid body-content">
+        @RenderBody()
+
+
+        <footer style="position:relative;text-align:right;">
+            @*<p style="color:black;margin-right:20px">&copy; @DateTime.Now.Year - Powered By Protista Technologies Pvt Ltd</p>*@
+
+        </footer>
+    </div>
+
+
+
+</body>
+</html>

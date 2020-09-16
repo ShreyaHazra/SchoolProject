@@ -1,0 +1,339 @@
+﻿@model SchoolWork.Models.SchoolSubjectMaster
+@{
+
+    ViewBag.Title = "SchoolSubjectMaster";
+
+}
+<style>
+ 
+</style>
+<h2>Add Subject </h2>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    @*<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>*@
+
+    <link href="~/CSS/stylesheet2.css" rel="stylesheet" />
+    <style>
+        .text-danger {
+            font-weight: 700;
+            color: red;
+        }
+    </style>
+
+</head>
+<body id="LoginForm" style="background-color:cadetblue">
+    <div class="container">
+        <h1 class="form-heading"></h1>
+        <br />
+        <br />
+    
+        
+        <div class="login-form">
+            <div class="body-div" style="background-color:blanchedalmond; max-width:100%">
+                <br />
+                <br />
+                <br />
+                <br />
+             
+                <h1 style="color:blueviolet; margin-top:-30px"><b>SCHOOL SUBJECT REGISTER</b></h1>
+                <br />
+                <br />
+               
+
+                @using (Html.BeginForm())
+                {
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+
+                    <div class="input-group">
+
+                        @Html.EditorFor(model => model.School_Id, new { htmlAttributes = new { @class = "form-control", @type = "hidden", @onkeydown = "return false", @Value = Session["School_Id"] } })
+
+                    </div>
+                    @Html.ValidationMessageFor(model => model.School_Id, "", new { @class = "text-danger" })
+
+
+
+                    @*<span class="rtAddMore"><a onclick="@("window.location.href='" + @Url.Action("SchoolNoticeAdd", "SchoolAdmin") + "'");" class="fancybox_ajax fancybox_ajax.iframe">View All Audit Questions</a></span>*@
+
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="input-group">
+
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-barcode"></i></span>
+                                @Html.EditorFor(model => model.School_Code, new { htmlAttributes = new { @class = "form-control", @onkeydown = "return false", @Value = Session["School_Code"] } })
+                            </div>
+
+                            @Html.ValidationMessageFor(model => model.School_Code, "", new { @class = "text-danger" })
+                        </div>
+
+
+                       <div class="col-sm-4">
+            <div class="input-group">
+
+                <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+                @Html.EditorFor(model => model.School_Name, new { htmlAttributes = new { @class = "form-control", @onkeydown = "return false", @Value = Session["School_Name"] } })
+            </div>
+
+            @Html.ValidationMessageFor(model => model.School_Name, "", new { @class = "text-danger" })
+        </div>
+
+
+                        <div class="col-sm-4">
+                            <div class="input-group">
+
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-education"></i></span>
+                                @Html.DropDownListFor(m => m.Class_Id, Model.Class_Name, "Please select Class", new { @class = "form-control" })
+
+                            </div>
+
+                            @Html.ValidationMessageFor(m => m.Class_Id, "", new { @class = "text-danger" })
+
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        
+                    </div>
+
+                    @*foreach (var gender in Model.subject_type)
+            {
+                <input type="radio" asp-for="Gender" value="@gender" />@gender<br />
+            }*@
+
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <input type="radio" value="P" id="subject_type" name="subject_type" onclick="getShowHide(this.value)" style="height:25px; width:25px; vertical-align: middle; font-size:50px" />&nbsp&nbsp<font size="4">Primary Subject</font><br />
+                        </div>
+                        <div class="col-lg-4">
+                            <input type="radio" value="A" id="subject_type" name="subject_type" onclick="getShowHide(this.value)" style="height:25px; width:25px; vertical-align: middle;" />&nbsp&nbsp<font size="4">Additional Subject </font><br />
+                        </div>
+                        <div class="col-lg-4">
+                            <input type="radio" value="L" id="subject_type" name="subject_type" onclick="getShowHide(this.value)" style="height:25px; width:25px; vertical-align: middle;" />&nbsp&nbsp<font size="4">Language Subject</font><br />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="input-group">
+
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-book"></i></span>
+                                @Html.EditorFor(model => model.Subject_Name, new { htmlAttributes = new { @class = "form-control", @Placeholder = "Enter Subject  Name Here" } })
+                            </div>
+                            <p id="Status" />
+                            @Html.ValidationMessageFor(model => model.Subject_Name, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="input-group">
+
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-barcode"></i></span>
+                                @Html.EditorFor(model => model.Subject_Code, new { htmlAttributes = new { @class = "form-control", @Placeholder = "Enter Subject Code Here" } })
+                            </div>
+                            @Html.ValidationMessageFor(model => model.Subject_Code, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <br>
+
+                    @*<div class="test">
+                <a onclick="@("window.location.href='" + @Url.Action("SchoolNoticeAdd", "SchoolAdmin") + "'")" class="fancybox_ajax"> link 1</a>
+                <a href="http://localhost:57857/SchoolAdmin/AddSubject" class="fancybox_ajax"> link 2</a>
+                <a href="http://localhost:57857/SchoolAdmin/AddSubject" class="fancybox_ajax"> link 3</a>
+                <a href="http://" class="fancybox_ajax">hi</a>
+            </div>*@
+
+                    <div class="row" id="priority_div" style="display:none;">
+                        <div class="col-sm-12">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-education"></i></span>
+
+                                <select class="form-control" name="priority_val" style="width: 550px !important; min-width: 550px; max-width: 550px;">
+                                    <option value="0"> Select Priority</option>
+                                    <option value="1"> 1</option>
+                                    <option value="2"> 2</option>
+                                    <option value="3"> 3</option>
+                                    <option value="4"> 4</option>
+                                    <option value="5"> 5</option>
+
+
+
+                                </select>
+
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+
+
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <input type="radio" value="Theory" id="exam_sub_type" name="exam_sub_type" onclick="getShowHide_prac(this.value)" style="height:25px; width:25px; vertical-align: middle; font-size:50px" />&nbsp&nbsp<font size="4">Theory Subject</font><br />
+                        </div>
+                        <div class="col-lg-4">
+                            <input type="radio" value="Practical" id="exam_sub_type" name="exam_sub_type" onclick="getShowHide_prac(this.value)" style="height:25px; width:25px; vertical-align: middle;" />&nbsp&nbsp<font size="4">Practical Subject </font><br />
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="input-group">
+
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-book"></i></span>
+                                @Html.EditorFor(model => model.FullMarks, new { htmlAttributes = new { @class = "form-control", @placeholder = "Input Full Marks", @Value = "" } })
+                            </div>
+                            @Html.ValidationMessageFor(model => model.FullMarks, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="col-sm-4" id="prcatical_marks_div" style="display:none">
+                            <div class="input-group">
+
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-book"></i></span>
+                                @Html.EditorFor(model => model.PracticalMarks, new { htmlAttributes = new { @class = "form-control", @placeholder = "Practical Marks", @Value = "" } })
+                            </div>
+                            @Html.ValidationMessageFor(model => model.PracticalMarks, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="col-sm-4">
+                            <div class="input-group">
+
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-barcode"></i></span>
+                                @Html.EditorFor(model => model.PassMarks, new { htmlAttributes = new { @class = "form-control", @placeholder = "Input Pass Marks", @Value = "" } })
+                            </div>
+                            @Html.ValidationMessageFor(model => model.PassMarks, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <br>
+
+                    <div class="form-group">
+                        <input type="submit" value="Submit" class="btn btn-info" />
+
+                        &nbsp;&nbsp;
+                        <input type="reset" value="Reset" class="btn btn-warning">
+                        &nbsp;&nbsp;
+
+                        <input type="button" onclick="history.go(-1)" value="Return" class="btn btn-info" />
+
+
+
+                    </div>
+
+
+                }
+            </div>
+                        </div>
+                    </div>
+                    @section Scripts
+    {
+                        @Scripts.Render("~/bundles/jqueryval")
+                        <!-- Add jQuery library -->
+
+                        <script src="~/fancybox/jquery-1.10.2.min.js"></script>
+                        <script src="~/fancybox/source/jquery.fancybox.js"></script>
+                        <link href="~/fancybox/source/jquery.fancybox.css" rel="stylesheet" />
+                        <script src="~/fancybox/jquery.mousewheel.pack.js"></script>
+                        <script src="~/fancybox/source/helpers/jquery.fancybox-media.js"></script>
+                        <link href="~/fancybox/source/helpers/jquery.fancybox-buttons.css" rel="stylesheet" />
+                        <script src="~/fancybox/source/helpers/jquery.fancybox-buttons.js"></script>
+                        <script src="~/fancybox/source/helpers/jquery.fancybox-media.js"></script>
+                        <link href="~/fancybox/source/helpers/jquery.fancybox-thumbs.css" rel="stylesheet" />
+                        <script src="~/fancybox/source/helpers/jquery.fancybox-thumbs.js"></script>
+
+                    }
+</body>
+</html>
+
+
+<script type="text/javascript">
+    $('#Subject_Name').change(function () {
+      // alert("hi");
+        var classi = $("#Class_Id").val();
+        var sub = $("#Subject_Name").val();
+       // alert(classi);
+        //alert(sub);
+       // alert(School_Code);
+      
+       $("#Status").html("Checking...");
+       $.post("@Url.Action("CheckUsernameAvailability", "SchoolAdmin")",
+           {
+               ClassId: $("#Class_Id").val(),
+               SubjectName: $("#Subject_Name").val(),
+               School_Code: $("#School_Code").val(),        
+            
+              // alert(SubjectName);
+
+           },
+           function (data) {
+               
+               if (data == 0) {
+               
+                   $("#Status").html('<font color="Green">Available !. you can take it.</font>');
+                   $("#Subject_Name").css("border-color", "Green");
+
+               }
+               else {
+                //   alert(School_Code);
+                   $("#Status").html('<font color="Red">That name is taken.Try Another.</font>');
+                   $("#Subject_Name").css("border-color", "Red");
+               }
+           });
+    });
+
+</script>
+
+<script type="text/javascript">
+
+    function getShowHide(id) {
+       // alert(id);
+        var inhtml;
+      //  inhtml = document.getElementById("Shifthidden").value;
+       // document.getElementById("shiftval").innerHTML = "Shift " + inhtml;
+        if (id == "L")
+          $("#priority_div").css("display", "block"); 
+        if (id == "P") {
+            $("#priority_div").css("display", "none");
+        }
+        if (id == "A") {
+            $("#priority_div").css("display", "none");
+        }
+    }
+
+    function getShowHide_prac(id) {
+         //alert(id);
+        var inhtml;
+        //  inhtml = document.getElementById("Shifthidden").value;
+        // document.getElementById("shiftval").innerHTML = "Shift " + inhtml;
+        if (id == "Practical")
+            $("#prcatical_marks_div").css("display", "block");
+        if (id == "Theory") {
+            $("#prcatical_marks_div").css("display", "none");
+        }
+    
+    }
+
+
+    //$(document).ready(function () {
+    //    $('.fancybox_ajax').on('click', function (e) {
+    //        e.preventDefault();
+
+    //        $.fancybox({
+    //            width: 800,
+    //            height: 800,
+    //            autoSize: false,
+    //            href: $(this).attr("href"),
+    //            type: 'ajax'
+    //        });
+    //    });
+
+    //});
+</script>

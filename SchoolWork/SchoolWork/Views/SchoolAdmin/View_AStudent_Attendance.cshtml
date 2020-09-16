@@ -1,0 +1,451 @@
+﻿@model SchoolWork.Models.StudentAttendance
+@{
+    ViewBag.Title = "Student Attendance Sheet ";
+}
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    @*<meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>*@
+    <link href="~/CSS/stylesheet2.css" rel="stylesheet" />
+    <style>
+        .text-danger {
+            font-weight: 700;
+            color: red;
+        }
+
+        .row {
+            align-content: center !important;
+        }
+
+        .Education {
+            border-color: lightyellow;
+            border-style: inset;
+            padding: 17px;
+        }
+
+        .checkbox {
+            width: 2em;
+            height: 2em;
+        }
+    </style>
+
+</head>
+<body id="LoginForm" style="background-color:cornflowerblue">
+    <div class="container">
+        <div class="body-div" style="background-color:blanchedalmond; max-width:100%">
+            <div class="row">
+                <div class="col-sm-3">
+                    <a class="btn btn-info" onclick="@("window.location.href='" + @Url.Action("AdminHeaderBoard", "DashBoard") + "'");"><span class="glyphicon glyphicon-home"></span> &nbsp; Home</a>
+
+                    <a class="btn btn-danger" onclick="history.go(-1)"><span class="glyphicon glyphicon-arrow-left"></span> &nbsp; Return</a>
+
+                    @*<input type="button" value="Home" class="btn btn-primary" onclick="@("window.location.href='" + @Url.Action("AdminHeaderBoard", "DashBoard") + "'");" />*@
+
+
+                </div>
+                <div class="col-sm-9">
+
+                </div>
+
+
+
+            </div>
+
+
+            <div class="row">
+                <div class="col-sm-12 col-md-12">
+                    <h1 style="text-align:center;color:blueviolet;font-size:20px"><b>VIEW STUDENT ATTENDANCE</b></h1>
+                    <div class="clearfix"></div><br /><br />
+                    @using (Html.BeginForm("Add_Student_Attendance", "Employee", FormMethod.Post, new { id = "myID", name = "randform" }))
+                    {
+
+                        if (TempData["msg"] != null)
+                        {
+                            <p class="alert alert-success" id="successMessage" style="color:#5cb85c;text-align:center">@TempData["msg"]</p>
+                        }
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                    @Html.DropDownListFor(m => m.Year_Name, Model.Year_Name, "--Select Session--", new { @class = "form-control" })
+                                </div>
+                                @Html.ValidationMessageFor(model => Model.Year_Name, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="col-sm-4">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                                    @Html.DropDownListFor(m => m.Class_Id, Model.Class_Name, "--Select Class--", new { @class = "form-control" })
+                                </div>
+                                @Html.ValidationMessageFor(m => m.Class_Id, "", new { @class = "text-danger" })
+                            </div>
+
+
+                            <div class="col-sm-4">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-education"></i></span>
+                                    @Html.DropDownListFor(m => m.Student_Id, Model.StudentList, "--Select Student--", new { @class = "form-control" })
+                                </div>
+                                @Html.ValidationMessageFor(m => m.Student_Id, "", new { @class = "text-danger" })
+                            </div>
+
+                            @*<div class="col-sm-12 col-md-3">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
+                                        @Html.DropDownListFor(m => m.Period_Id, Model.PeriodList, "--Select Period Name--", new { @class = "form-control" })
+                                    </div>
+                                    @Html.ValidationMessageFor(m => m.Period_Id, "", new { @class = "text-danger" })
+                                </div>*@
+
+
+
+
+                        </div>
+
+                        <br>
+
+                        <div class="row">
+                            <div class="col-sm-1">
+                                <label>Start Date:</label>
+                            </div>
+
+                            <div class="col-sm-3">
+                                <div class="input-group">
+
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                    @Html.EditorFor(model => model.Start_Date, new { htmlAttributes = new { @class = "form-control datepicker", @Placeholder = "Enter  Date",  @Value = "" } })
+                                </div>
+
+                                @Html.ValidationMessageFor(model => model.Start_Date, "", new { @class = "text-danger" })
+
+                            </div>
+
+
+                            <div class="col-sm-1">
+                                <label>End Date:</label>
+                            </div>
+
+                            <div class="col-sm-3">
+                                <div class="input-group">
+
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                    @Html.EditorFor(model => model.End_Date, new { htmlAttributes = new { @class = "form-control datepicker", @Placeholder = "Enter  Date", onchange = "LoadStudent_Attendance()", @Value = "" } })
+                                </div>
+
+                                @Html.ValidationMessageFor(model => model.End_Date, "", new { @class = "text-danger" })
+
+                            </div>
+
+
+
+                        </div>
+
+                        <div class="clearfix"></div>
+                        <div class="col-sm-12 col-md-12" style="text-align:right">
+                            <a class="btn btn-warning btn-lg" onclick="LoadStudent_Attendance()">Show</a>
+                        </div>
+
+                    }
+
+                    @using (Html.BeginForm("Add_Student_Attendance", "Employee", FormMethod.Post, new { id = "myID", name = "randform" }))
+                    {
+                        <div class="clearfix"></div><br />
+                        <div class=" col-sm-12 col-md-12 Education" id="show" style="display:none">
+                            <div class="text-center col-sm-12" id="result1" style="display:none"></div>
+                            <div class="clearfix"></div>
+                            <div class="col-sm-12 col-md-12">
+                                <div id="result2" class="pre-scrollable" style="height:300px;   border:2px solid black;display:none;box-shadow: 1px 2px 4px rgba(0, 0, 0, .5);"></div>
+                            </div>
+
+                            <div class="col-sm-7 col-md-7">
+                                @*<div id="result3">
+
+
+                                    </div>*@
+                                <br />
+                                <br />
+                                @*<div class="form-group" style="float:right">
+
+                                        <input type="submit" value="Submit" class="btn btn-success" />
+                                        &nbsp;&nbsp;
+
+                                    </div>*@
+                            </div>
+                        </div>
+
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+
+    <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+    @section Scripts
+    {
+        @Scripts.Render("~/bundles/jqueryval")
+        @Styles.Render("~/Content/cssjqryUi")
+
+
+        @*<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+            <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+            <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+            <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+            <script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+            <script type="text/javascript" src="Scripts/jquery_calendar/jquery-ui.js"></script>
+            <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>*@
+
+        @*<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>*@
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+        <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+        <link href="~/CSS/Table.css" rel="stylesheet" />
+
+
+
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+        <script>
+            $(function () {
+                $('input[name="Start_Date"]').daterangepicker(
+                    {
+                        singleDatePicker: true,
+                        timePicker: false,
+                        showDropdowns: true,
+                        minYear: 2001,
+
+                        locale: {
+                            format: 'YYYY-MM-DD'
+                        }
+                    }
+                );
+            });
+
+
+            $(function () {
+                $('input[name="End_Date"]').daterangepicker(
+                    {
+                        singleDatePicker: true,
+                        timePicker: false,
+                        showDropdowns: true,
+                        minYear: 2001,
+
+                        locale: {
+                            format: 'YYYY-MM-DD'
+                        }
+                    }
+                );
+            });
+
+
+        </script>
+
+
+        <script>
+            $(function () {
+                $(".datepicker").datepicker(
+                    {
+                        dateFormat: 'dd/mm/yy',
+                        showStatus: true,
+                        showWeeks: true,
+                        highlightWeek: true,
+                        numberOfMonths: 1,
+                        showAnim: "scale",
+                        showOptions: { origin: ["top", "left"] }
+                    }
+                );
+            });
+        </script>
+    }
+</body>
+</html>
+
+
+<script type="text/javascript">
+    $('#Class_Id').on('change', function () {
+            var id = 0;
+            var value = 0;
+            var Section_Id = 0;
+
+        id = $(this).attr("id");
+            value = $("#Class_Id").val();
+        Section_Id = $("#Section_Id").val();
+         //alert(id);
+        //alert(value);
+
+            $.ajax({
+                type: "POST",
+                url: "/SchoolAdmin/AjaxMethod_StudentList",
+                data: '{type: "' + id + '", value: "' + value + '",Section_Id:"' + Section_Id + '" }',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    var dropDownId;
+                    var dropDownId1;
+                    var list;
+                    var list1;
+                    switch (id) {
+                        case "Class_Id":
+                            dropDownId = "#Student_Id";
+                            list = response.StudentList;
+                            DisableDropDown("#Student_Id");
+                            // DisableDropDown("#CityId");
+                            PopulateDropDown("#Student_Id", list);
+                        //    break;
+                        //case "Period_Id":
+                            dropDownId1 = "#Section_Id";
+                            list1 = response.SectionList;
+                            DisableDropDown1("#Section_Id");
+                            PopulateDropDown1("#Section_Id", list1);
+                            break;
+                    }
+
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+     });
+
+
+
+    function DisableDropDown(dropDownId) {
+        //$(dropDownId).attr("disabled", "disabled");
+        $(dropDownId).empty().append('<option selected="selected" value="0">Please Select Student</option>');
+    }
+
+    function PopulateDropDown(dropDownId, list) {
+        if (list != null && list.length > 0) {
+            //$(dropDownId).removeAttr("disabled");
+            $.each(list, function () {
+                $(dropDownId).append($("<option></option>").val(this['Value']).html(this['Text']));
+            });
+        }
+    }
+
+    function DisableDropDown1(dropDownId1) {
+        //$(dropDownId).attr("disabled", "disabled");
+        $(dropDownId1).empty().append('<option selected="selected" value="0">Please Select Section</option>');
+    }
+
+    function PopulateDropDown1(dropDownId1, list1) {
+        if (list1 != null && list1.length > 0) {
+            //$(dropDownId).removeAttr("disabled");
+            $.each(list1, function () {
+                $(dropDownId1).append($("<option></option>").val(this['Value']).html(this['Text']));
+            });
+        }
+    }
+
+
+
+    $(function () {
+        if ($("#Class_Id").val() != "" ) {
+            var message = "Class: " + $("#Class_Id option:selected").text();
+          //  message += "\nSection: " + $("#Section_Name option:selected").text();
+
+            // alert(message);
+        }
+
+    });
+
+
+
+    
+</script>
+
+<script type="text/javascript">
+
+    function LoadStudent_Attendance() {
+        var Class_Id = 0;
+        var im = 1;
+        $('#result2').css('display', 'none');
+        $('#show').css('display', 'block');
+
+        //if ($(this).val() != "") {
+        //    value = $(this).val();
+        //alert(value);
+        //}
+        Class_Id = $('#Class_Id').val();
+        var Session_year= $('#Year_Name').val();
+        //var Section_Id = $('#Section_Id').val();
+        var Start_Date = $('#Start_Date').val();
+        var End_Date = $('#End_Date').val();
+        var Student_Id = $('#Student_Id').val();
+        // var id = $(this).attr("id");
+        // var student_id = 0;
+        // var student_id2;
+        // var i = 1;
+        // alert(Start_Date);
+         //alert(End_Date);
+        $('#update_panel').html('Loading Data...');
+        $.ajax({
+            url: '/SchoolAdmin/AjaxMethod_AStudentAttendance',
+            type: 'POST',
+            data: '{Session_Year : "' + Session_year+'", Class_Id : "' + Class_Id + '",Start_Date : "' + Start_Date + '", End_Date : "' + End_Date + '",Student_Id :"' + Student_Id + '" }',
+            contentType: "application/json; charset=utf-8",
+            dataType: 'json',
+            success: function (d) {
+                if (d.length > 0) {
+                    var $data = $('<table></table>').addClass('table table-responsive table-striped table-borderless table-hover');
+                    var header = "<thead class='thead-light'><tr><th>Date</th></th><th>First Period</th><th>Second Period</th><th>Third Period</th><th>Fourth Period</th><th>Fifth Period</th><th>Sixth Period</th> <th>Seventh Period</th>  <th>Eighth Period</th>  <th>Nineth Period</th>  <th>Tenth Period</th></tr></thead>";
+                    $data.append(header);
+
+                    $.each(d, function (i) {
+                        //    student_id = d[i].Student_Id;
+                        //    if (d.length>i) {
+                        //    student_id2 = d[i + 1].Student_Id;
+                        //}
+                        var $row = $('<tr/>');
+                        // if (student_id != student_id2) {
+                        //$row.append($('<td/>').html(im));
+                        //$row.append($('<td/>').html(student_id));
+                        //$row.append($('<td/>').html(student_id2));
+
+                        //  $row.append($('<td/>').html('<a href="#"  class="btn btn - warning" onclick="EditStudentRecord(' + this['Student_Id'] + ')" > ' + this['FullName'] + ' </a>'));                       // $row.append($('<td/>').html(this['Class_Name']));
+                        //$row.append($('<td/>').html('<input type= "text"  name="present_status" value="' + this["Present_Status"] + '" >'));
+                        //$row.append($('<td/>').html('<input type= "text"  name="Period_Id" value="' + this["Period_Id"] + '" >'));
+                        $row.append($('<td/>').html('<input type= "text" name="Period_Date" value="' + this["Period_Date"] + '" >'));
+
+                        $row.append($('<td/>').html('<input type= "text" name="First_Period" value="' + this["First_Period"] + '" >'));
+                        $row.append($('<td/>').html('<input type= "text"  name="Second_Period" value="' + this["Second_Period"] + '" >'));
+                        $row.append($('<td/>').html('<input type= "text"  name="Third_Period" value="' + this["Third_Period"] + '" >'));
+                        $row.append($('<td/>').html('<input type= "text"  name="Fourth_Period" value="' + this["Fourth_Period"] + '" >'));
+                        $row.append($('<td/>').html('<input type= "text"  name="Fifth_Period" value="' + this["Fifth_Period"] + '" >'));
+                        $row.append($('<td/>').html('<input type= "text"  name="Sixth_Period" value="' + this["Sixth_Period"] + '" >'));
+                        $row.append($('<td/>').html('<input type= "text"  name="Seventh_Period" value="' + this["Seventh_Period"] + '" >'));
+                        $row.append($('<td/>').html('<input type= "text"  name="Eight_Period" value="' + this["Eighth_Period"] + '" >'));
+                        $row.append($('<td/>').html('<input type= "text"  name="Nineth_Period" value="' + this["Nineth_Period"] + '" >'));
+                        $row.append($('<td/>').html('<input type= "text"  name="Tenth_Period" value="' + this["Tenth_Period"] + '" >'));
+
+                        $data.append($row);
+                        im++;
+                        // }
+                    });
+                    $('#result2').html($data);
+                    $('#result2').css('display', 'block');
+                }
+                else {
+                    var $noData = $('<div/>').html('No Data Found!');
+                    $('#result1').html($noData);
+                }
+            },
+            error: function () {
+               // alert('Error! Please try again.');
+            }
+        });
+    }
+   // });
+
+</script>
+
+
+
+

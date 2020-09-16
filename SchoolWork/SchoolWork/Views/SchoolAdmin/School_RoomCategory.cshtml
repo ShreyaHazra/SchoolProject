@@ -1,0 +1,494 @@
+﻿@model SchoolWork.Models.Routine
+
+
+
+@{
+
+    ViewBag.Title = "School Room Category";
+
+}
+@{
+
+    int id = Model.id;
+
+    int Category_ID = Model.Category_ID;
+    String Categoryname = Model.Categoryname;
+
+    String CategoryDescription =Model.CategoryDescription;
+
+}
+
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+    
+
+    <link href="~/CSS/stylesheet2.css" rel="stylesheet" />
+    <style>
+        .text-danger {
+            font-weight: 700;
+            color: red;
+        }
+
+        .RoomCategory {
+            border-color: ActiveBorder;
+            border-style: solid;
+            padding: 17px;
+        }
+        
+        .well-sm{
+
+            border-color: lightyellow;
+            border-style: inset;
+            padding: 17px;
+
+        }
+    </style>
+
+</head>
+<body id="LoginForm" style="background-color:cadetblue">
+
+
+
+    <br />
+    <br />
+    <br />
+    <br />
+    <div class="container">
+
+        <div class="login-form">
+            <div class="body-div col-sm-12" style="background-color:blanchedalmond; max-width:100%">
+
+                <div class="row">
+                    <div class="col-sm-3">
+                        <a class="btn btn-info" onclick="@("window.location.href='" + @Url.Action("AdminHeaderBoard", "DashBoard") + "'");"><span class="glyphicon glyphicon-home"></span> &nbsp; Home</a>
+
+                        <a class="btn btn-danger" onclick="history.go(-1)"><span class="glyphicon glyphicon-arrow-left"></span> &nbsp; Return</a>
+
+                        @*<input type="button" value="Home" class="btn btn-primary" onclick="@("window.location.href='" + @Url.Action("AdminHeaderBoard", "DashBoard") + "'");" />*@
+
+
+                    </div>
+                    <div class="col-sm-9">
+
+                    </div>
+
+
+
+                </div>
+                <div class="col-sm-12 col-md-12 text-center">
+                    <h1 style="color:blueviolet;"><b>Room Category</b></h1>
+                    <p>Please Fill Up All necessary Information mentioned in below Fields.</p>
+                </div>
+
+
+                @using (Html.BeginForm("School_RoomCategory", "SchoolAdmin", FormMethod.Post, new { enctype = "multipart/form-data", id = "target" }))
+                {
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+
+
+                    <br />
+                    <br />
+                    @*if (TempData["msg"] != null)
+                        {
+                            <p class="alert alert-success" id="successMessage" style="color:green">@TempData["msg"]</p>
+                        }*@
+                    <br />
+                    <br />
+                    <br />
+
+
+                    <br />
+                    <div class="col-sm-12 well-sm">
+                        <div class="col-sm-6" id="lft">
+                            <div class="RoomCategory col-sm-12">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="col-sm-4">
+                                            <p><font color="brown" size="3" style="text-align:right">Please Enter Category:</font></p>
+                                        </div>
+                                        <div class="col-sm-8">
+
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+
+                                                @Html.TextBoxFor(m => m.Categoryname, new { @class = "form-control"})
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="col-sm-4">
+                                            <p><font color="brown" size="3" style="text-align:right"> Category Description:</font></p>
+                                        </div>
+                                        <div class="col-sm-8">
+
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+
+                                                @Html.TextAreaFor(m => m.CategoryDescription, new {@class = "form-control" })
+                                            </div>
+
+
+                                        </div>
+
+                                    </div>   
+                                </div>
+
+                                <br/>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        @*<div class="col-sm-4">
+                                            <p><font color="brown" size="3" style="text-align:right"> </font></p>
+                                        </div>*@
+                                        @*<div class="col-sm-8">*@
+
+                                            <div class="input-group">
+                                                <input type="button" value="Submit" class="btn btn-success" onclick="testInput()" />
+                                                &nbsp;&nbsp;
+                                                <input type="reset" value="Reset" class="btn btn-warning">
+                                                &nbsp;&nbsp;
+                                            </div>
+
+
+                                        @*</div>*@
+
+                                    </div>
+                                </div>
+
+                            </div>
+                            <br />
+                            <br />
+
+                        </div>
+                        
+                        <div class="col-sm-6" id="rght">
+
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                }
+            </div>
+
+
+
+
+
+
+        </div>
+    </div>
+    @section Scripts
+    {
+
+        @Scripts.Render("~/bundles/jqueryval")
+
+
+        @Styles.Render("~/Content/cssjqryUi")
+
+
+
+        <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+
+        <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+        <link href="~/CSS/StyleSheet5.css" rel="stylesheet" />
+        <link href="~/CSS/Table.css" rel="stylesheet" />
+
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+        
+
+
+
+        <!--sweet alert-->
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+
+        <!-- DataTables CSS -->
+
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.5/css/jquery.dataTables.css">
+
+
+        <!-- DataTables -->
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.5/js/jquery.dataTables.js">
+        </script>
+        <script>
+            window.onload = function () {
+                
+
+                
+                    datatab();
+    
+
+            }
+              
+            
+
+
+
+        </script>
+
+        <script type="text/javascript">
+
+            function datatab() { 
+                //alert();
+                     $.ajax({
+                type: "POST",
+                         url: "/SchoolAdmin/AjaxDataTable",
+                         data: '{}',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    var str = "", list;
+                    list = response.Templist;
+                    str += '<table id="products">';
+                    str += "<thead>";
+                    str += "<tr>";
+                    str += "<th>";
+                    str += "Category Name";
+                    str += "</th>";
+                    str += "<th>";
+                    str += "Category Description";
+                    str += "</th>";
+                    str += "<th>";
+                    str += "Action";
+                    str += "</th>";
+                    str += "</tr>";
+                    str += "</thead>";
+
+                    if (list.length == 0) {
+                        str += "<tr><td colspan=3>No Data Found!!</td></tr>";
+                    }
+
+                    else {
+                        $.each(list, function () {
+                            str += "<tr>";
+                            str += "<td>";
+                            str += this["Categoryname"];
+                            str += "</td>";
+                            str += "<td>";
+                            str += this["CategoryDescription"];
+                            str += "</td>";
+                            str += "<td>";
+                            str += "<a href=";
+
+
+                            str+="./" + this['Category_ID'] + ">Edit</a> ";
+
+
+                            str += "|<a href=";
+                            str += "'javascript:DelRow(";
+
+
+                                str+= this['Category_ID'];
+
+                            str+=")'>Delete</a>";
+                            str += "</td>";
+                            str += "</tr>";
+                        });
+                    }
+
+                    str += "</table>";
+
+                    $("#rght").html(str);
+
+
+
+                    if (list.length >= 3) {
+                        $('#products').DataTable({ "pageLength": 3 });
+                    }
+                    else {
+
+                        $('#products').DataTable();
+
+                    }
+
+
+                   
+                        
+                        
+                },
+                failure: function (response) {
+                    alert("from  inner failure" + response.responseText);
+                },
+                error: function (response) {
+                    alert("from inner error  " + response.responseText);
+                }
+            });
+
+
+            }
+            function DelRow(id) {
+
+                $.ajax({
+                    type: "POST",
+                    url: "/SchoolAdmin/AjaxDeleteRow",
+                    data: '{category_id:' + id + '}',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                                 swal({
+                                        title: "",
+                                        text: response,
+                                        icon: "success",
+                                    });
+
+                                    
+                                    datatab();
+                    },
+                    failure: function (response) {
+                         alert("from  inner failure" + response.responseText);
+                    },
+                   error: function (response) {
+                        alert("from inner error  " + response.responseText);
+                    }
+                });
+            
+
+            }
+            function testInput() {
+
+                var txtval = $("#Categoryname").val();
+                var txtarea = $("#CategoryDescription").val();
+                if (txtval.length == 0) {
+                    document.getElementById("Categoryname").focus();
+                                swal({
+                                        title: "",
+                                        text: "Please Enter Room Category.",
+                                        icon: "info",
+                                    });
+
+
+                }
+                else {
+                     //alert(@TempData["msg"]);
+
+                     //ajax check for duplicacy
+
+
+                $.ajax({
+                    type: "POST",
+                    url: "/SchoolAdmin/AjaxRoomCategory",
+                    data: '{categoryname: "' + txtval + '" }',
+
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    // alert("before");
+
+                    success: function (response) {
+
+
+                        //alert("Response:"+ @Category_ID);
+                        //alert(response.length)
+
+                        if (response.length> 0) {
+                            if (@Category_ID== 0) {
+                                swal({
+                                    title: "",
+                                    text: response,
+                                    icon: "error",
+                                });
+                                $("#Categoryname").val("");
+                                $("#CategoryDescription").val("");
+                                $("#Categoryname").requestFocus();
+                            }
+                           
+                        }
+                        
+                        if(response.length== 0 && @Category_ID== 0) {
+
+                            $.ajax({
+                                type: "POST",
+                                url: "/SchoolAdmin/AjaxInsert",
+                                data: '{categoryname: "' + txtval + '",CategoryDescription:"' + txtarea + '" }',
+
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                                success: function (response) {
+
+                                    swal({
+                                        title: "",
+                                        text: response,
+                                        icon: "success",
+                                    });
+
+                                    $("#Categoryname").val("") ;
+                                    $("#CategoryDescription").val("");
+                                    datatab();
+                                },
+                                failure: function (response) {
+                                    alert("from  inner failure" + response.responseText);
+                                },
+                                error: function (response) {
+                                    alert("from inner error  " + response.responseText);
+                                }
+                            });
+                        }
+                        //endif
+
+                         if(@Category_ID!= 0) {
+
+                                $.ajax({
+                                type: "POST",
+                                url: "/SchoolAdmin/AjaxUpdate",
+                                data: '{categoryname: "' + txtval + '",CategoryDescription:"' + txtarea + '",categoryId:'+@Category_ID+' }',
+
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                                success: function (response) {
+
+                                    swal({
+                                        title: "",
+                                        text: response,
+                                        icon: "success",
+                                    });
+
+                                    $("#Categoryname").val("") ;
+                                    $("#CategoryDescription").val("");
+                                    datatab();
+                                },
+                                failure: function (response) {
+                                    alert("from  inner failure" + response.responseText);
+                                },
+                                error: function (response) {
+                                    alert("from inner error  " + response.responseText);
+                                }
+                            });
+
+
+                            }
+                    },
+                    failure: function (response) {
+                        alert("from failure" + response.responseText);
+                    },
+                    error: function (response) {
+                        alert("from error  " + response.responseText);
+                    }
+
+
+                });
+                }
+            }
+        </script>
+        <script>
+            $(document).ready(function () {
+                   
+                });
+
+        </script>
+
+    }
+
+
+</body>
+</html>
+
+

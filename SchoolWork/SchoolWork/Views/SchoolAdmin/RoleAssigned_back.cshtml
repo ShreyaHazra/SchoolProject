@@ -1,0 +1,114 @@
+﻿@model SchoolWork.Models.RoleAssigned
+
+@using (Html.BeginForm("RoleAssigned", "SchoolAdmin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <div id="Education" class="tabcontent">
+
+        <br />
+        <h3>Educational Information</h3>
+        <p>Please Fill Up All necessary Information mentioned in below Fields.</p>
+        <div class="container">
+
+            <div class="row">
+
+                <div class="col-sm-3">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+                        @Html.DropDownListFor(m => m.Emp_Code, Model.Emp_Name, "Please Select An Employee", new { @class = "form-control", @onchange = "Education(this.value);" })
+
+                    </div>
+
+                    @Html.ValidationMessageFor(m => m.Emp_Code, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-sm-3">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+                        @Html.DropDownListFor(m => m.EmpType_ID, Model.EmpType_Name, "Please Select A Role", new { @class = "form-control", @onchange = "Education(this.value);" })
+
+                    </div>
+
+                    @Html.ValidationMessageFor(m => m.EmpType_ID, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-sm-3">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+                        @Html.DropDownListFor(m => m.Sub_ID, Model.Sub_Name, "Please Select A Subject", new { @class = "form-control", @onchange = "Education(this.value);" })
+
+                    </div>
+
+                    @Html.ValidationMessageFor(m => m.Sub_ID, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-sm-3">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+                        @Html.DropDownListFor(m => m.Class_ID, Model.Class_ID, "Please Select A Class", new { @class = "form-control", @onchange = "Education(this.value);" })
+
+                    </div>
+
+                    @Html.ValidationMessageFor(m => m.Class_ID, "", new { @class = "text-danger" })
+                </div>
+
+
+                <input id="btnAdd" type="button" value="Add" onclick="AddTextBox()" />
+                <br />
+                <br />
+                <div id="TextBoxContainer">
+                    <!--Textboxes will be added here -->
+                </div>
+
+            </div>
+
+
+
+
+
+
+        </div>
+
+        <ul class="list-unstyled list-inline pull-right">
+            <li><input type="submit" value="Assign" id="btReload" class="btn btn-success" /></li>
+        </ul>
+
+    </div>
+
+
+
+}
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript">
+        function GetDynamicTextBox() {
+            var div = $("<div />");
+
+            var textBox = $('<select name="subject"/>');
+
+            // textBox.val(value);
+            var subid = document.getElementById("Sub_ID");
+            for (var i = 0; i < 16; i++) {
+                $('<option>', { value: subid.options[i].value, text: subid.options[i].text }).appendTo(textBox);
+            }   
+
+
+            div.append(textBox);
+
+            //var button = $("<input />").attr("type", "button").attr("value", "Remove");
+            //button.attr("onclick", "RemoveTextBox(this)");
+            //div.append(button);
+
+            return div;
+    }
+
+
+        function AddTextBox() {
+            var div = GetDynamicTextBox();
+            $("#TextBoxContainer").append(div);
+        }
+
+        function RemoveTextBox(button) {
+            $(button).parent().remove();
+        }
+
+  
+</script>

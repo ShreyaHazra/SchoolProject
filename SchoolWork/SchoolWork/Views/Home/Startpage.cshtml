@@ -1,0 +1,223 @@
+﻿@model SchoolWork.Models.StartPage
+@{
+    ViewBag.Title = "StartPage";
+}
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <link href="~/CSS/stylesheet2.css" rel="stylesheet" />
+    @*<style>
+            .text-danger {
+                font-weight: 700;
+                color: red;
+            }
+
+            .glyphicon {
+                font-size: 50px;
+                color: aquamarine;
+            }
+
+            .col-sm-6 {
+                border: 1px dotted #2B60DE;
+                padding: 10px;
+                margin: 5px;
+                width: 49%;
+                text-align: center;
+            }
+        </style>*@
+
+    <style type="text/css">
+        .btn-product {
+            width: 100%;
+        }
+    </style>
+
+</head>
+<body id="LoginForm" style="background-image:url(../../Images/homeback.jpg)">
+    <div class="container">
+        <h1 class="form-heading"></h1>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        @*<div class="login-form">
+            <div class="body-div" style="background-color:aliceblue; max-width:100%">*@
+
+        <h1 style="color:#337ab7; text-align:center; margin-top:-30px"><b>WELCOME TO SCHOOLDAYS</b></h1>
+        <br>
+        <br />
+        <h4 style="color:#5cb85c; text-align:center; margin-top:-30px"><b> A SCHOOL DATABASE MANGEMENT SYSTEM</b></h4>
+        <br />
+        <br />
+        <br />
+        @if (TempData["msg"] != null)
+        {
+            <p class="alert alert-success" id="successMessage" style="color:#5cb85c;text-align:center">@TempData["msg"]</p>
+        }
+        <br />
+
+        @using (Html.BeginForm())
+        {
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            @*<div class="row">
+                    <div class="col-sm-6" style="background-image:url(../../Images/parents.png)">
+                        <div class="input-group">
+                            <span class="glyphicon glyphicon-user"></span>
+
+                            @Html.ActionLink("Login As a  Parent", "", "")
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="input-group">
+                            <span class="glyphicon glyphicon-adjust"></span>
+
+                            @Html.ActionLink("Login As a Student", "", "")
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                        <div class="col-sm-6">
+                            <div class="input-group">
+                                <span class="glyphicon glyphicon-pencil"></span>
+
+                                @Html.ActionLink("Login As a Employee", "", "")
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="input-group">
+                                <span class="glyphicon glyphicon-apple"></span>
+
+                                @Html.ActionLink("Login As a School Administrator", "SchoolNoticeAdd", "SchoolAdmin")
+                            </div>
+                        </div>
+                </div>*@
+
+
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="col-sm-6 col-sm-3">
+                        <div class="thumbnail">
+                            <h4 class="text-center"><span class="label label-primary">Log In As Student</span></h4>
+                            <img src="~/Images/Student_Login.jpg" class="img-responsive">
+                            <div class="caption">
+
+                                <p>32GB, 2GB Ram, 1080HD, 5.1 inches, Android</p>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <a class="btn btn-primary btn-product" onclick="@("window.location.href='" + @Url.Action("StudentIndexPage", "StudentDetail") + "'");"> Click Here to Go !!</a>
+                                    </div>
+                                    @*<div class="col-sm-6">
+                                            <a href="#" class="btn btn-success btn-product"><span class="glyphicon glyphicon-shopping-cart"></span> Buy</a>
+                                        </div>*@
+                                </div>
+
+                                <p> </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="thumbnail">
+                            <h4 class="text-center"><span class="label label-warning">Log In As Parent</span></h4>
+                            <img src="~/Images/Parent_Login.jpg" class="img-responsive">
+                            <div class="caption">
+
+                                <p>32GB, 64Bit, 1080HD, 4.7 inches, iOS 8</p>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <a class="btn btn-primary btn-product" onclick="@("window.location.href='" + @Url.Action("ParentLogin", "ParentDetails") + "'");"> Click Here to Go !!</a>
+                                    </div>
+                                    @*<div class="col-md-6">
+                                            <a href="#" class="btn btn-success btn-product"><span class="glyphicon glyphicon-shopping-cart"></span> Buy</a>
+                                        </div>*@
+                                </div>
+
+                                <p> </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="thumbnail">
+                            <h4 class="text-center"><span class="label label-success">Log In As Employee</span></h4>
+                            <img src="~/Images/Employee_Login.jpg" class="img-responsive">
+                            <div class="caption">
+                                @*<div class="row">
+                                        <div class="col-md-6 col-xs-6">
+                                            <h3>Lumia 1520</h3>
+                                        </div>
+                                        <div class="col-md-6 col-xs-6 price">
+                                            <h3>
+                                                <label>$749.00</label>
+                                            </h3>
+                                        </div>
+                                    </div>*@
+                                <p>32GB, 4GB Ram, 1080HD, 6.3 inches, WP 8</p>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <a class="btn btn-primary btn-product" onclick="@("window.location.href='" + @Url.Action("EmployeeLogin", "Employee") + "'");"> Click Here to Go !!</a>
+                                    </div>
+                                    @*<div class="col-md-6">
+                                            <a href="#" class="btn btn-success btn-product"><span class="glyphicon glyphicon-shopping-cart"></span> Buy</a>
+                                        </div>*@
+                                </div>
+
+                                <p> </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-md-3">
+                        <div class="thumbnail">
+                            <h4 class="text-center"><span class="label label-danger">Log In As School Administrator</span></h4>
+                            <img src="~/Images/Admin_Login.jpg" class="img-responsive">
+                            <div class="caption">
+                                @*<div class="row">
+                                        <div class="col-md-6 col-xs-6">
+                                            <h3>Lumia 1520</h3>
+                                        </div>
+                                        <div class="col-md-6 col-xs-6 price">
+                                            <h3>
+                                                <label>$749.00</label>
+                                            </h3>
+                                        </div>
+                                    </div>*@
+                                <p>32GB, 4GB Ram, 1080HD, 6.3 inches, WP 8</p>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <a class="btn btn-primary btn-product" onclick="@("window.location.href='" + @Url.Action("SchoolAdminLogin", "SchoolAdmin") + "'");"> Click Here To Go !!</a>
+                                    </div>
+                                    @*<div class="col-md-6">
+                                            <a href="#" class="btn btn-success btn-product"><span class="glyphicon glyphicon-shopping-cart"></span> Buy</a>
+                                        </div>*@
+                                </div>
+
+                                <p> </p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        }
+        @*</div>
+            </div>*@
+        <br />
+        <br />
+    </div>
+    @section Scripts
+    {
+        @Scripts.Render("~/bundles/jqueryval")
+    }
+
+</body>
+</html>

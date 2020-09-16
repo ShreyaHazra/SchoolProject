@@ -1,0 +1,809 @@
+﻿@model SchoolWork.Models.Homework
+
+
+
+@{
+
+    ViewBag.Title = "Viewing Homework";
+
+}
+@{ 
+
+
+    int id = Model.id;
+}
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+    @*<meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>*@
+
+    <link href="~/CSS/stylesheet2.css" rel="stylesheet" />
+    <style>
+        .text-danger {
+            font-weight: 700;
+            color: red;
+        }
+
+        .row {
+            align-content: center !important;
+        }
+
+        .marksDivClass {
+            border: 2px solid #46462d;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 10px;
+            width: 65%;
+        }
+
+        .percentageDivClass {
+            border: 2px solid #46462d;
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        .btn {
+            width:100px;
+            padding:5px;
+        }
+
+
+        .Education {
+            border-color: lightyellow;
+            border-style: inset;
+            padding: 30px 20px;
+        }
+
+        td.highlight {
+            background-color: whitesmoke !important;
+        }
+
+        .StudentResponse {
+            /*float: right;
+            width: 80%;
+            vertical-align: top;*/
+           
+            height:200px;
+            overflow:scroll;
+           
+        }
+    </style>
+
+</head>
+
+
+
+<body id="LoginForm" style="background-color:cornflowerblue" onload="LoadFunction()">
+
+    <div class="container">
+        <div class="body-div" style="background-color:blanchedalmond; max-width:100%">
+            <div class="row">
+                <div class="col-sm-12 col-md-12">
+
+
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 col-md-12">
+                    @*<a class="btn btn-primary btn-product" onclick="@("window.location.href='" + @Url.Action("SchoolNoticeAdd", "SchoolAdmin") + "'");"><span class="glyphicon glyphicon-pencil"></span>Add Notice</a>*@
+                    <a class="btn btn-primary" onclick="@("window.location.href='" + @Url.Action("EmployeeHeaderBoard", "DashBoard") + "'");"><span class="glyphicon glyphicon-home"></span> &nbsp; Home</a>
+
+
+                    <a class="btn btn-danger" onclick="history.go(-1)"><span class="glyphicon glyphicon-arrow-left"></span> &nbsp; Return</a>
+
+
+                </div>
+                <div class="col-sm-12 col-md-12 text-center">
+                    @if (@id == 1)
+                    {
+                        <h1 style="color:blueviolet;"><b>Viewing Homework</b></h1>
+                    }
+                    @if (@id == 2)
+                    {
+                        <h1 style="color:blueviolet;"><b>Viewing Assignment</b></h1>
+                    }
+
+                    
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="row">
+                <div class="col-sm-12 col-md-10 col-md-offset-1 Education">
+                    <!--form start-->
+                    @using (Html.BeginForm("TeacherViewHomework", "Employee", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        
+                        <div class="col-sm-12 col-md-12 text-center">
+                            <div class="col-sm-4 col-md-4">
+                                Class &nbsp;@Html.DropDownListFor(m => m.class_id, Model.Class_Name, "--Select Class--", new { @class = "form-control", @onchange = "getSection()" })
+                            </div>
+                            <div class="col-sm-4 col-md-4">
+                                Section &nbsp; @Html.DropDownListFor(m => m.sec_id, Model.Section_Name, "--Select Section--", new { @class = "form-control" })
+                            </div>
+                            <div class="col-sm-4 col-md-4">
+                                Subject &nbsp; @Html.DropDownListFor(m => m.sub_id, Model.Subject_Name, "--Select Subject--", new { @class = "form-control", @onchange = "getTable()" })
+                            </div>
+
+                        </div>
+
+                        <div class="col-sm-12 col-md-12 text-center" id="hwlist">
+
+                        </div>
+
+
+                        <div class="col-sm-12 col-md-12  Education" id="Detail_list" hidden="hidden">
+
+                        </div>
+
+
+
+                    }
+                    <!--form end-->
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+    @section Scripts
+    {
+
+        @Scripts.Render("~/bundles/jqueryval")
+
+
+        @Styles.Render("~/Content/cssjqryUi")
+
+
+
+        <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+        <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+        <link href="~/CSS/StyleSheet5.css" rel="stylesheet" />
+        <link href="~/CSS/Table.css" rel="stylesheet" />
+
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+
+        <!--daterange picker-->
+
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+        <!--sweet alert-->
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+
+        <!-- DataTables CSS -->
+
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.5/css/jquery.dataTables.css">
+
+
+        <!-- DataTables -->
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.5/js/jquery.dataTables.js">
+        </script>
+
+        
+
+
+     
+
+
+        <script type="text/javascript">
+
+            
+
+
+            $(document).ready(function() {
+                getTable();
+            } );
+
+             function addremark(RID) {
+
+               // alert($("#remark"+RID).val());
+                 var rem = $("#remark" + RID).val();
+                 if (rem.length != 0) {
+
+                        $.ajax({
+                        type: "POST",
+                        url: "/Employee/AjaxAddRemark",
+                        data: '{remark:"'+ rem +'", ID:'+ RID+' }',
+
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                            success: function (response) {
+                                alert(response);
+                            },
+                            failure: function (response) {
+                                alert("from failure" + response.responseText);
+                            },
+                            error: function (response) {
+                                alert("from error" + response.responseText);
+                             }
+                        });
+                 }
+
+
+            }
+
+
+
+            function getSection() {
+
+
+                var class_id = $("#class_id").val();
+
+
+               // alert(class_id);
+
+                 $.ajax({
+                        type: "POST",
+                        url: "/Employee/GetSectionTeacher",
+                        data: '{class_id:'+class_id+'}',
+
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function (response) {
+                            //var dropDownId;
+                            var list1, list2;
+
+
+
+                            list1 = response.Section_Name;
+
+
+                            DisableDropDown("#sec_id");
+                            PopulateDropDown("#sec_id", list1);
+
+
+                            list2 = response.Subject_Name;
+                            DisableDropDown("#sub_id");
+                            PopulateDropDown("#sub_id", list2);
+
+
+
+                        },
+                        failure: function (response) {
+                            alert("from failure" + response.responseText);
+                        },
+                        error: function (response) {
+                            alert("from error" + response.responseText);
+                        }
+                    });
+
+
+
+            }
+
+           function Rem(r,id) {
+               if (confirm("Do you want to delete? ")) {
+
+                            
+                    
+                         $.ajax({
+                        type: "POST",
+                        url: "/Employee/AjaxDelResult",
+                        data: '{ID:'+r+'}',
+
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        // alert("before");
+
+                        success: function (response) {
+
+
+
+                            alert("Row Deleted!!");
+                           
+                             $("#row" +id).remove();
+                        },
+                        failure: function (response) {
+                            alert("from failure" + response.responseText);
+                        },
+                        error: function (response) {
+                            alert("from error  " + response.responseText);
+                        }
+
+
+                    });
+
+
+                    
+
+               
+
+                }
+            }
+
+
+            function DisableDropDown(dropDownId) {
+                //$(dropDownId).attr("disabled", "disabled");
+                $(dropDownId).empty().append('<option selected="selected" value="0">--Select---</option>');
+            }
+
+
+            function PopulateDropDown(dropDownId, list) {
+                if (list != null && list.length > 0) {
+                    //$(dropDownId).removeAttr("disabled");
+                    $.each(list, function () {
+                        $(dropDownId).append($("<option></option>").val(this['Value']).html(this['Text']));
+                    });
+                }
+            }
+
+            function getTable() {
+
+                var class_id = $("#class_id").val();
+
+                if (class_id.length == 0)
+                    class_id = 0;
+
+               //alert(class_id)
+                var section_id = $("#sec_id").val();
+
+                if (section_id.length == 0)
+                    section_id = 0;
+
+               //alert(section_id);
+                var sub_id = $("#sub_id").val();
+
+                 if (sub_id.length == 0)
+                    sub_id = 0;
+
+                //alert(sub_id);
+
+
+                $.ajax({
+                        type: "POST",
+                        url: "/Employee/GetTableTeacher",
+                        data: '{class_id:' + class_id + ',sec_id:' + section_id + ',sub_id:' + sub_id + ' }',
+
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function (response) {
+
+                       // alert("inside");
+                        var list1;
+                            list1 = response.Templist;
+
+                        //alert(list1.length);
+                        var str = "";
+
+                            str += "<table class='row-border hover order-column' id='det_table' style='width:100%'>";
+                            str += "<thead>";
+                            str += "<tr>";
+                                     str += "<th>";
+                                        str += "Class";
+                                     str += "</th>";
+                                     str += "<th>";
+                                        str += "Section";
+                                     str += "</th>";
+                                     str += "<th>";
+                                       str += "Subject";
+                                    str += "</th>";
+                                     str += "<th>";
+                                        str += "Topic";
+                                     str += "</th>";
+                                     str += "<th>";
+                                        str += "Assigned Date";
+                                     str += "</th>";
+                                     str += "<th>";
+                                        str += "Due Date";
+                                     str += "</th>";
+                                     str += "<th>";
+                                        str += "Status";
+                                     str += "</th>";
+                                    
+                                     str += "<th>";
+                                         str += "Action";
+                                     str += "</th>";
+                                    
+                            str += "</tr>";
+                        str += "</thead>";
+                        str += "<tbody>";
+                        if (list1.length > 0) {
+
+                            var cnt = 0;
+                            $.each(list1, function () {
+                               
+                                    str += "<tr id='row"+cnt+"'>";
+                                
+                                        str += "<td>";
+                                        str += this["ClassName"];
+                                     str += "</td>";
+                                     str += "<td>";
+                                        str += this["SectionName"];
+                                       str += "</td>";
+                                       str += "<td>";
+                                            str += this["subject_name"];
+                                       str += "</td>";
+                                     str += "<td>";
+                                        str += this["topic"];
+                                     str += "</td>";
+                                     str += "<td>";
+                                        str += this["date_assigned"];
+                                     str += "</td>";
+                                     str += "<td>";
+                                        str += this["due_date"];
+                                     str += "</td>";
+                                     str += "<td>";
+                                        str += this["status"];
+                                     str += "</td>";
+                                    
+                                str += "<td>";
+
+                               
+
+                                if (this["status"] == "Due") {``
+                                    str += "<a href='#' class='btn btn-primary' onclick='ViewDetails("+this["ID"]+",\""+this["status"]+"\","+this["class_id"]+","+this["sec_id"]+")'>View Details</a><br><br>";
+                                    str += "<a href='../EditHomeWork?id="+this["ID"]+"' class='btn btn-warning' >Edit</a> <br><br>";
+                                    str+="<a href='#' class='btn btn-danger' onclick='Rem("+this["ID"]+","+cnt++ +" )'>Delete</a> <br><br>"
+                                }
+                                else {
+
+                                    str += "<br><a href='#' class='btn btn-primary' onclick='ViewDetails("+this["ID"]+", \""+this["status"]+"\","+this["class_id"]+","+this["sec_id"]+")'>View Details</a> <br><br>";
+
+
+                                }
+                                     str += "</td>";
+
+                                     str += "</tr>";
+
+                                cnt++;
+
+                            });
+
+                           
+                        }
+
+                        str += "</tbody>";
+                            str+="</table>";
+
+                        $("#hwlist").html(str);
+
+                        //$('#det_table').DataTable();
+
+                           $('#det_table').dataTable( {
+                                "iDisplayLength": 5
+                            });
+                        var table =  $('#det_table').DataTable();
+     
+                            //$('#det_table tbody')
+                            //    .on( 'mouseenter', 'td', function () {
+                            //        var colIdx = table.cell(this).index().column;
+                        
+                            //        $(table.cells().nodes()).removeClass('highlight');
+
+                        
+                            //        $( table.column(colIdx).nodes() ).addClass('highlight');
+                            //    } );
+
+                    },
+                        failure: function (response) {
+                            alert("from failure" + response.responseText);
+                        },
+                        error: function (response) {
+                            alert("from error" + response.responseText);
+                        }
+                    });
+
+            }
+
+            function EditDetails(ID) {
+                 $.ajax({
+                        type: "POST",
+                        url: "/Employee/GetDetailTeacher",
+                        data: '{ID:'+ID+'}',
+
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function (response) {
+                            var str = "";
+                            var list1 = response.Templist;
+                            var list2 = response.Filelist;
+                         },
+                        failure: function (response) {
+                            alert("from failure" + response.responseText);
+                        },
+                        error: function (response) {
+                            alert("from error" + response.responseText);
+                        }
+                    });
+
+
+            }
+            
+            function ViewDetails(ID, status, cls_id, sec_id) {
+               // alert(cls_id);
+                    
+                 $.ajax({
+                        type: "POST",
+                        url: "/Employee/GetDetailTeacher",
+                        data: '{ID:'+ID+'}',
+
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function (response) {
+                            var str = "";
+                            var list1 = response.Templist;
+                            var list2 = response.Filelist;
+                            var list3 = response.Fileresponse;
+                            var list4 = response.NameRoll;
+                            //alert("list3 " + list3.length);
+
+                           //alert("list4 "+list4.length);
+                            if (list1.length > 0) {
+                                //var count = 1;
+                                $("#Detail_list").show();
+                                str += "<div class='row'>";
+                                str += "<font size='4' color='brown'><b>Details:</b></font>";
+                                str += "</div>";
+                                str += "<div class='row'>";
+
+
+                                $.each(list1, function () {
+                                    str += '<div class="col-sm-12 col-md-12">';
+                                    
+                                    str += '<div class="col-sm-8 col-md-8">';
+                                     str += '<div>';
+                                        str += '<div class="col-sm-4 col-md-4">';
+                                            str += "<font size='3' color='brown'><b>Class:</b></font>&nbsp;";
+                                            str += this["ClassName"];
+                                            
+                                        str += '</div>';
+                                        str += '<div class="col-sm-4 col-md-4">';
+
+                                             str += "<font size='3' color='brown'><b>Section:</b></font>&nbsp;";
+                                            str += this["SectionName"];
+                                        str += '</div>';
+                                        str += '<div class="col-sm-4 col-md-4">';
+                                            str += "<font size='3' color='brown'><b>Subject:</b></font>&nbsp;";
+                                            str += this["subject_name"];
+                                       str += '</div>';
+                                     str += '</div>';
+                                    str += '<div>';
+
+
+                                        str += '<div class="col-sm-4 col-md-4">';
+                                            str += "<font size='3' color='brown'><b>Topic:</b></font>&nbsp;";
+                                            str += this["topic"];
+                                       str += '</div>';
+                                        str += '<div class="col-sm-4 col-md-4">';
+                                            str += "<font size='3' color='brown'><b>Assigned Date:</b></font>&nbsp;";
+                                            str += this["date_assigned"];
+
+                                        str += '</div>';
+                                        str += '<div class="col-sm-4 col-md-4">';
+
+                                             str += "<font size='3' color='brown'><b>Due Date:</b></font>&nbsp;";
+                                            str += this["due_date"];
+                                        str += '</div>';
+                                        
+                                        str += '</div>';
+
+                                    str += '</div>';
+
+                                    str += '<div class="col-sm-4 col-md-4">';
+                                    str += "<div>";
+                                    str +=  "<font size='3' color='brown'><b>Instruction:</b></font>&nbsp;";;
+                                    str += "</div>";
+                                    str += "<div>";
+                                    str += this["Home_Desc"];
+                                    str += "</div>";
+                                    str += '</div>';
+                                    str += '</div>';
+                                });
+
+                                
+                                str += "</div>";
+
+                            }
+
+
+
+                            if (list2.length > 0) {
+                                var count = 1;
+                                //$("#Detail_list").show();
+                                str += "<div class='row'>";
+                                if (@id== 1) {
+                                    str += "<font size='4' color='brown'><b>Homework Files :</b></font>";
+                                }
+                                if (@id== 2) {
+                                    str += "<font size='4' color='brown'><b>Assignment Files :</b></font>";
+                                }
+                                str += "</div>";
+                                str += "<div class='row'>";
+
+
+                                $.each(list2, function () {
+
+                                    // str += '<div>';
+                                    str += '<a href=' + this["File_Name"] + ' download> File ' + count++ + '</a> &nbsp;&nbsp;';
+
+                                    // str += '</div>';
+                                });
+                                str += "</div>";
+
+                                 if (status == "Published") {
+
+                                     str += "<div class='row' class='StudentResponse'>";
+                                     count = 1;
+                                     str += "<table id='Std_Response' >";
+                                     str += "<thead>";
+                                        str += "<tr>";
+                                            str += "<th>";
+                                                str += "Name";
+                                            str += "</th>";
+
+                                            str += "<th>";
+                                                str += "Roll";
+                                            str += "</th>";
+                                             str += "<th>";
+                                                str += "Student's File(s)";
+                                            str += "</th>";
+                                             str += "<th>";
+                                                str += "Status";
+                                            str += "</th>";
+                                             str += "<th>";
+                                                str += "OverDue";
+                                            str += "</th>";
+                                            str += "<th>";
+                                                str += "Remark";
+                                            str += "</th>";
+
+                                            str += "<th>";
+                                                str += "Add";
+                                            str += "</th>";
+                                     str += "</tr>";
+                                     str += "</thead>";
+
+                                     str += "<tbody>";
+                                    // if (list3.length > 0) {
+                                         var count = 1;
+                                         var cnt = 1;
+                                        // var list4 = list3;
+                                     var stname = "";
+                                     if (list4.length > 0) {
+                                         $.each(list4, function () {
+                                             //alert(this["ID"]);
+                                             str += "<tr>";
+                                             str += "<td>";
+                                             str += this["Name"];
+                                             str += "</td>";
+                                             str += "<td>";
+                                             str += this["RollNo"];
+                                             str += "</td>";
+                                             str += "<td>";
+                                             if (list3.length > 0) {
+                                                 $.each(list3, function () {
+
+
+                                                     str += '<a href=' + this["File_Name"] + ' download> File ' + count++ + '</a> &nbsp;&nbsp;';
+
+                                                 });
+                                             }
+                                             else {
+
+                                                 str += "No Files Uploaded ";
+
+                                             }
+                                             str += "</td>";
+                                             str += "<td>";
+                                                str += this["status"];
+                                            str += "</td>";
+                                             str += "<td>";
+                                                str += this["OverDue"];
+                                            str += "</td>";
+
+
+                                             str += '<td>';
+                                             str += "<input type='text' id='remark" + this["ID"] + "' class='form-control'>";
+
+                                             str += '</td>';
+
+                                             str += '<td>'
+                                             str += "<input type='button' class='btn btn-primary' value='Add Remark' onclick='addremark(" + this["ID"] + ")'>"
+                                             str += '</td>';
+                                         });
+                                         str += "</div>";
+                                     }
+                                     else {
+
+                                         str += "<tr>";
+                                         str += "<td colspan='5' class='text-center'>"
+                                         str += "<font size='4' color='brown'> No Data Found </font>";
+                                         str += "</td>";
+
+                                         str += "</tr>";
+                                     }
+
+                                         //}
+                                     str += "</tbody>";
+                                     str += "</table>";
+
+                                     str += "</div>";
+
+
+                                     //$('#Std_Response').DataTable();
+                                 
+                                }
+
+                                
+
+                            if (status == "Due") {
+                                str += "<div class='col-sm-12 col-md-12 text-right'>";
+                                
+                                str += "<input type='button' value='Publish' class='btn btn-primary' onclick='PublishDetail(" + ID + "," + cls_id + ","+sec_id+")'>";
+
+                                str += "</div>";
+                            }
+                           
+                            $("#Detail_list").html(str);
+
+
+                                 $('#Std_Response').dataTable( {
+                                "iDisplayLength": 5
+                            });
+                                 $("#Std_Response").DataTable(); 
+                            }
+
+                        },
+                        failure: function (response) {
+                            alert("from failure" + response.responseText);
+                        },
+                        error: function (response) {
+                            alert("from error" + response.responseText);
+                        }
+                    });
+
+            
+             }
+
+
+            function PublishDetail(id, clss, Section) {
+
+
+                //alert(clss);
+                //alert(Section);
+                $.ajax({
+                        type: "POST",
+                        url: "/Employee/publishhw",
+                        data: '{ID:'+id+', clss:'+clss+', Section:'+Section+'}',
+
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function (response) {
+                            alert(response);
+
+                            getTable();
+
+                            ViewDetails(id, "Published",clss,Section);
+                        },
+                        failure: function (response) {
+                            alert("from failure" + response.responseText);
+                        },
+                        error: function (response) {
+                            alert("from error" + response.responseText);
+                        }
+                    });
+            }
+        </script>
+    }
+
+
+</body>
+</html>
+
+
+@*h.w assigned*@

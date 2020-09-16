@@ -1,0 +1,133 @@
+﻿@{
+    // ViewBag.Title = "Admin Dashboard";
+}
+<html>
+<head>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+
+    <link href="~/CSS/stylesheet1.css" rel="stylesheet" />
+    <style>
+        .glyphicon {
+            font-size: 50px;
+            color: aquamarine;
+        }
+
+        .col-md-4, col-sm-4 {
+            border: 2px solid red;
+            margin: 3px;
+            padding:10px
+        }
+    </style>
+
+
+</head>
+
+
+<body id="LoginForm" style="background-color:cadetblue">
+    <div class="container">
+        <h1 class="form-heading"></h1>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+       
+        <div class="login-form">
+            <div class="body-div" style="max-width:100%">
+
+                <div class="panel" style="padding:2px">
+
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-4 dashboard-icon col-sm-4 ">
+                                <span class="glyphicon glyphicon-user"></span>
+
+                                @Html.ActionLink("Teachers", "Teacher", "Account")
+                            </div>
+                            <div class="col-md-4 dashboard-icon col-sm-4 ">
+                                <span class="glyphicon glyphicon-education"></span>
+                                @Html.ActionLink("Student", "Student", "Create")
+                            </div>
+                            <div class="col-md-4 dashboard-icon col-sm-4">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                @Html.ActionLink("Examination", "Examination", "Create")
+                            </div>
+                        </div>
+
+                        <div class="col-md-3  dashboard-icon col-sm-3">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                            @Html.ActionLink("Feed Back", "feedback", "Create")
+                        </div>
+                        <div class="col-md-3  dashboard-icon col-sm-3">
+                            <span class="glyphicon glyphicon-book"></span>
+                            @Html.ActionLink("Library", "Library", "Create")
+                        </div>
+                        <div class="col-md-3  dashboard-icon col-sm-3">
+                            <span class="glyphicon  glyphicon-download-alt"></span>
+                            @Html.ActionLink("Progress Report", "ProgressReport", "index")
+                        </div>
+                        <div class="col-md-3  dashboard-icon col-sm-3">
+                            <span class="glyphicon glyphicon-plane"></span>
+                            @Html.ActionLink("School Bus", "SchoolBus", "Create")
+                        </div>
+
+
+
+                        <div class="col-md-3 dashboard-icon col-sm-3">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                            @Html.ActionLink("Attendance", "Attendance", "index")
+                        </div>
+
+                        <div class="col-md-3  dashboard-icon col-sm-3">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                            @Html.ActionLink("Time Table", "Timetable", "index")
+                        </div>
+
+
+
+                        <div class="col-md-3  dashboard-icon col-sm-3">
+                            <span class="glyphicon glyphicon-wrench"></span>
+                            @Html.ActionLink("Settings", "Settings", "index")
+                        </div>
+                        <div class="col-md-3  dashboard-icon col-sm-3">
+                            <span class="glyphicon glyphicon-pawn"></span>
+                            @Html.ActionLink("Blogs", "Blog", "index")
+                        </div>
+                        <div class="col-md-3  dashboard-icon col-sm-3">
+                            <span class="glyphicon glyphicon-folder-open"></span>
+                            @Html.ActionLink("Syllabus", "Syllabus", "index")
+                        </div>
+                        <div class="col-md-3  dashboard-icon col-sm-3">
+                            <span class="glyphicon glyphicon-list"></span>
+                            @Html.ActionLink("Management ", "AllMemberList", "index")
+                        </div>
+                        <div class="col-md-3  dashboard-icon col-sm-3">
+                            <span class="glyphicon glyphicon-align-right"></span>
+                            @Html.ActionLink("Analytics", "Analytics", "index")
+                        </div>
+                        <div class="col-md-3  dashboard-icon col-sm-3">
+                            <span class="glyphicon  glyphicon-envelope"></span>
+                            @Html.ActionLink("Messages", "Messages", "index")
+                        </div>
+
+                        <div class="col-md-3  dashboard-icon col-sm-3">
+                            <span class="glyphicon glyphicon-home"></span>
+                            @Html.ActionLink("Hostel", "Hostel", "index")
+                        </div>
+
+
+
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,300 @@
+﻿@model SchoolWork.Models.StudentMarks
+@{
+    ViewBag.Title = "Student Exam Attendance ";
+}
+
+<h2>SchoolRegister</h2>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+
+    <link href="~/CSS/stylesheet2.css" rel="stylesheet" />
+    <style>
+        .text-danger {
+            font-weight: 700;
+            color: red;
+        }
+
+        tr, th, td {
+            text-align: center;
+        }
+    </style>
+
+</head>
+<body id="LoginForm" style="background-color:cadetblue">
+    <div class="container">
+        <h1 class="form-heading"></h1>
+        <br />
+        <br />
+        <br />
+        <br />
+        <div class="login-form">
+            <div class="body-div" style="background-color:blanchedalmond; max-width:80%">
+
+                <h1 style="color:blueviolet; margin-top:-30px"><b>STUDENTS EXAM ATTENDANCE</b></h1>
+                <br />
+                <br />
+
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+
+
+
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="input-group">
+
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
+                            @Html.DropDownListFor(m => m.ExamType_Id, Model.ExamType_Name, "Please select Exam Name", new { @class = "form-control" })
+
+                        </div>
+
+                        @Html.ValidationMessageFor(m => m.ExamType_Id, "", new { @class = "text-danger" })
+
+
+                    </div>
+
+                    <div class="col-sm-3">
+                        <div class="input-group">
+
+
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+
+                            @Html.EditorFor(model => Model.Exam_Year, new { htmlAttributes = new { @class = "form-control datepicker", @Placeholder = "Enter Exam Year" } })
+
+
+
+                        </div>
+
+                        @Html.ValidationMessageFor(model => Model.Exam_Year, "", new { @class = "text-danger" })
+
+
+                    </div>
+
+                    <div class="col-sm-3">
+                        <div class="input-group">
+
+
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                            @Html.DropDownListFor(m => m.Class_Id, Model.Class_Name, "Please select Class", new { @class = "form-control" })
+
+                        </div>
+
+                        @Html.ValidationMessageFor(m => m.Class_Id, "", new { @class = "text-danger" })
+
+
+                    </div>
+
+                    <div class="col-sm-3">
+                        <div class="input-group">
+
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-education"></i></span>
+
+                            @Html.DropDownListFor(m => m.Section_Id, Model.Section_Name, "Please select Section", new { @class = "form-control" })
+
+                        </div>
+
+                        @Html.ValidationMessageFor(m => m.Section_Id, "", new { @class = "text-danger" })
+
+
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="form-group">
+
+
+                            @*@Html.EditorFor(model => model.SchoolBoard, new { htmlAttributes = new { @class = "form-control", @Placeholder = "Select School Board " } })
+                                @Html.ValidationMessageFor(model => model.SchoolBoard, "", new { @class = "text-danger" })*@
+
+                        </div>
+                    </div>
+
+                    <div class="col-sm-3">
+                        <div class="input-group">
+
+                            @*@Html.DropDownListFor(m => m.CountryId, Model.Countries, "Please select", new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.CountryId, "", new { @class = "text-danger" })*@
+
+
+
+
+                        </div>
+                    </div>
+
+                    <div class="col-sm-3">
+                        <div class="form-group">
+
+                            @*@Html.DropDownListFor(m => m.StateId, Model.States, "Please select")*@
+
+
+
+
+                        </div>
+                    </div>
+
+                    <div class="col-sm-3">
+                        <div class="form-group">
+
+
+                            @*<div id="update_panel"></div>*@
+                            @*@Html.DropDownListFor(m => m.CityId, Model.Cities, "Please select")*@
+
+                        </div>
+                    </div>
+
+                </div>
+                @using (Html.BeginForm("StudentMarksEntry", "Employee", FormMethod.Post, new { id = "myID", name = "randform" }))
+                {
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+
+
+                                <div id="update_panel"></div>
+                                @*@Html.DropDownListFor(m => m.CityId, Model.Cities, "Please select")*@
+
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <br />
+                    <div class="form-group">
+
+                        <input type="submit" value="Submit" class="btn btn-success" />
+                        &nbsp;&nbsp;
+                        <input type="reset" value="Reset" class="btn btn-warning">
+
+                    </div>
+                    <br>
+                    <div class="form-group">
+
+                        <p>Already Have an Account!  @Html.ActionLink("Click Here To Sign-In", "SchoolAdminLogin", "SchoolAdmin")</p>
+
+                    </div>
+
+                }
+            </div>
+        </div>
+    </div>
+
+    <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+    @section Scripts
+    {
+        @Scripts.Render("~/bundles/jqueryval")
+        @Styles.Render("~/Content/cssjqryUi")
+
+
+        <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+        <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+        <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+        <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+
+        <script type="text/javascript" src="Scripts/jquery_calendar/jquery-ui.js"></script>
+        <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+
+
+
+        <script>
+            $(function () {
+                $(".datepicker").datepicker(
+                    {
+                        dateFormat: 'dd/mm/yy',
+                        showStatus: true,
+                        showWeeks: true,
+                        highlightWeek: true,
+                        numberOfMonths: 1,
+                        showAnim: "scale",
+                        showOptions: { origin: ["top", "left"] }
+                    }
+                );
+            });
+        </script>
+
+
+
+
+
+
+    }
+</body>
+
+
+
+</html>
+
+<script type="text/javascript">
+  /*  $(document).ready(function () {
+        //Populate Contact
+        LoadContacts();
+    });
+    function LoadContacts() {
+        $('#update_panel').html('Loading Data...');*/
+
+  /// $("select").change(function () {
+    $('#d,#Class_Id,#Section_Id').change(function () {
+        var value = 0;
+        var im = 1;
+        if ($(this).val() != "") {
+            value = $(this).val();
+          // alert(value);
+        }
+
+        var id = $(this).attr("id");
+     //   alert(id);
+        $('#update_panel').html('Loading Data...');
+        $.ajax({
+            url: '/Employee/AjaxMethod_FetchStudent',
+            type: 'POST',
+            data: '{type: "' + id + '", value: ' + value + '}',
+            contentType: "application/json; charset=utf-8",
+            dataType: 'json',
+            success: function (d) {
+                if (d.length > 0) {
+                    var $data = $('<table></table>').addClass('table table-responsive table-striped');
+                    var header = "<thead><tr><th>Id</th><th>School Code</th><th>Student Name</th><th>Last Name</th><th>Total Marks</th><th></th></tr></thead>";
+                    $data.append(header);
+
+                    $.each(d, function () {
+                        var $row = $('<tr/>');
+                        $row.append($('<td/>').html(im));
+                        $row.append("<input type='hidden' name='Student_Idd' value='" + this['Student_Id'] + "' >");
+                        $row.append($('<td/>').html(this['School_Code']));
+                        $row.append($('<td/>').html(this['first_name']));
+                        $row.append($('<td/>').html(this['last_name']));
+                        $row.append($('<td/>').html(this['Class_Name']));
+                        $row.append($('<td/>').html(this['Section_Name']));
+                        $row.append($('<td/>').html("<input type='text' name='student_markss'  class = 'form - control' >"));
+
+                        $data.append($row);
+                        im++;
+                    });
+
+                    $('#update_panel').html($data);
+                }
+                else {
+                    var $noData = $('<div/>').html('No Data Found!');
+                    $('#update_panel').html($noData);
+                }
+            },
+            error: function () {
+                alert('Error! Please try again.');
+            }
+        });
+
+    });
+
+
+
+</script>
+

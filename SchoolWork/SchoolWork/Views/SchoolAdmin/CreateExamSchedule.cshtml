@@ -1,0 +1,546 @@
+﻿@model SchoolWork.Models.CreateExamSchedule
+@{
+
+    ViewBag.Title = "Student Exam Master";
+
+    //List<SelectListItem> Model.Section_Name = new List<SelectListItem>();
+    Model.Section_Name.Add(new SelectListItem
+    {
+        Value = "1",
+        Text = "All Section"
+
+    });
+
+}
+<h2> Student Exam Master </h2>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+
+    <link href="~/CSS/stylesheet2.css" rel="stylesheet" />
+    <style>
+        .text-danger {
+            font-weight: 700;
+            color: red;
+        }
+            .body-div
+        
+        {
+            margin-top: 140px;
+            border-color: indigo;
+            border-style: groove;
+            padding: 35px;
+        }
+
+        .Education {
+            border-color: lightyellow;
+            border-style: inset;
+            padding: 17px;
+        }
+
+        p {
+            text-align: center;
+        }
+
+
+        .container {
+            width: 70% !important;
+            padding: 10px !important;
+        }
+
+        .well {
+            background-color: #ead4b3 !important;
+            border-style: inset;
+        }
+
+        .left {
+            float: left;
+            margin-right: 10px;
+            width: 48%;
+        }
+
+        .right {
+            float: left;
+            margin-left: 10px;
+            width: 48%;
+        }
+
+        .hr {
+            margin-top: 14px !important;
+            margin-bottom: 14px !important;
+        }
+        
+    </style>
+
+</head>
+<body id="LoginForm" style="background-color:cadetblue">
+    <div class="container">
+
+
+        <h1 class="form-heading"></h1>
+        <br />
+       
+
+        <div class="login-form">
+            <div class="body-div" style="background-color:blanchedalmond; max-width:100%">
+                <br><br /> <br><br />
+                <div class="row">
+                    <div class="col-sm-3">
+                        <a class="btn btn-info" onclick="@("window.location.href='" + @Url.Action("AdminHeaderBoard", "DashBoard") + "'");"><span class="glyphicon glyphicon-home"></span> &nbsp; Home</a>
+
+                        <a class="btn btn-danger" onclick="history.go(-1)"><span class="glyphicon glyphicon-arrow-left"></span> &nbsp; Return</a>
+
+
+                    </div>
+                    <div class="col-sm-9">
+
+                    </div>
+
+
+
+                </div>
+
+                <br><br /><br><br />
+                <h1 style="color:blueviolet; margin-top:-30px"><b>CREATE EXAM SCHEDULE </b></h1>
+                <br />
+                <br />
+                <br />
+
+                @using (Html.BeginForm())
+                {
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+
+                <div class="input-group">
+
+                    @Html.EditorFor(model => model.School_Id, new { htmlAttributes = new { @class = "form-control", @type = "hidden", @onkeydown = "return false", @Value = Session["School_Id"] } })
+
+                    @Html.EditorFor(model => model.School_Code, new { htmlAttributes = new { @class = "form-control", @type = "hidden", @onkeydown = "return false", @Value = Session["School_Code"] } })
+
+                </div>
+                    @Html.ValidationMessageFor(model => model.School_Id, "", new { @class = "text-danger" })
+
+
+                    <div class="row">
+                        @*<div class="col-sm-4">
+                    <div class="input-group">
+
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-barcode"></i></span>
+                        @Html.EditorFor(model => model.School_Code, new { htmlAttributes = new { @class = "form-control", @onkeydown = "return false", @Value = Session["School_Code"] } })
+                    </div>
+
+                    @Html.ValidationMessageFor(model => model.School_Code, "", new { @class = "text-danger" })
+                </div>*@
+
+                        <div class="col-sm-4">
+                            <div class="input-group">
+
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-education"></i></span>
+                                @Html.DropDownListFor(m => m.Year, Model.Year_Name, "Please Select Year", new { @class = "form-control" })
+
+                            </div>
+
+                            @Html.ValidationMessageFor(m => m.Year, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="col-sm-4">
+                            <div class="input-group">
+
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                @Html.DropDownListFor(m => m.Class_Id, Model.Class_Name, "Please Select Class", new { @class = "form-control" })
+                            </div>
+                            @Html.ValidationMessageFor(m => m.Class_Id, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="col-sm-4">
+                            <div class="input-group">
+
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                @Html.DropDownListFor(m => m.Section_Id, Model.Section_Name, "Please Select Section ", new { @class = "form-control" })
+                            </div>
+                            @Html.ValidationMessageFor(m => m.Section_Id, "", new { @class = "text-danger" })
+                        </div>
+
+
+
+
+
+                    </div>
+
+
+                    <div class="row">
+
+                        <div class="col-sm-4">
+                            <div class="input-group">
+
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-education"></i></span>
+                                @Html.DropDownListFor(m => m.Exam_Term_id, Model.Exam_Term_Name, "Please Select Exam Term", new { @class = "form-control" })
+
+                            </div>
+
+                            @Html.ValidationMessageFor(m => m.Exam_Term_id, "", new { @class = "text-danger" })
+                        </div>
+
+
+                        <div class="col-sm-4">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-inbox"></i></span>
+                                <select class="form-control" name="Exam_Subject_Type" id="Exam_Subject_Type">
+                                    <option value="None">Select Exam Subject Type </option>
+                                    <option value="Theory">Theory Subject</option>
+                                    <option value="Practical">Practical Subject</option>
+
+                                </select>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <div class="col-sm-4">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                @Html.DropDownListFor(m => m.Subject_id, Model.Subject_Name, "Please Select Subject", new { @class = "form-control" })
+                            </div>
+                            @Html.ValidationMessageFor(m => m.Subject_id, "", new { @class = "text-danger" })
+                        </div>
+
+
+
+
+
+
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-sm-4">
+                            <div class="input-group">
+
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-education"></i></span>
+                                @Html.EditorFor(model => model.Exam_Date, new { htmlAttributes = new { @class = "form-control datepicker", @placeholder = "Please Select Exam Date" } })
+
+                            </div>
+
+                            @Html.ValidationMessageFor(model => model.Exam_Date, "", new { @class = "text-danger" })
+                        </div>
+
+                        @*<div class="col-sm-3">
+                    <div class="input-group">
+
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                        @Html.EditorFor(model => model.Start_Time, Model.Start_Time = "", new { htmlAttributes = new { @class = "form-control", @Value = "", @placeholder = "Please Select Exam  Start Time(24 hours formate)" } })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.Start_Time, "", new { @class = "text-danger" })
+                </div>*@
+
+                        <div class="form-group col-sm-3">
+                            <div class="col-sm-4">
+                                <label> Start Time:</label>
+                            </div>
+                            <div class="col-sm-8">
+                                @Html.EditorFor(model => model.Start_Time, new { htmlAttributes = new { @class = "form-control", @type = "time", @placeholder = "Enter Your Date", @Value = "" } })
+
+                            </div>
+                            @Html.ValidationMessageFor(model => model.Start_Time, "", new { @class = "text-danger" })
+
+                        </div>
+
+                        @*<div class="col-sm-3">
+                    <div class="input-group">
+
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-education"></i></span>
+                        @Html.EditorFor(model => model.End_Time, new { htmlAttributes = new { @class = "form-control", @placeholder = "Please Select Exam End Time(24 hours formate)", @Value = "" } })
+                    </div>
+
+                    @Html.ValidationMessageFor(model => model.End_Time, "", new { @class = "text-danger" })
+                </div>*@
+
+                        <div class="form-group col-sm-3">
+                            <div class="col-sm-4">
+                                <label>End Time:</label>
+                            </div>
+                            <div class="col-sm-8">
+                                @Html.EditorFor(model => model.End_Time, new { htmlAttributes = new { @class = "form-control", @Placeholder = "Enter End Time", @type = "time", @Value = "" } })
+
+                            </div>
+                            @Html.ValidationMessageFor(model => model.End_Time, "", new { @class = "text-danger" })
+
+                        </div>
+                    </div>
+
+
+                    @*<div class="row">
+                <div class="col-sm-6">
+                    <div class="input-group">
+
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                        @Html.EditorFor(model => model.FullMarks, new { htmlAttributes = new { @class = "form-control", @Value = "", @placeholder = "Please Select Full Marks" } })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.FullMarks, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="input-group">
+
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-education"></i></span>
+                        @Html.EditorFor(model => model.PassMarks, new { htmlAttributes = new { @class = "form-control", @Value = "", @placeholder = "Please Select Pass Marks" } })
+                    </div>
+
+                    @Html.ValidationMessageFor(model => model.PassMarks, "", new { @class = "text-danger" })
+                </div>
+
+
+            </div>*@
+
+                    <br> <br>
+                    <br>
+                    <br> <br>
+                    <br>
+                   
+                    <div class="clearfix"></div>
+                    <div class="form-group">
+
+                        <input type="submit" value="Submit" class="btn btn-success" />
+                        &nbsp;&nbsp;
+                        <input type="reset" value="Reset" class="btn btn-warning">
+                        &nbsp;&nbsp;
+                        <input type="button" value="Home" class="btn btn-success" onclick="@("window.location.href='" + @Url.Action("AdminHeaderBoard", "DashBoard") + "'");" />
+                        &nbsp;&nbsp;
+                        <input type="button" onclick="history.go(-1)" value="Return" class="btn btn-success" />
+
+                    </div>
+
+
+                }
+            </div>
+        </div>
+    </div>
+    @section Scripts
+    {
+
+        @Scripts.Render("~/bundles/jqueryval")
+
+
+        @Styles.Render("~/Content/cssjqryUi")
+
+
+
+        <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+        <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+        <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+
+        <script type="text/javascript" src="Scripts/jquery_calendar/jquery-ui.js"></script>
+        <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+        <script>
+            $(function () {
+                $(".datepicker").datepicker(
+                    {
+                        dateFormat: 'yy-mm-dd',
+                        showStatus: true,
+                        showWeeks: true,
+                        highlightWeek: true,
+                        numberOfMonths: 1,
+                        showAnim: "scale",
+                        showOptions: { origin: ["top", "left"] }
+                    }
+                );
+            });
+        </script>
+
+        <script type="text/javascript">
+            $(function () {
+                $('#Exam_Subject_Type').change(function () {
+                    if ($(this).find("option").length <= 1) {
+                        //  $(this).attr("disabled", "disabled");
+                    }
+                });
+
+                $("#Exam_Subject_Type").change(function () {
+                    var value = 0;
+                    if ($(this).val() != "") {
+                        value = $(this).val();
+                    }
+                    var id = $(this).attr("id");
+                    var Class_Id = $("#Class_Id").val();
+
+                    //  alert(id);
+                    // alert(value);
+                    $.ajax({
+                        type: "POST",
+                        url: "/SchoolAdmin/AjaxMethod_Subject",
+                        data: '{type: "' + id + '", value: "' + value + '",Class_Id:"' + Class_Id + '"}',
+                        // data: JSON.strigify({ "type":id, "value": value }),
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function (response) {
+                            var dropDownId;
+                            var list;
+                            switch (id) {
+                                case "Exam_Subject_Type":
+                                    // dropDownId = "#Subject_id";
+                                    list = response.Subject_Name;
+                                    // DisableDropDown("#StateId");
+                                    DisableDropDown("#Subject_id");
+                                    PopulateDropDown("#Subject_id", list);
+                                    break;
+
+                            }
+
+                        },
+                        failure: function (response) {
+                            alert(response.responseText);
+                        },
+                        error: function (response) {
+                            alert(response.responseText);
+                        }
+                    });
+                });
+
+            });
+
+            function DisableDropDown(dropDownId) {
+                //$(dropDownId).attr("disabled", "disabled");
+                $(dropDownId).empty().append('<option selected="selected" value="0">Please select Subject</option>');
+            }
+
+            function PopulateDropDown(dropDownId, list) {
+                if (list != null && list.length > 0) {
+                    //$(dropDownId).removeAttr("disabled");
+                    $.each(list, function () {
+                        $(dropDownId).append($("<option></option>").val(this['Value']).html(this['Text']));
+                    });
+                }
+            }
+
+            $(function () {
+                if ($("#Subject_Type").val() != "" && $("#Subject_id").val() != "") {
+                    var message = "SubjectType: " + $("#Subject_Type option:selected").text();
+                    message += "\nSubject: " + $("#Subject_id option:selected").text();
+                    // alert(message);
+                }
+
+            });
+
+        </script>
+
+
+  <script type="text/javascript">
+     $(function () {
+
+            $('#Class_Id').on('change', function () {
+                var id = 0;
+                var value = 0;
+                var Section_Id = 0;
+
+                id = $(this).attr("id");
+                value = $("#Class_Id").val();
+                //Section_Id = $("#Section_Id").val();
+               // alert(id);
+               //alert(value);
+
+                $.ajax({
+                    type: "POST",
+                    url: "/SchoolAdmin/AjaxMethod_SectionList",
+                    data: '{type: "' + id + '", value: "' + value + '",Section_Id:"' + Section_Id + '" }',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        var dropDownId;
+                        var dropDownId1;
+                        var list;
+                        var list1;
+                        switch (id) {
+                            case "Class_Id":
+                                dropDownId = "#Exam_Term_id";
+                                list = response.Exam_Term_Name;
+                                DisableDropDown("#Exam_Term_id");
+                                // DisableDropDown("#CityId");
+                                PopulateDropDown("#Exam_Term_id", list);
+                                //    break;
+                                //case "Period_Id":
+                                dropDownId1 = "#Section_Id";
+                                list1 = response.Section_Name;
+                                DisableDropDown1("#Section_Id");
+                                PopulateDropDown1("#Section_Id", list1);
+                                break;
+                        }
+
+                    },
+                    failure: function (response) {
+                        alert(response.responseText);
+                    },
+                    error: function (response) {
+                        alert(response.responseText);
+                    }
+                });
+            });
+
+
+
+            function DisableDropDown(dropDownId) {
+                //$(dropDownId).attr("disabled", "disabled");
+                $(dropDownId).empty().append('<option selected="selected" value="0">Please Select Exam Term</option>');
+            }
+
+            function PopulateDropDown(dropDownId, list) {
+                if (list != null && list.length > 0) {
+                    //$(dropDownId).removeAttr("disabled");
+                    $.each(list, function () {
+                        $(dropDownId).append($("<option></option>").val(this['Value']).html(this['Text']));
+                    });
+                }
+            }
+
+            function DisableDropDown1(dropDownId1) {
+                //$(dropDownId).attr("disabled", "disabled");
+                $(dropDownId1).empty().append('<option selected="selected" value="0">Please Select Section</option>');
+            }
+
+            function PopulateDropDown1(dropDownId1, list1) {
+                if (list1 != null && list1.length > 0) {
+                    //$(dropDownId).removeAttr("disabled");
+                    $.each(list1, function () {
+                        $(dropDownId1).append($("<option></option>").val(this['Value']).html(this['Text']));
+                    });
+                }
+            }
+
+
+
+            $(function () {
+                if ($("#Class_Id").val() != "") {
+                    var message = "Class: " + $("#Class_Id option:selected").text();
+                    //  message += "\nSection: " + $("#Section_Name option:selected").text();
+
+                    // alert(message);
+                }
+
+            });
+
+
+            });
+
+</script>
+
+
+}
+                /**/
+                /**/
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.3/jquery.min.js"></script>
+        <script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.js"></script>
+        <script src="//ajax.aspnetcdn.com/ajax/mvc/5.2.3/jquery.validate.unobtrusive.js"></script>
+        <script src="http://code.jquery.com/ui/1.11.1/jquery-ui.min.js"></script>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.css" rel="stylesheet">
+
+    </body>
+</html>

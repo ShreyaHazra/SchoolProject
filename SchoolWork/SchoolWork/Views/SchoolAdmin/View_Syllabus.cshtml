@@ -1,0 +1,862 @@
+﻿
+@model SchoolWork.Models.StudentSyllabus
+@{
+    ViewBag.Title = "Student Syllabus ";
+}
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+
+    <link href="~/CSS/stylesheet2.css" rel="stylesheet" />
+    <style>
+        .text-danger {
+            font-weight: 700;
+            color: red;
+        }
+
+        .body-div {
+            margin-top: 140px;
+            border-color: indigo;
+            border-style: groove;
+            padding: 35px;
+        }
+
+        .Education {
+            border-color: lightyellow;
+            border-style: inset;
+            padding: 17px;
+        }
+
+        p {
+            text-align: center;
+        }
+
+
+        .container {
+            width: 90% !important;
+            padding: 10px !important;
+        }
+
+        .well {
+            background-color: #ead4b3 !important;
+            padding: 10px 19px !important;
+            /*border-style: inset;*/
+        }
+
+        .tab_menu_left {
+            padding: 20px;
+            font-weight: 700;
+            border-radius: 6%;
+            float: left;
+            font-size: 17px;
+            background-color: rgb(228, 211, 184);
+            zoom: 1;
+            box-shadow: 5px 5px 5px rgba(68, 68, 68, 0.6);
+            margin-right: 8px;
+            width: 23%;
+        }
+
+        .tab_menu_right {
+            padding: 20px;
+            font-weight: 700;
+            border-radius: 6%;
+            float: left;
+            font-size: 17px;
+            background-color: rgb(228, 211, 184);
+            zoom: 1;
+            box-shadow: 5px 5px 5px rgba(68, 68, 68, 0.6);
+            margin-left: 8px;
+            width: 75%;
+            left: 10%;
+        }
+
+        .left {
+            float: left;
+            margin-right: 10px;
+            width: 48%;
+        }
+
+        .right {
+            float: left;
+            margin-left: 10px;
+            width: 48%;
+        }
+
+        .form-group {
+            padding: 6px !important;
+        }
+
+        p.solid {
+            border-style: solid;
+        }
+    </style>
+</head>
+<body id="LoginForm" style="background-color:antiquewhite;">
+    <div class="container">
+        <div class="body-div" style="background-color:blanchedalmond; max-width:100%">
+
+            <div class="row">
+                <div class="col-sm-3">
+                    <a class="btn btn-info" onclick="@("window.location.href='" + @Url.Action("AdminHeaderBoard", "DashBoard") + "'");"><span class="glyphicon glyphicon-home"></span> &nbsp; Home</a>
+
+                    <a class="btn btn-danger" onclick="history.go(-1)"><span class="glyphicon glyphicon-arrow-left"></span> &nbsp; Return</a>
+
+                </div>
+            </div>
+
+
+
+
+
+            <div class="row  Education">
+
+
+
+                <!-----Modal Start----->
+                @using (Html.BeginForm("update_Syllabus", "SchoolAdmin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    <div class="modal active fade" id="myModal" role="dialog">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h3 class="modal-title" style="text-align:center">Edit Syllabus</h3>
+                                </div>
+                                <div class="modal-body">
+                                    <p id="Status" />
+                                    <p id="error"></p>
+                                    <div class="col-sm-12" id="desc_results">
+
+                                    </div>
+
+                                </div>
+
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                    <!----Modal Ends---->
+
+                    <h1 style="text-align:center;color:blueviolet;font-size:20px"><b>VIEW STUDENT SYLLABUS</b></h1>
+                    <br><br>
+                    <div class="col-md-12 col-sm-12 well">
+
+                        <!---end of header-->
+                        <!--Addition of tab--->
+                        <ul class="nav nav-pills">
+                            <li class=" col-md-6 text-center left">
+                                <a href="#1a" data-toggle="tab" class="inactive">View Exam Wise Syllabus</a>
+                            </li>
+                            <li class="active col-md-6 text-center right">
+                                <a href="#2a" data-toggle="tab" class="active" id="view">View All Syllabus</a>
+                            </li>
+                        </ul>
+                        <br><br>
+                        <div class="tab-content clearfix">
+                            <div class="tab-pane  well" id="1a">
+
+                                <div class="row">
+                                    @*<div class="col-sm-4">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                    @Html.DropDownListFor(m => m.Year_Name, Model.Year_Name, "--Select Session--", new { @class = "form-control" })
+                                </div>
+                                @Html.ValidationMessageFor(model => Model.Year_Name, "", new { @class = "text-danger" })
+                            </div>*@
+
+                                    <div class="col-sm-3">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                                            @Html.DropDownListFor(m => m.Class_Id, Model.Class_Name, "--Select Class--", new { @class = "form-control", onchange = "Javascript:CreateDropDown(this.value)" })
+                                        </div>
+                                        @Html.ValidationMessageFor(m => m.Class_Id, "", new { @class = "text-danger" })
+                                    </div>
+
+
+
+
+                                    <div class="col-sm-3">
+                                        <div class="input-group">
+
+                                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                            @Html.DropDownListFor(m => m.Exam_Id, Model.ExamList, "Please Select Exam ", new { @class = "form-control", onChange = "LoadStudent_Syllabus()" })
+
+                                        </div>
+
+                                        @Html.ValidationMessageFor(model => model.Exam_Id, "", new { @class = "text-danger" })
+
+                                    </div>
+
+
+
+                                </div>
+
+                                <br>
+                                <div id="result">
+
+                                </div>
+
+                                <div class="clearfix"></div>
+                                @*<div class="col-sm-12 col-md-12" style="text-align:right">
+                            <a class="btn btn-warning btn-lg" onclick="LoadStudent_Syllabus()">Show</a>
+                        </div>*@
+
+
+                                <div class="clearfix"></div><br />
+
+                                <div class=" col-sm-12 col-md-12 Education" id="show" style="display:none">
+                                    <div class="text-center col-sm-12" id="result1" style="display:none"></div>
+                                    <div class="clearfix"></div>
+
+
+                                    <div class="col-sm-12 col-md-12">
+                                        <div class="row">
+                                            <div id="result3" style="height:60px;   border:2px solid black;display:none;box-shadow: 1px 2px 4px rgba(0, 0, 0, .5);"></div>
+                                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <br>
+
+
+                                    <div class="col-sm-12 col-md-12">
+                                        <div id="result2" class="pre-scrollable" style="height:300px;   border:2px solid black;display:none;box-shadow: 1px 2px 4px rgba(0, 0, 0, .5);"></div>
+                                    </div>
+
+                                </div>
+
+
+
+                            </div>
+
+
+
+
+
+
+
+                            <div class="tab-pane active " id="2a">
+
+
+
+                                <div class="col-sm-3">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                                        @Html.DropDownListFor(m => m.Class_Idd, Model.Class_Name, "--Select Class--", new { @class = "form-control", onChange = "Load_Syllabus_SubjectWsie()" })
+                                    </div>
+                                    @Html.ValidationMessageFor(m => m.Class_Idd, "", new { @class = "text-danger" })
+                                </div>
+
+
+
+
+                                @*<div class="col-sm-3">
+                            <div class="input-group">
+
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                @Html.DropDownListFor(m => m.Subject_Id, Model.SubjectList, "--Select Subject--", new { @class = "form-control", onChange = "Load_Syllabus_SubjectWsie()" })
+
+                            </div>
+
+                            @Html.ValidationMessageFor(m => m.Subject_Id, "", new { @class = "text-danger" })
+
+                        </div>*@
+
+                                <div class=" col-sm-12 col-md-12 Education" id="show1" style="display:none">
+                                    <div class="text-center col-sm-12" id="result4" style="display:none"></div>
+                                    <div class="clearfix"></div>
+
+
+                                    <div class="col-sm-12 col-md-12">
+                                        <div class="row">
+                                            <div id="result6" style="height:60px;   border:2px solid black;display:none;box-shadow: 1px 2px 4px rgba(0, 0, 0, .5);"></div>
+                                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <br>
+
+
+                                    <div class="col-sm-12 col-md-12">
+                                        <div id="result5" class="pre-scrollable" style="height:300px;   border:2px solid black;display:none;box-shadow: 1px 2px 4px rgba(0, 0, 0, .5);"></div>
+                                    </div>
+
+                                </div>
+
+
+
+
+
+                            </div>
+
+
+
+
+
+                        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    </div>
+
+                </div>
+
+
+        </div> <!---end class body div row-->
+    </div> <!--container-->
+
+    @section Scripts {
+
+        @Scripts.Render("~/bundles/jqueryval")
+
+
+        @Styles.Render("~/Content/cssjqryUi")
+
+
+
+        <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+        <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    
+        <link href="~/CSS/Table.css" rel="stylesheet" />
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+
+        
+        <!--sweet alert-->
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        <!-- DataTables CSS -->
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.5/css/jquery.dataTables.css">
+         <!-- DataTables -->
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.5/js/jquery.dataTables.js">
+        </script>
+        <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+        <script>tinymce.init({ selector: 'textarea' });</script>
+        <script>
+
+            window.onload = function () {
+                $("#RoomId").find("option:contains('Empty')").css('background', 'rgba(188, 238, 104, 0.7)');
+
+                $("#RoomId").find("option:contains('Occupied')").css('background', 'rgba(253, 112, 102, 0.87)');
+
+
+
+
+            }
+        </script>
+
+
+
+
+        <script type="text/javascript">
+
+            function ClearAll() {
+                //alert("hi");
+
+                var clsv = $("#ClassView").val();
+                var scv = $("#SectionView").val();
+
+
+                if (confirm("Do you  want to CLEAR ALL DATA?"))
+                    if (confirm("Do you really want to CLEAR")) {
+                        $.ajax({
+                            type: "POST",
+                            url: "/SchoolAdmin/AjaxClearPeriod",
+                            data: '{clsv:"' + clsv + '",scv:"' + scv + '"}',
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            success: function (response) {
+
+                                swal({
+                                    title: "",
+                                    text: response,
+                                    icon: "success"
+                                });
+                                callforRoutine(2);
+                            },
+                            failure: function (response) {
+                                alert("from  inner failure" + response.responseText);
+                            },
+                            error: function (response) {
+                                alert("from inner error  " + response.responseText);
+                            }
+                        });
+                    }
+
+            }
+        </script>
+
+
+        <script type="text/javascript">
+            function CreateDropDown(value) {
+                // $('#Class_Id').on('change', function () {
+                var id = 0;
+                // var value = 0;
+                var Section_Id = 0;
+
+                //  id = $(this).attr("id");
+                // value = $("#Class_Id").val();
+                id = "Class_Id";
+                Section_Id = $("#Section_Id").val();
+                //  alert(id);
+                // alert(value);
+
+                $.ajax({
+                    type: "POST",
+                    url: "/SchoolAdmin/AjaxMethod_DropDownList",
+                    data: '{type: "' + id + '", value: "' + value + '",Section_Id:"' + Section_Id + '" }',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        var dropDownId;
+                        var dropDownId1;
+                        var dropDownId2;
+                        var list;
+                        var list1;
+                        var list2;
+                        switch (id) {
+                            case "Class_Id":
+                                dropDownId = "#Subject_Id";
+                                list = response.SubjectList;
+                                DisableDropDown("#Subject_Id");
+                                // DisableDropDown("#CityId");
+                                PopulateDropDown("#Subject_Id", list);
+                                //    break;
+                                //case "Period_Id":
+                                dropDownId1 = "#Section_Id";
+                                list1 = response.SectionList;
+                                DisableDropDown1("#Section_Id");
+                                PopulateDropDown1("#Section_Id", list1);
+
+                                dropDownId2 = "#Exam_Id";
+                                list2 = response.ExamList;
+                                DisableDropDown2("#Exam_Id");
+                                PopulateDropDown2("#Exam_Id", list2);
+                                break;
+                        }
+
+                    },
+                    failure: function (response) {
+                        alert(response.responseText);
+                    },
+                    error: function (response) {
+                        alert(response.responseText);
+                    }
+                });
+                //});
+
+            }
+
+            function DisableDropDown(dropDownId) {
+                //$(dropDownId).attr("disabled", "disabled");
+                $(dropDownId).empty().append('<option selected="selected" value="0">Select Subject</option>');
+            }
+
+            function PopulateDropDown(dropDownId, list) {
+                if (list != null && list.length > 0) {
+                    //$(dropDownId).removeAttr("disabled");
+                    $.each(list, function () {
+                        $(dropDownId).append($("<option></option>").val(this['Value']).html(this['Text']));
+                    });
+                }
+            }
+
+            function DisableDropDown1(dropDownId1) {
+                //$(dropDownId).attr("disabled", "disabled");
+                $(dropDownId1).empty().append('<option selected="selected" value="0">Select Section</option>');
+            }
+
+            function PopulateDropDown1(dropDownId1, list1) {
+                if (list1 != null && list1.length > 0) {
+                    //$(dropDownId).removeAttr("disabled");
+                    $.each(list1, function () {
+                        $(dropDownId1).append($("<option></option>").val(this['Value']).html(this['Text']));
+                    });
+                }
+            }
+
+
+            function DisableDropDown2(dropDownId2) {
+                //$(dropDownId).attr("disabled", "disabled");
+                $(dropDownId2).empty().append('<option selected="selected" value="0">Select Exam</option>');
+            }
+
+            function PopulateDropDown2(dropDownId2, list2) {
+                if (list2 != null && list2.length > 0) {
+                    //$(dropDownId).removeAttr("disabled");
+                    $.each(list2, function () {
+                        $(dropDownId2).append($("<option></option>").val(this['Value']).html(this['Text']));
+                    });
+                }
+            }
+
+
+
+            $(function () {
+                if ($("#Class_Id").val() != "") {
+                    var message = "Class: " + $("#Class_Id option:selected").text();
+                    //  message += "\nSection: " + $("#Section_Name option:selected").text();
+
+                    // alert(message);
+                }
+
+            });
+
+
+
+
+        </script>
+
+        <script type="text/javascript">
+
+            function LoadStudent_Syllabus() {
+                var Class_Id = 0;
+                var im = 1;
+                $('#result3').css('display', 'none');
+                $('#result2').css('display', 'none');
+                $('#show').css('display', 'block');
+
+                Class_Id = $('#Class_Id').val();
+                var Session_year = $('#Year_Name').val();
+                var Section_Id = $('#Section_Id').val();
+                var Period_Id = $('#Period_Id').val();
+                var Period_Date = $('#Period_Date').val();
+                var Exam_Id = $('#Exam_Id').val();
+
+                var id = $(this).attr("id");
+                var student_id = 0;
+                var student_id2;
+
+                var Class_Name = $("#Class_Id option:selected").text();
+                //var Section_Name = $("#Section_Id option:selected").text();
+                var Exam_Name = $("#Exam_Id option:selected").text();
+
+                $('#update_panel').html('Loading Data...');
+                $.ajax({
+                    url: '/SchoolAdmin/AjaxMethod_StudentSyllabus',
+                    type: 'POST',
+                    data: '{Session_year : "' + Session_year + '", Class_Id : "' + Class_Id + '", Exam_Id:"' + Exam_Id + '"}',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: 'json',
+                    success: function (d) {
+                        if (d.length > 0) {
+
+                            var $data3 = $('<table></table>').addClass('table table-responsive table-striped table-borderless table-hover');
+                            // var header3 = "<thead class='thead-light'><tr><th>Roll No.</th><th>Student Name</th><th>Present or Absent</th><th>Resons for Absent</th> <th>Action</th></tr></thead>";
+                            // $data3.append(header3);
+                            var $row3 = $('<tr/>');
+                            $row3.append($('<td/>').html("<b>Class Name:</b>"));
+                            $row3.append($('<td/>').html(Class_Name));
+                            // $row3.append($('<td/>').html("<b>Section Name:</b>"));
+                            // $row3.append($('<td/>').html(Section_Name));
+                            $row3.append($('<td/>').html("<b>Exam Name:</b>"));
+                            $row3.append($('<td/>').html(Exam_Name));
+                            //$row3.append($('<td/>').html("<b>Period Date:</b>"));
+                            //$row3.append($('<td/>').html(Period_Date));
+
+                            $data3.append($row3);
+                            $('#result3').html($data3);
+                            $('#result3').css('display', 'block');
+
+
+                            var $data = $('<table></table>').addClass('table table-responsive table-striped table-borderless table-hover');
+                            var header = "<thead class='thead-light'><tr><th>Id</th><th style='width: 30%'>Subject Name</th><th>Syllabus Description</th><th>Download Attachement</th><th>Action</th></tr></thead>";
+                            $data.append(header);
+
+                            $.each(d, function (i) {
+
+                                var $row = $('<tr/>');
+                                // if (student_id != student_id2) {
+                                $row.append($('<td/>').html(im));
+
+
+                                // $row.append($('<td/>').html('<a href="#"  class="btn btn - warning" onclick="EditStudentRecord(' + this['Student_Id'] + ')" > ' + this['FullName'] + ' </a>'));                       // $row.append($('<td/>').html(this['Class_Name']));
+                                //  $row.append($('<td/>').html('<input type= "text" name="Class_Nam" value="' + this["Class_Nam"] + '" >'));
+                                //   $row.append($('<td/>').html('<input type= "text"  name="Subject_Name" value="' + this["Section_Nam"] + '" >'));
+                                $row.append($('<td/>').html('<input type= "text"  name="Subject_Name" value="' + this["Subject_Name"] + '" >'));
+                                // $row.append($('<td  rows="6" class="pre-scrollable"/>').html('<input type= "text" rows="6" class="pre-scrollable"  name="Syllabus_Desc" value="' + this["Syllabus_Desc"] + '" >'));
+                                $row.append($('<td/>').html('<textarea name="Syllabus_Desc' + this['Syllabus_Id'] + '" id="editor1" rows="3" cols="55">' + this["Syllabus_Desc"] + ' </textarea>'));
+                                $row.append($('<td/>').html('<a href="/AppFiles/Syllabus/' + this['Syllabus_Attachment_Path'] + '"  class="btn btn - warning" download="' + this["Syllabus_Attachment_name"] + '")" > ' + this['Syllabus_Attachment_name'] + ' </a>'));                       // $row.append($('<td/>').html(this['Class_Name']));
+                                $row.append($('<td/>').html('<a href="#"  class="btn btn - warning" onclick="Load_modal(' + this['Syllabus_Id'] + ')" > Edit </a>')); 
+                                $data.append($row);
+                                im++;
+                                // }
+                            });
+                            $('#result2').html($data);
+                            $('#result2').css('display', 'block');
+                        }
+                        else {
+                            var $noData = $('<div/>').html('No Data Found!');
+                            $('#result1').html($noData);
+                            $('#result1').css('display', 'block');
+                        }
+                    },
+                    error: function () {
+                        alert('Error! Please try again.');
+                    }
+                });
+            }
+            // });
+
+        </script>
+
+        <script type="text/javascript">
+
+            function Load_Syllabus_SubjectWsie() {
+                var Class_Id = 0;
+                var im = 1;
+                $('#result6').css('display', 'none');
+                $('#result5').css('display', 'none');
+                $('#result4').css('display', 'none');
+                $('#show1').css('display', 'block');
+
+                Class_Idd = $('#Class_Idd').val();
+                // var Session_year = $('#Year_Name').val();
+                //var Section_Id = $('#Section_Id').val();
+                //var Period_Id = $('#Period_Id').val();
+                //var Period_Date = $('#Period_Date').val();
+                // var Exam_Id = $('#Exam_Id').val();
+
+                var id = $(this).attr("id");
+
+
+                var Class_Name = $("#Class_Idd option:selected").text();
+                //var Section_Name = $("#Section_Id option:selected").text();
+                //  var Exam_Name = $("#Exam_Id option:selected").text();
+
+                $('#update_panel').html('Loading Data...');
+                $.ajax({
+                    url: '/SchoolAdmin/Ajax_SyllabusExamWise',
+                    type: 'POST',
+                    data: '{Class_Id : "' + Class_Idd + '"}',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: 'json',
+                    success: function (d) {
+                        if (d.length > 0) {
+
+                            //var $data3 = $('<table></table>').addClass('table table-responsive table-striped table-borderless table-hover');
+                            //// var header3 = "<thead class='thead-light'><tr><th>Roll No.</th><th>Student Name</th><th>Present or Absent</th><th>Resons for Absent</th> <th>Action</th></tr></thead>";
+                            //// $data3.append(header3);
+                            //var $row3 = $('<tr/>');
+                            //$row3.append($('<td/>').html("<b>Class Name:</b>"));
+                            //$row3.append($('<td/>').html(Class_Name));
+
+
+                            //$data3.append($row3);
+                            //$('#result6').html($data3);
+                            //$('#result6').css('display', 'block');
+
+
+                            var $data = $('<table></table>').addClass('table table-responsive table-striped table-borderless table-hover');
+                            var header = "<thead class='thead-light'><tr><th>Id</th><th style='width: 30%'>Subject Name</th><th>Exam Name</th><th>Syllabus Description</th><th>Download Attachement</th><th>Action</th></tr></thead>";
+                            $data.append(header);
+
+                            $.each(d, function (i) {
+
+                                var $row = $('<tr/>');
+                                // if (student_id != student_id2) {
+                                $row.append($('<td/>').html(im));
+
+
+                                // $row.append($('<td/>').html('<a href="#"  class="btn btn - warning" onclick="EditStudentRecord(' + this['Student_Id'] + ')" > ' + this['FullName'] + ' </a>'));                       // $row.append($('<td/>').html(this['Class_Name']));
+                                //  $row.append($('<td/>').html('<input type= "text" name="Class_Nam" value="' + this["Class_Nam"] + '" >'));
+                                //   $row.append($('<td/>').html('<input type= "text"  name="Subject_Name" value="' + this["Section_Nam"] + '" >'));
+                                $row.append($('<td/>').html('<input type= "text"  name="Subject_Name" value="' + this["Subject_Name"] + '" >'));
+                                $row.append($('<td/>').html('<input type= "text"  name="Exam_Name" value="' + this["Exam_Name"] + '" >'));
+                                // $row.append($('<td  rows="6" class="pre-scrollable"/>').html('<input type= "text" rows="6" class="pre-scrollable"  name="Syllabus_Desc" value="' + this["Syllabus_Desc"] + '" >'));
+                                $row.append($('<td/>').html('<textarea name="Syllabus_Desc" id="editor1" rows="3" cols="55">' + this["Syllabus_Desc"] + ' </textarea>'));
+                                $row.append($('<td/>').html('<a href="/AppFiles/Syllabus/' + this['Syllabus_Attachment_Path'] + '"  class="btn btn - warning" download="' + this["Syllabus_Attachment_name"] + '")" > ' + this['Syllabus_Attachment_name'] + ' </a>'));                       // $row.append($('<td/>').html(this['Class_Name']));
+                                $row.append($('<td/>').html('<a href="#"  class="btn btn - warning" onclick="Load_modal(' + this['Syllabus_Id'] + ')" > Edit </a>'));
+
+                                $data.append($row);
+                                im++;
+                                // }
+                            });
+                            $('#result5').html($data);
+                            $('#result5').css('display', 'block');
+                        }
+                        else {
+                            var $noData = $('<div/>').html('No Data Found!');
+                            $('#result4').html($noData);
+                            $('#result4').css('display', 'block');
+                        }
+                    },
+                    error: function () {
+                        alert('Error! Please try again.');
+                    }
+                });
+            }
+
+
+
+
+
+
+
+    function Load_modal(Syllabus_Id ) {
+
+                var Syllabus_Desc = null;
+               // alert(Syllabus_Id);
+         $.ajax({
+             url: '/SchoolAdmin/AjaxMethod_ViewSyllabus',
+             type: 'POST',
+             data: '{Syllabus_Id : "' + Syllabus_Id + '"}',
+             contentType: "application/json; charset=utf-8",
+             dataType: 'json',
+             success: function (d) {
+                 if (d.length > 0) {                  
+
+                     $.each(d, function (i) {
+
+                         Syllabus_Desc = this["Syllabus_Desc"];
+
+                         //alert(Syllabus_Desc);
+
+                     });
+
+                     
+         $("#Status").empty().append();
+         var Exam_Name = $("#Exam_Id option:selected").text();
+
+        var msg = "";
+        msg += ' <div class="row">';
+
+         msg += '<div class="form-group">';
+         msg += '<div class="col-md-4">';
+        msg += '<label>Syllabus Description:</label>';
+        msg += '</div>';
+
+         msg += '<div class="col-md-8">';
+        msg += '<div class="input-group">';
+                     msg += '<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>';
+                     msg += '<input type=hidden name="Syllabus_Id" id="Syllabus_Id" value="' + Syllabus_Id +'" >' ;
+
+                     msg += '<textarea name="Syllabus_Desc" id="editor1" rows="3" cols="40">' + Syllabus_Desc+'</textarea>';
+        msg += '</div>';
+         msg += '</div>';
+         msg += '</div>';
+
+         msg += '<div class="form-group">';
+         msg += '<div class="col-md-4">';
+         msg += '<label>Attachment:</label>';
+         msg += '</div>';
+
+         msg += '<div class="col-md-4">';
+         msg += '<div class="input-group">';
+         msg += '<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>';
+         msg += '<input type="file" name="Syllabus_Attachment"  style="margin:10px;" />';
+         msg += '</div>';
+         msg += '</div>';
+         msg += '</div>';
+       // msg += '</div>';
+      //  msg += '</div>';
+
+        msg += '<div class="clearfix"></div>';
+        msg += '<br>';
+        msg += '<br>';
+        //msg += ' <a class="btn btn-primary" onclick="@("window.location.href='" + @Url.Action("AdminHeaderBoard", "DashBoard") + "'");"><span class="glyphicon glyphicon-home"></span> &nbsp; Home</a>';
+        msg += ' <center>';
+        msg += ' <div class="form-group" >';
+
+        // msg += '  <a class="btn btn-success" onclick="Absent_reason(\'' + Syllabus_Id + '\',\'' + Syllabus_Id + '\')">Submit</a>';
+       msg +=     '<input type= "submit"  class="btn btn-success" value="Submit" >';
+       // msg += '&nbsp';
+        msg += ' </div >';
+        msg += ' </center>';
+        $("#desc_results").html(msg);
+        $('#myModal').modal('toggle');
+                
+            }
+                        else {
+            
+            }
+                    },
+            error: function () {
+                alert('Error! Please try again.');
+            }
+                });
+
+        // alert(Syllabus_Desc);
+         @*$("#Status").empty().append();
+         var Exam_Name = $("#Exam_Id option:selected").text();
+
+        var msg = "";
+        msg += ' <div class="row">';
+
+         msg += '<div class="form-group">';
+         msg += '<div class="col-md-4">';
+        msg += '<label>Syllabus Description:</label>';
+        msg += '</div>';
+
+         msg += '<div class="col-md-8">';
+        msg += '<div class="input-group">';
+        msg += '<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>';
+        msg += '<textarea name="Syllabus_Desc" id="editor1" rows="3" cols="40"></textarea>';
+        msg += '</div>';
+         msg += '</div>';
+         msg += '</div>';
+
+         msg += '<div class="form-group">';
+         msg += '<div class="col-md-4">';
+         msg += '<label>Attachemnt:</label>';
+         msg += '</div>';
+
+         msg += '<div class="col-md-4">';
+         msg += '<div class="input-group">';
+         msg += '<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>';
+         msg += '<input type="file" name="Syllabus_Attachment" required="required" style="margin:10px;" />';
+         msg += '</div>';
+         msg += '</div>';
+         msg += '</div>';
+       // msg += '</div>';
+      //  msg += '</div>';
+
+        msg += '<div class="clearfix"></div>';
+        msg += '<br>';
+        msg += '<br>';
+        //msg += ' <a class="btn btn-primary" onclick="@("window.location.href='" + @Url.Action("AdminHeaderBoard", "DashBoard") + "'");"><span class="glyphicon glyphicon-home"></span> &nbsp; Home</a>';
+        msg += ' <center>';
+        msg += ' <div class="form-group" >';
+
+         msg += '  <a class="btn btn-success" onclick="Absent_reason(\'' + Syllabus_Id + '\',\'' + Syllabus_Id + '\')">Submit</a>';
+
+       // msg += '&nbsp';
+        msg += ' </div >';
+        msg += ' </center>';
+        $("#desc_results").html(msg);
+        $('#myModal').modal('toggle');*@
+
+
+            }
+
+        </script>
+
+
+
+
+
+
+
+    }
+
+
+</body>
+</html>
+
+
+

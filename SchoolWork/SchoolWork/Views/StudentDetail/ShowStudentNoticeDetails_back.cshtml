@@ -1,0 +1,91 @@
+﻿@model SchoolWork.Models.NoticeDetails
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ShowNoticeDetails</title>
+</head>
+<body>
+    <div>
+        <h4>NoticeDetails</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Notice_Id)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Notice_Id)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.School_Code)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.School_Code)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.School_Name)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.School_Name)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Notice_Title)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Notice_Title)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Notice_Description)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Notice_Description)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.User_Id)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.User_Id)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Notice_Published_On)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Notice_Published_On)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Notice_Status)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Notice_Status)
+            </dd>
+
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>
+</html>
+

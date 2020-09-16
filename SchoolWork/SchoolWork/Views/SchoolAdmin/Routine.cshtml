@@ -1,0 +1,1067 @@
+﻿@model SchoolWork.Models.Routine
+
+@{
+    ViewBag.Title = "Routine";
+}
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+
+    <link href="~/CSS/stylesheet2.css" rel="stylesheet" />
+    <style>
+        .text-danger {
+            font-weight: 700;
+            color: red;
+        }
+
+        .body-div {
+            margin-top: 140px;
+            border-color: indigo;
+            border-style: groove;
+            padding: 35px;
+        }
+
+        .Education {
+            border-color: lightyellow;
+            border-style: inset;
+            padding: 17px;
+        }
+
+        p {
+            text-align: center;
+        }
+
+
+        .container {
+            width: 90% !important;
+            padding: 10px !important;
+        }
+
+        .well {
+            background-color: #ead4b3 !important;
+            padding: 10px 19px !important;
+            /*border-style: inset;*/
+        }
+        .tab_menu_left{
+             padding: 20px;
+            font-weight: 700;
+            border-radius: 6%;
+            float: left;
+            font-size: 17px;
+            background-color: rgb(228, 211, 184);
+            zoom: 1;
+            box-shadow: 5px 5px 5px rgba(68, 68, 68, 0.6);
+            margin-right: 8px;
+            width: 23%;
+        }
+
+        .tab_menu_right{
+             padding: 20px;
+            font-weight: 700;
+            border-radius: 6%;
+            float: left;
+            font-size: 17px;
+            background-color: rgb(228, 211, 184);
+            zoom: 1;
+            box-shadow: 5px 5px 5px rgba(68, 68, 68, 0.6);
+            margin-left: 8px;
+            width: 75%;
+        }
+        .form-group{
+            padding: 6px !important;
+        }
+
+      p.solid {border-style: solid;}
+    </style>
+</head>
+<body id="LoginForm" style="background-color:antiquewhite;">
+
+
+
+
+    <div class="container">
+
+
+        <div class="body-div" style="background-color:blanchedalmond; max-width:100%">
+
+
+            <div class="row  Education">
+
+                <!-- Navigation Buttons -->
+                <div class="col-md-3 tab_menu_left">
+                    <div class="col-sm-12 col-md-12">
+                        <ul class="nav nav-pills nav-stacked" id="myTabs">
+                            <li class="active">
+                                <a href="#View" data-toggle="pill" onclick="Javascript:callforRoutine(1)">
+                                    View
+                                    <span class="glyphicon glyphicon-arrow-right" style="float:right"></span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#Add" data-toggle="pill">
+                                    Add
+                                    <span class="glyphicon glyphicon-arrow-right" style="float:right"></span>
+                                </a>
+                            </li>
+
+                        </ul>
+                    </div>
+                    <div class=" class=" col-sm-12 col-md-12"">
+                        <div class="col-sm-12 text-left">
+
+
+                            <a class="btn btn-success btn-md" onclick="Javascript: callforRoutine(2)">Edit</a>
+
+                            <a class="btn btn-danger btn-md" onclick="Javascript:DeleteRoutine()">Delete</a>
+
+                            <a class="btn btn-warning btn-md" onclick="Javascript:ClearAll()">Reset</a>
+
+
+                        </div>
+                    </div>
+                </div><!--End Of Navigation Button-->
+                <!-- Content -->
+                <div class="col-md-9 tab_menu_right">
+
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="View">
+
+                            <div class="row">
+                                <div class="col-sm-12 text-center">
+
+                                    <div class="col-sm-12 text-center" id="viewheader">
+                                        <h3><font style="color:#428bca"><u>VIEW ROUTINE </u></font></h3>
+                                    </div>
+                                    <div class="row">
+
+
+                                        <div class="form-group">
+
+                                            <div class="row col-sm-12">
+                                                <div class="col-sm-6">
+                                                    <div class="col-md-4">
+                                                        <label for="fullday">Class:</label>
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        @Html.DropDownListFor(m => m.ClassView, Model.ClassList, "--Select Class--", new { @class = "form-control" })
+
+                                                        @Html.ValidationMessageFor(m => m.ClassView, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="col-md-4">
+                                                        <label for="fullday">Section:</label>
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        @Html.DropDownListFor(m => m.SectionView, Model.SectionList, "--Select Section--", new { @class = "form-control", @onchange = "JavaScript:callforRoutine(1)" })
+                                                        @Html.ValidationMessageFor(m => m.SectionView, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                            <div id="ViewData" class="col-sm-12">
+
+
+                                            </div>
+                                            <!--To be added to left menu-->
+                                        </div>
+
+
+
+
+                                    </div>
+
+
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+
+
+
+                        </div><!--End View-->
+                        <div class="tab-pane" id="Add">
+                            @using (Html.BeginForm("RoutineAdd", "SchoolAdmin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                            {
+
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                <div class="row">
+                                    <div class="col-sm-12 text-center">
+                                        <h3><font style="color:#428bca"><u>ADD ROUTINE </u></font></h3>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="col-md-10 col-md-offset-1">
+                                            <div class="form-group">
+                                                <div class="col-md-4">
+                                                    <label for="fullday">Class:</label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    @Html.DropDownListFor(m => m.Class, Model.ClassList, "--Select Class--", new { @class = "form-control" })
+
+                                                    @Html.ValidationMessageFor(m => m.Class, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                            <div class="form-group">
+                                                <div class="col-md-4">
+                                                    <label for="fullday">Section:</label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    @Html.DropDownListFor(m => m.SectionId, Model.SectionList, "--Select Section--", new { @class = "form-control" })
+                                                    @Html.ValidationMessageFor(m => m.SectionId, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                            <div class="form-group">
+                                                <div class="col-md-4">
+                                                    <label for="fullday">Teacher :</label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    @Html.DropDownListFor(m => m.Teacher, Model.TeacherList, "--Select Teacher--", new { @class = "form-control" })
+
+                                                    @Html.ValidationMessageFor(m => m.Teacher, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                            <div class="form-group">
+                                                <div class="col-md-4">
+                                                    <label for="fullday">Subject:</label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    @Html.DropDownListFor(m => m.SubjectId, Model.SubjectList, "--Select Subject--", new { @class = "form-control" })
+                                                    @Html.ValidationMessageFor(m => m.SubjectId, "", new { @class = "text-danger" })
+
+                                                </div>
+                                            </div>
+                                            <div class="clearfix"></div>
+
+                                            <div class="form-group">
+                                                <div class="col-md-4">
+                                                    <label for="fullday"> Room:</label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    @Html.DropDownListFor(m => m.RoomId, Model.RoomList, "--Select Room--", new { @class = "form-control", @onchange = "Javascript:ChangeColor()" })
+
+                                                    @Html.ValidationMessageFor(m => m.RoomId, "", new { @class = "text-danger" })
+
+                                                </div>
+                                            </div>
+                                            <div class="clearfix"></div>
+
+
+                                            <div class="form-group">
+                                                <div class="col-md-4">
+                                                    <label for="fullday"> Day:</label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    @Html.DropDownListFor(m => m.DayId, Model.DayList, "--Select Day--", new { @class = "form-control" })
+
+                                                    @Html.ValidationMessageFor(m => m.DayId, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                            <div class="clearfix"></div>
+
+                                            <div class="form-group">
+                                                <div class="col-md-4">
+                                                    <label for="fullday"> Period:</label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    @Html.DropDownListFor(m => m.PeriodId, Model.PeriodList, "--Select Period--", new { @class = "form-control" })
+
+                                                    @Html.ValidationMessageFor(m => m.PeriodId, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                            <br />
+                                            <div class="form-group">
+
+
+                                                <div class="col-sm-12" style="text-align:right;">
+                                                    <input type="submit" value="Save" class="btn btn-success btn-md" id="save" onclick="Javascript:check()">
+                                                    <a class="btn btn-warning btn-md" onclick="Javascript:ClearAll()">Clear</a>
+                                                </div>
+
+
+
+                                            </div>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                            }
+                            <!--end of form add routine-->
+
+
+
+                        </div><!--End Add-->
+                        @*<div class="tab-pane" id="Update">
+                    @using (Html.BeginForm("RoutineView", "SchoolAdmin", FormMethod.Get, new { enctype = "multipart/form-data" ))
+                    {}
+
+                </div>*@<!--End Update-->
+                        @*<div class="tab-pane  " id="Delete">
+
+                </div>*@
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div> <!---end class body div row-->
+    </div> <!--container-->
+
+    @section Scripts {
+
+        @Scripts.Render("~/bundles/jqueryval")
+
+
+        @Styles.Render("~/Content/cssjqryUi")
+
+
+
+        <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+        <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+        <link href="~/CSS/StyleSheet5.css" rel="stylesheet" />
+        <link href="~/CSS/Table.css" rel="stylesheet" />
+
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+
+
+
+        <!--sweet alert-->
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+
+        <!-- DataTables CSS -->
+
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.5/css/jquery.dataTables.css">
+
+
+        <!-- DataTables -->
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.5/js/jquery.dataTables.js">
+        </script>
+
+        <script>
+
+             window.onload = function () {
+                 $("#RoomId").find("option:contains('Empty')").css('background','rgba(188, 238, 104, 0.7)');
+
+                 $("#RoomId").find("option:contains('Occupied')").css('background', 'rgba(253, 112, 102, 0.87)');
+
+
+                 
+
+            }
+        </script>
+
+
+
+
+        <script type="text/javascript">
+             var holidaylist;
+             var header ="";
+
+            function ChangeColor() {
+
+                var eID = document.getElementById("RoomId");
+                var colorVal = eID.options[eID.selectedIndex].value;
+                var colortxt = eID.options[eID.selectedIndex].text;
+
+                if (colortxt.includes("Empty") || colortxt.includes("empty"))
+                    document.getElementById('RoomId').style.background = "rgba(188, 238, 104, 0.7)";
+
+                else
+                    document.getElementById('RoomId').style.background = "rgba(253, 112, 102, 0.87)";
+            }
+
+
+
+            function callforRoutine(id) {
+
+
+               
+                var list1, list, holiday;
+                var clsv = $("#ClassView").val();
+                var scv = $("#SectionView").val();
+
+                 $.ajax({
+                    type: "POST",
+                    url: "/SchoolAdmin/AjaxHolidayList",
+                    data: '{}',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+
+                        holiday = response.holidays;
+                        
+                       // alert(holidaylist.toString());
+                    },
+                    failure: function (response) {
+                        alert("from  holiday ajax failure" + response.responseText);
+                    },
+                    error: function (response) {
+                        alert("from holiday ajax error  " + response.responseText);
+                    }
+                });
+                
+                    $.ajax({
+                        type: "POST",
+                        url: "/SchoolAdmin/AjaxCreatePeriod",
+                        data: '{clsv:"' + clsv + '",scv:"' + scv + '"}',
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function (response) {
+                            //alert("header");
+                            list1 = response.TempRoutine;
+                            //alert(list1.length);
+
+                            //createHeader(list1);
+                            //if (id == 2)
+                    },
+                        failure: function (response) {
+                            alert("from  inner failure" + response.responseText);
+                        },
+                        error: function (response) {
+                            alert("from inner error  " + response.responseText);
+                        }
+                    });
+
+
+
+                    $.ajax({
+                        type: "POST",
+                        url: "/SchoolAdmin/AjaxCreateRoutine",
+                        data: '{clsv:"' + clsv + '",scv:"' + scv + '"}',
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function (response) {
+                            list = response.TempRoutine;
+                            if (id == 1) {
+                                if (list.length > 0) {
+                                   
+                                    createRoutine(list, list1, holiday);
+                                }
+                                else
+                                    CreateNoData();
+                            }
+                            if (id == 2) {
+
+                                if (list.length > 0)
+                                    createEdit(list, list1, holiday);
+                                else
+                                    CreateNoData();
+                            }
+                        },
+                        failure: function (response) {
+                            alert("from  inner failure" + response.responseText);
+                        },
+                        error: function (response) {
+                            alert("from inner error  " + response.responseText);
+                        }
+                    });
+                
+
+
+            }
+            function enableUpdate(Routine_Id) {
+                //alert();
+                var bttn = "#but" + Routine_Id;
+                $(bttn).show(true);
+          
+            }
+
+            function UpdateRoutine(Routine_Id) {
+
+                var rm = "#Room" + Routine_Id;
+                
+                var RNo=$(rm).text();
+
+                var tname=$("#Teach" + Routine_Id).text();
+                var Sub=$("#Sub" + Routine_Id).text();
+                
+                $.ajax({
+                        type: "POST",
+                        url: "/SchoolAdmin/AjaxUpdateRoutine",
+                        data: '{RNo:' + RNo + ', tname:"' + tname + '", Sub:"'+Sub+'", Routine_Id:'+Routine_Id+'}',
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function (response) {
+
+                            swal({
+                                title: "",
+                                text: response,
+                                icon: "success"
+                            });
+                        },
+                        failure: function (response) {
+                            alert("from  inner failure" + response.responseText);
+                        },
+                        error: function (response) {
+                            alert("from inner error  " + response.responseText);
+                        }
+                    });
+
+
+
+                var bttn = "#but" + Routine_Id;
+                $(bttn).hide(true);
+            }
+
+
+            function createEdit(list, list1, holiday) {
+
+
+                var str = "<h3><font style='color:#428bca'><u>EDIT ROUTINE </u></font></h3>";
+
+
+                $("#viewheader").html(str);
+                
+
+                var limit = list1.length + 1;
+
+               
+
+                if (list1 != null && list1.length > 0) {
+                     header = "<Table border='solid 2px' class='col-sm-12' id='routine'><tr><td>Days</td>";
+                    $.each(list1, function () {
+                        header+="<td>"+ this['PeriodId']+"</td>";
+
+                    });
+                }
+
+                header += "</tr>";
+
+
+                if (list != null && list.length > 0) {
+                    var mon = 0, tue = 0, wed = 0, thu = 0, fri = 0, sat = 0;
+                     var monhol = 0, tuehol = 0, wedhol = 0, thuhol = 0, frihol = 0, sathol = 0;
+
+
+
+                    $.each(list, function () {
+                        
+                       
+                      if (this['DayId'] == "Monday") {
+                          if (mon == 0) 
+                                header += "<tr><td>" + this['DayId'] + "</td>";
+
+                          if (holiday.search(this['DayId']) == -1) {
+
+                              header += "<td>";
+                          header += "Subject:<p contenteditable='true' class='solid' onclick='JavaScript:enableUpdate("+this['Routine_Id']+")' id='Sub"+this['Routine_Id']+"'> "+ this['PeriodId'] + " </p>";
+                          header += "Teacher:<p contenteditable='true' class='solid'  onclick='JavaScript:enableUpdate("+this['Routine_Id']+")' id='Teach"+this['Routine_Id']+"'> " + this['Teacher'] + " </p>";
+                          header += "  RNo. <p contenteditable='true' class='solid'  onclick='JavaScript:enableUpdate("+this['Routine_Id']+")' id='Room"+this['Routine_Id']+"'>  " + this['RoomId'] + "</p>";
+
+                          header += "<div id='but"+this['Routine_Id']+"' hidden='hidden'><input type='Button' value='Update' id='buthid"+this['Routine_Id']+"' class='btn btn-primary' onClick='JavaScript:UpdateRoutine("+this['Routine_Id']+")'> </div>  </td > ";
+                            
+
+
+                          }  
+                                
+                          if (holiday.search(this['DayId']) != -1) {
+                              if (monhol==0)
+                                  header += "<td colspan='"+limit+"' class='text-align:center'> <font color='red' size='4'> H O L I D A Y </font></td>";
+                              monhol++;
+                          }
+
+
+
+                                
+                          
+                          
+
+                        }
+                        mon++
+                          if (mon == limit) {
+                              header += "</tr>";
+
+                          }
+
+                        if (this['DayId'] == "Tuesday") {
+                            if (tue == 0) //{
+
+                                header += "<tr><td>" + this['DayId'] + "</td>";
+
+
+
+                            if (holiday.search(this['DayId']) == -1) {
+
+                                header += "<td>";
+                                header += "Subject:<p contenteditable='true' class='solid' onclick='JavaScript:enableUpdate(" + this['Routine_Id'] + ")' id='Sub" + this['Routine_Id'] + "'> " + this['PeriodId'] + " </p>";
+                                header += "Teacher:<p contenteditable='true' class='solid'  onclick='JavaScript:enableUpdate(" + this['Routine_Id'] + ")' id='Teach" + this['Routine_Id'] + "'> " + this['Teacher'] + " </p>";
+                                header += "  RNo. <p contenteditable='true' class='solid'  onclick='JavaScript:enableUpdate(" + this['Routine_Id'] + ")' id='Room" + this['Routine_Id'] + "'>  " + this['RoomId'] + "</p>";
+
+                                header += "<div id='but" + this['Routine_Id'] + "' hidden='hidden'><input type='Button' value='Update' id='buthid" + this['Routine_Id'] + "' class='btn btn-primary' onClick='JavaScript:UpdateRoutine(" + this['Routine_Id'] + ")'> </div>  </td > ";
+
+                                
+
+                            }
+                            tue++;
+                                if (tue == limit) {
+                                    header += "</tr>";
+
+                                }
+
+                            if (holiday.search(this['DayId']) != -1) {
+                                if (tuehol == 0)
+                                    header += "<td colspan='" + limit + "' class='text-align:center'> <font color='red' size='4'> H O L I D A Y </font></td>";
+                                tuehol++;
+                            }
+
+
+
+
+
+                        }//end tuesday
+                        if (this['DayId'] == "Wednesday") {
+                            if (wed == 0) //{
+
+                               header += "<tr><td>" + this['DayId'] + "</td>";
+
+                            if (holiday.search(this['DayId']) == -1) {
+                                header += "<td>";
+                                header += "Subject:<p contenteditable='true' class='solid' onclick='JavaScript:enableUpdate(" + this['Routine_Id'] + ")' id='Sub" + this['Routine_Id'] + "'> " + this['PeriodId'] + " </p>";
+                                header += "Teacher:<p contenteditable='true' class='solid'  onclick='JavaScript:enableUpdate(" + this['Routine_Id'] + ")' id='Teach" + this['Routine_Id'] + "'> " + this['Teacher'] + " </p>";
+                                header += "  RNo. <p contenteditable='true' class='solid'  onclick='JavaScript:enableUpdate(" + this['Routine_Id'] + ")' id='Room" + this['Routine_Id'] + "'>  " + this['RoomId'] + "</p>";
+
+                                header += "<div id='but" + this['Routine_Id'] + "' hidden='hidden'><input type='Button' value='Update' id='buthid" + this['Routine_Id'] + "' class='btn btn-primary' onClick='JavaScript:UpdateRoutine(" + this['Routine_Id'] + ")'> </div>  </td > ";
+                               
+                            }
+                             wed++;
+
+                            
+                             if (wed == limit) {
+                                header += "</tr>";
+
+                              }
+                            if (holiday.search(this['DayId']) != -1) {
+                                if (wedhol == 0)
+                                    header += "<td colspan='" + limit + "' class='text-align:center'> <font color='red' size='4'> H O L I D A Y </font></td>";
+                                wedhol++;
+                            }
+
+                        }
+                        if (this['DayId'] == "Thursday") {
+                            if (thu== 0) //{
+
+                               header += "<tr><td>" + this['DayId'] + "</td>";
+
+                            if (holiday.search(this['DayId']) == -1) {
+                                header += "<td>";
+                                header += "Subject:<p contenteditable='true' class='solid' onclick='JavaScript:enableUpdate(" + this['Routine_Id'] + ")' id='Sub" + this['Routine_Id'] + "'> " + this['PeriodId'] + " </p>";
+                                header += "Teacher:<p contenteditable='true' class='solid'  onclick='JavaScript:enableUpdate(" + this['Routine_Id'] + ")' id='Teach" + this['Routine_Id'] + "'> " + this['Teacher'] + " </p>";
+                                header += "  RNo. <p contenteditable='true' class='solid'  onclick='JavaScript:enableUpdate(" + this['Routine_Id'] + ")' id='Room" + this['Routine_Id'] + "'>  " + this['RoomId'] + "</p>";
+
+                                header += "<div id='but" + this['Routine_Id'] + "' hidden='hidden'><input type='Button' value='Update' id='buthid" + this['Routine_Id'] + "' class='btn btn-primary' onClick='JavaScript:UpdateRoutine(" + this['Routine_Id'] + ")'> </div>  </td > ";
+
+                               
+                            }
+
+                             thu++;
+
+
+                                if (thu == limit) {
+                                    header += "</tr>";
+
+                                }
+                             if (holiday.search(this['DayId']) != -1) {
+                                if (thuhol == 0)
+                                    header += "<td colspan='" + limit + "' class='text-align:center'> <font color='red' size='4'> H O L I D A Y </font></td>";
+                                   thuhol++;
+                              }
+
+
+                        }
+                        if (this['DayId'] == "Friday") {
+                            if (fri== 0) //{
+
+                                header += "<tr><td>" + this['DayId'] + "</td>";
+                            if (holiday.search(this['DayId']) == -1)
+                            {
+                                header += "<td>";
+                                header += "Subject:<p contenteditable='true' class='solid' onclick='JavaScript:enableUpdate(" + this['Routine_Id'] + ")' id='Sub" + this['Routine_Id'] + "'> " + this['PeriodId'] + " </p>";
+                                header += "Teacher:<p contenteditable='true' class='solid'  onclick='JavaScript:enableUpdate(" + this['Routine_Id'] + ")' id='Teach" + this['Routine_Id'] + "'> " + this['Teacher'] + " </p>";
+                                header += "  RNo. <p contenteditable='true' class='solid'  onclick='JavaScript:enableUpdate(" + this['Routine_Id'] + ")' id='Room" + this['Routine_Id'] + "'>  " + this['RoomId'] + "</p>";
+
+                                header += "<div id='but" + this['Routine_Id'] + "' hidden='hidden'><input type='Button' value='Update' id='buthid" + this['Routine_Id'] + "' class='btn btn-primary' onClick='JavaScript:UpdateRoutine(" + this['Routine_Id'] + ")'> </div>  </td > ";
+
+                               
+                            }
+
+
+                             fri++;
+
+
+                                if (fri == limit) {
+                                    header += "</tr>";
+
+                                }
+                            if (holiday.search(this['DayId']) != -1) {
+                                if (frihol == 0)
+                                    header += "<td colspan='" + limit + "' class='text-align:center'> <font color='red' size='4'> H O L I D A Y </font></td>";
+                                   frihol++;
+                              }
+
+                        }
+
+                        if (this['DayId'] == "Saturday") {
+                            if (sat == 0) //{
+
+                                header += "<tr><td>" + this['DayId'] + "</td>";
+
+
+                        if (holiday.search(this['DayId']) == -1)
+                        {
+                            header += "<td>";
+                            header += "Subject:<p contenteditable='true' class='solid' onclick='JavaScript:enableUpdate(" + this['Routine_Id'] + ")' id='Sub" + this['Routine_Id'] + "'> " + this['PeriodId'] + " </p>";
+                            header += "Teacher:<p contenteditable='true' class='solid'  onclick='JavaScript:enableUpdate(" + this['Routine_Id'] + ")' id='Teach" + this['Routine_Id'] + "'> " + this['Teacher'] + " </p>";
+                            header += "  RNo. <p contenteditable='true' class='solid'  onclick='JavaScript:enableUpdate(" + this['Routine_Id'] + ")' id='Room" + this['Routine_Id'] + "'>  " + this['RoomId'] + "</p>";
+
+                            header += "<div id='but" + this['Routine_Id'] + "' hidden='hidden'><input type='Button' value='Update' id='buthid" + this['Routine_Id'] + "' class='btn btn-primary' onClick='JavaScript:UpdateRoutine(" + this['Routine_Id'] + ")'> </div>  </td > ";
+
+
+
+                            
+                            }
+
+                            sat++;
+
+
+                            if (sat == limit) {
+                                header += "</tr>";
+
+                            }
+
+                        if (holiday.search(this['DayId']) != -1) {
+                                if (sathol == 0)
+                                    header += "<td colspan='" + limit + "' class='text-align:center'> <font color='red' size='4'> H O L I D A Y </font></td>";
+                                   sathol++;
+                              }
+
+                        }
+
+                    });
+
+                    header += "</Table>";
+
+                }
+                
+                $("#ViewData").html(header);
+
+                //$("#routine").DataTable();
+            }
+            
+            
+            function DeleteRoutine() {
+
+                var clsv = $("#ClassView").val();
+                var scv = $("#SectionView").val();
+
+                 if(confirm("Do you  want to delete?"))
+                if (confirm("Do you really want to delete"))
+                 {
+                    $.ajax({
+                        type: "POST",
+                        url: "/SchoolAdmin/AjaxDeletePeriod",
+                        data: '{clsv:"' + clsv + '",scv:"' + scv + '"}',
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function (response) {
+                            swal({
+                                title: "",
+                                text: response,
+                                icon: "success"
+                            });
+                        },
+                        failure: function (response) {
+                            alert("from  inner failure" + response.responseText);
+                        },
+                        error: function (response) {
+                            alert("from inner error  " + response.responseText);
+                        }
+
+
+
+                    });
+
+
+                }
+
+
+            }
+
+            function CreateNoData() {
+
+
+                var str = "<table border='1' class='col-sm-12' id='routine'><tr><td>Period 1</td><td>Period 2</td><td>Period 3</td><td>Period 4</td><td>Period 5</td></tr>";
+                  str+="<tr><td colspan=5><font color='brown' size='5'>No Data Found</font></td></tr>"
+                
+                
+                str += "</table > ";
+
+                 $("#ViewData").html(str);
+
+            }
+            
+
+            
+            function ClearAll() {
+
+                var clsv = $("#ClassView").val();
+                var scv = $("#SectionView").val();
+
+
+                if (confirm("Do you  want to CLEAR ALL DATA?"))
+                    if (confirm("Do you really want to CLEAR")) {
+                        $.ajax({
+                            type: "POST",
+                            url: "/SchoolAdmin/AjaxClearPeriod",
+                            data: '{clsv:"' + clsv + '",scv:"' + scv + '"}',
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            success: function (response) {
+
+                                swal({
+                                title: "",
+                                text: response,
+                                icon: "success"
+                            });
+                                callforRoutine(2);
+                            },
+                            failure: function (response) {
+                                alert("from  inner failure" + response.responseText);
+                            },
+                            error: function (response) {
+                                alert("from inner error  " + response.responseText);
+                            }
+                        });
+                    }
+
+
+
+            }
+           
+            function createRoutine(list,list1,holiday) {
+
+
+                //alert("createroutine "+holiday);
+                var str = "<h3><font style='color:#428bca'><u>VIEW ROUTINE </u></font></h3>";
+
+
+                $("#viewheader").html(str);
+
+
+              
+
+               
+                holiday = holiday.toString();
+
+                 
+
+               
+                //"Monday"+", Wednesday"+",Thursday"+ ", Saturday";
+                var limit = list1.length + 1;
+
+               
+
+                if (list1 != null && list1.length > 0) {
+                     header = "<Table border='1' class='col-sm-12' id='routine'><tr><td>Days</td>";
+                    $.each(list1, function () {
+                        header+="<td>"+ this['PeriodId']+"</td>";
+
+                    });
+                }
+
+                header += "</tr>";
+
+
+                if (list != null && list.length > 0) {
+                    var mon = 0, tue = 0, wed = 0, thu = 0, fri = 0, sat = 0;
+                    var monhol = 0,tuehol = 0,wedhol = 0,thuhol = 0,frihol = 0,sathol = 0;
+
+
+
+                    $.each(list, function () {
+
+                        //alert(holidays);
+                      if (this['DayId'] == "Monday") {
+                          if (mon == 0) 
+                              
+                                header += "<tr><td>" + this['DayId'] + "</td>";
+                         
+                          if (holiday.search(this['DayId'])==-1)  
+                                header +=  "<td> Sub:" + this['PeriodId'] + " Teacher:" + this['Teacher'] + " RNo." + this['RoomId'] + "</td>";
+                          if (holiday.search(this['DayId']) != -1) {
+                              if (monhol==0)
+                                  header += "<td colspan='"+limit+"' class='text-align:center'> <font color='red' size='4'> H O L I D A Y </font></td>";
+                              monhol++;
+                          }
+                          mon++
+                          if (mon == limit) {
+                              header += "</tr>";
+
+                          }
+
+                        }
+
+                        if (this['DayId'] == "Tuesday") {
+                            if (tue == 0) //{
+
+                                header += "<tr><td>" + this['DayId'] + "</td>";
+
+                               // header += "<td> Sub:" + this['PeriodId'] + " Teacher:" + this['Teacher'] + " RNo." + this['RoomId'] + "</td>";
+
+
+                            if (holiday.search(this['DayId'])==-1)  
+                                header +=  "<td> Sub:" + this['PeriodId'] + " Teacher:" + this['Teacher'] + " RNo." + this['RoomId'] + "</td>";
+                          if (holiday.search(this['DayId']) != -1) {
+                              if (tuehol==0)
+                                  header += "<td colspan='"+limit+"' class='text-align:center'> <font color='red' size='4'> H O L I D A Y </font></td>";
+                              tuehol++;
+                          }
+                            
+                            tue++;
+                            if (tue == limit) {
+                              header += "</tr>";
+
+                          }
+
+                        }
+                        if (this['DayId'] == "Wednesday") {
+                            if (wed == 0) //{
+
+                                header += "<tr><td>" + this['DayId'] + "</td>";
+
+                               // header += "<td> Sub:" + this['PeriodId'] + " Teacher:" + this['Teacher'] + " RNo." + this['RoomId'] + "</td>";
+
+
+                             if (holiday.search(this['DayId'])==-1)  
+                                header +=  "<td> Sub:" + this['PeriodId'] + " Teacher:" + this['Teacher'] + " RNo." + this['RoomId'] + "</td>";
+                          if (holiday.search(this['DayId']) != -1) {
+                              if (wedhol==0)
+                                  header += "<td colspan='"+limit+"' class='text-align:center'> <font color='red' size='4'> H O L I D A Y </font></td>";
+                              wedhol++;
+                          }
+                            
+                            wed++;
+
+                            
+                            if (wed == limit) {
+                              header += "</tr>";
+
+                          }
+
+                        }
+                        if (this['DayId'] == "Thursday") {
+                            if (thu== 0) //{
+
+                                header += "<tr><td>" + this['DayId'] + "</td>";
+
+                                //header += "<td> Sub:" + this['PeriodId'] + " Teacher:" + this['Teacher'] + " RNo." + this['RoomId'] + "</td>";
+
+                             if (holiday.search(this['DayId'])==-1)  
+                                header +=  "<td> Sub:" + this['PeriodId'] + " Teacher:" + this['Teacher'] + " RNo." + this['RoomId'] + "</td>";
+                          if (holiday.search(this['DayId']) != -1) {
+                              if (thuhol==0)
+                                  header += "<td colspan='"+limit+"' class='text-align:center'> <font color='red' size='4'> H O L I D A Y </font></td>";
+                              thuhol++;
+                          }
+                            
+                            thu++;
+
+                            
+                            if (thu == limit) {
+                              header += "</tr>";
+
+                          }
+
+                        }
+                        if (this['DayId'] == "Friday") {
+                            if (fri== 0) //{
+
+                                header += "<tr><td>" + this['DayId'] + "</td>";
+
+                               // header += "<td> Sub:" + this['PeriodId'] + " Teacher:" + this['Teacher'] + " RNo." + this['RoomId'] + "</td>";
+
+                             if (holiday.search(this['DayId'])==-1)  
+                                header +=  "<td> Sub:" + this['PeriodId'] + " Teacher:" + this['Teacher'] + " RNo." + this['RoomId'] + "</td>";
+                          if (holiday.search(this['DayId']) != -1) {
+                              if (frihol==0)
+                                  header += "<td colspan='"+limit+"' class='text-align:center'> <font color='red' size='4'> H O L I D A Y </font></td>";
+                               frihol++;
+                          }
+
+
+                            fri++;
+
+                            
+                            if (fri == limit) {
+                              header += "</tr>";
+
+                          }
+
+                        }
+
+                        if (this['DayId'] == "Saturday") {
+                            if (sat== 0) //{
+
+                                header += "<tr><td>" + this['DayId'] + "</td>";
+
+                               // header += "<td> Sub:" + this['PeriodId'] + " Teacher:" + this['Teacher'] + " RNo." + this['RoomId'] + "</td>";
+
+                             if (holiday.search(this['DayId'])==-1)  
+                                header +=  "<td> Sub:" + this['PeriodId'] + " Teacher:" + this['Teacher'] + " RNo." + this['RoomId'] + "</td>";
+                          if (holiday.search(this['DayId']) != -1) {
+                              if (sathol==0)
+                                  header += "<td colspan='"+limit+"' class='text-align:center'> <font color='red' size='4'> H O L I D A Y </font></td>";
+                              sathol++;
+                          }
+                            
+                            sat++;
+
+                            
+                            if (sat == limit) {
+                              header += "</tr>";
+
+                          }
+
+                        }
+
+                    });
+
+                    header += "</Table>";
+
+                }
+                
+                $("#ViewData").html(header);
+
+                //$("#routine").DataTable();
+            }
+
+        </script>
+
+
+
+
+       
+
+
+
+    }
+
+</body>
+</html>
+
+                           
+ 

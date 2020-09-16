@@ -1,0 +1,558 @@
+﻿@model IEnumerable<SchoolWork.Models.WorkRole_Header>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    @*<script src="~/Scripts/jquery-3.3.1.min.js"></script>*@
+    <link href="~/CSS/stylesheet2.css" rel="stylesheet" />
+    <style>
+        .text-danger {
+            font-weight: 700;
+            color: red;
+        }
+
+        .glyphicon {
+            font-size: 20px;
+            color: chartreuse;
+        }
+
+        /*.glyphicon .glyphicon:nth-child(odd)
+        {
+            font-size: 50px;
+            color:brown;
+        }*/
+
+        #MyTable td:hover { 
+             background-color: #ccc;
+            }
+        .col-sm-3 {
+            border: 1px dotted #2B60DE;
+            padding: 10px;
+            margin: 10px;
+            width: 257px;
+        }
+        .rght {
+            float: right;
+        }
+        .table{
+
+            vertical-align:bottom;
+        }
+
+        
+    </style>
+
+</head>
+@{ 
+
+   string test = "";
+}
+<body id="LoginForm" style="background-color:cadetblue">
+    <div class="container">
+        <h1 class="form-heading"></h1>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <div class="login-form">
+            <div class="body-div" style="background-color:#ffff; max-width:100%">
+
+                <h1 style="color:blueviolet; margin-top:-30px"><b>PARENT DASHBOARD </b></h1>
+
+
+                @if (Session["ParentName"] != null)
+                {
+                    <p style="font-size:20px;text-align:center">
+                        Hello <b style="font-size:20px;color:darkcyan"> </b>
+                        You Registered as a Guardian of a Student of <b style="font-size:20px;color:darkcyan"> @Session["School_Name"] </b>
+                    </p>
+                    @*<h1>Hi @Session["ParentEmail"]  </h1><h1>Hi  @Session["ParentName"]   </h1>
+                        <h1>Hi @Session["ParentID"]  </h1>*@
+                }
+
+                @if (TempData["msg"] != null)
+                {
+                    <p class="alert alert-success" id="successMessage" style="color:orangered">@TempData["msg"]</p>
+                }
+
+
+
+                @if (TempData["msg"] != null)
+                {
+                    <p class="alert alert-success" id="successMessage" style="color:orangered">@TempData["msg"]</p>
+                }
+                <br>
+
+                @using (Html.BeginForm())
+                {
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    <div class="row">
+                        @foreach (var item in Model)
+                        {
+
+                            <div class="col-sm-3">
+                                <div class="input-group">
+                                    <span class="glyphicon glyphicon-off"></span>
+
+                                    @Html.ActionLink(item.WorkGroup_Name, item.Parent_Menu_Fn, new { id = item.WorkGroup_Id })
+
+                                </div>
+                            </div>
+                        }
+                        <br />
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-sm-6">
+                            <div class="input-group">
+                                <input type="hidden" value=@Session["School_Code"] id="scode">
+
+                                <input type="hidden" value=@Session["ParentID"] id="pid">
+                                <div id="graph">
+
+
+                                </div>
+                                <br />
+
+
+                            </div>
+                            <br />
+                            <br />
+
+                        </div>
+
+
+                        <div class="col-sm-6">
+                            <div class="input-group">
+                                <div id="calender" class="rght">
+
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
+
+
+
+                                <select id="student" class="form-control " width="50px" onchange="studentgraph()">Please Select Student</select>
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+
+
+                            <div id="table" class="table">
+
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <div id="myModal" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title"><span id="eventTitle"></span></h4>
+                                </div>
+                                <div class="modal-body">
+                                    <p id="pDetails"></p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                    <br>
+
+                }
+
+            </div>
+        </div>
+        <br />
+        <br />
+    </div>
+
+
+    @section Scripts
+    {
+
+        @Scripts.Render("~/bundles/jqueryval")
+        <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+        <link href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.css" rel="stylesheet" />
+        <link href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.print.css" rel="stylesheet" media="print" />
+
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
+        <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+        <script src="~/Scripts/bootstrap.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
+        @*<script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+            <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+            <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+            <script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+            <script type="text/javascript" src="Scripts/jquery_calendar/jquery-ui.js"></script>
+
+            <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+            <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+            <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+            <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />*@
+
+
+        <!-- DataTables -->
+        @*<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.5/css/jquery.dataTables.css">
+            <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.5/js/jquery.dataTables.js">
+            </script>*@
+
+        <script type="text/javascript">
+           // var homework;
+           // var scode=@Session["School_Code"];
+            window.onload = function () {
+
+                getGraph();
+
+
+            }
+
+            function studentgraph() {
+                //alert();
+                $.ajax({
+                        type: "POST",
+                        url: "/ParentDetails/AjaxStudentGraph",
+                        data: '{Student_ID: "' + document.getElementById("student").value + '"}',
+
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function (response) {
+
+                            var list1;
+
+                            list1 = response.marklist;
+
+                            DrawChart(list1);
+                            homework = response.homeworklist;
+                            DrawTable(homework);
+                        },
+                        failure: function (response) {
+                            alert("from failure" + response.responseText);
+                        },
+                        error: function (response) {
+                            alert("from error" + response.responseText);
+                        }
+                    });
+
+
+
+            }
+            function GetVal(val) {
+
+                //alert(val);
+
+                Swal.fire({
+                    title: "<i>Home work description</i>",
+                    html:"<font size=4>"+ val+"</font>",
+                    confirmButtonText: "<u>OK</u>",
+                    });
+
+            }
+            function DrawTable(homework) {
+                var str = "";
+                var test = "test";
+                if (homework != null && homework.length > 0) {
+                    str = "<table background-color='grey' id='MyTable'>";
+                    str += "<tr colspan=2>";
+                    str += "<td>";
+                    str += "Homework";
+                    str += "</td>";
+                    str += "</tr>";
+                    $.each(homework, function () {
+                        str += "<tr>";
+                        test = this['Description'];
+                        //@test=this['Description'];
+                        str += "<td onMouseOver='GetVal(";
+                        str += '"'+test+'"';
+                        str+=")'> ";
+
+
+                        //GetVal("+this['Description']+") > ";
+                            str += this['subject'];
+                            str += "</td>";
+                            str += "<td>";
+                            str += this['status'];
+                            str += "</td>";
+                            str += "</tr>";
+                       // alert(str);
+                    });
+
+                    str += "</table>";
+
+                }
+
+                document.getElementById("table").innerHTML = str;
+
+            }
+
+            function getGraph() {
+                      $.ajax({
+                        type: "POST",
+                        url: "/ParentDetails/AjaxPerformance",
+                        data: '{School_code: "' + document.getElementById("scode").value + '", ParentId: ' + document.getElementById("pid").value + '}',
+
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function (response) {
+
+                            var  list1,dropdown;
+
+                            list1 = response.marklist;
+                            dropdown = response.studentlist;
+                            //alert(list1.length);
+                            DrawChart(list1);
+                            PopulateDropDown("#student", dropdown);
+
+                        },
+                        failure: function (response) {
+                            alert("from failure" + response.responseText);
+                        },
+                        error: function (response) {
+                            alert("from error" + response.responseText);
+                        }
+                    });
+
+            }
+            function PopulateDropDown(dropDownId, list) {
+                if (list != null && list.length > 0) {
+                    //$(dropDownId).removeAttr("disabled");
+                     $(dropDownId).append($("<option></option>").val(0).html("Please Select Student"));
+                    $.each(list, function () {
+
+                        $(dropDownId).append($("<option></option>").val(this['std_id']).html(this['std_name']));
+                    });
+                }
+            }
+            function DrawChart(list1) {
+
+                var sub1 = [], sub2 = [], sub3 = [], sub4 = [], sub5 = [],sub6=[];
+
+                const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+                                    "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+                                    ];
+
+                //  var count = 1;
+                //alert(list1.length);
+                if (list1 != null && list1.length > 0) {
+                    var count = 0;
+                    $.each(list1, function () {
+                        //alert((this['date']).substring(5, 7));
+                        //count++;
+                        if (this["sub_id"] == 1)
+                            sub1.push({ y: this['marks'], x: Number((this['date']).substring(5, 7)) });
+                        if (this["sub_id"] == 2)
+                            sub2.push({ y: this['marks'], x: Number((this['date']).substring(5, 7)) });
+                        if (this["sub_id"] == 3)
+                            sub3.push({ y: this['marks'], x: Number((this['date']).substring(5, 7)) });
+                        if (this["sub_id"] == 4)
+                            sub4.push({ y: this['marks'], x: Number((this['date']).substring(5, 7)) });
+                        if (this["sub_id"] == 5)
+                            sub5.push({ y: this['marks'], x: Number((this['date']).substring(5, 7)) });
+
+                        sub6.push({ y: 35, x: Number((this['date']).substring(5, 7)) });
+
+                    });
+                }
+
+
+                var chart = new CanvasJS.Chart("graph",
+                    {
+
+                        axisX: {
+
+                            interval: 1,
+                            minimum: 0,
+                            maximum:12,
+                            title: "MONTHS",
+                            gridColor: "silver"
+                        },
+                        axisY:
+                                {
+
+                                    title: "MARKS",
+
+                                    gridColor: "silver",
+
+                                  },
+
+                        legend: {
+                            cursor: "pointer",
+                            itemclick: function (e) {
+                                //console.log("legend click: " + e.dataPointIndex);
+                                //console.log(e);
+                                if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+                                    e.dataSeries.visible = false;
+                                } else {
+                                    e.dataSeries.visible = true;
+                                }
+
+                                e.chart.render();
+                            }
+                        },
+
+                        data: [{showInLegend: true,
+                                name:"Beng",
+                                type: "line",
+                                color: "brown",
+                                dataPoints: sub1
+                            },
+                            { showInLegend: true,
+                                name:"Eng",
+                                type: "line",
+                                color: "blue",
+                                dataPoints: sub2
+                            },
+                            {  showInLegend: true,
+                                name:"Bio",
+                                type: "line",
+                                color: "Indigo",
+                                dataPoints: sub3
+                            },
+                            { showInLegend: true,
+                                name:"Maths",
+                                type: "line",
+                                color: "green",
+                                dataPoints: sub4
+                            },
+                           { showInLegend: true,
+                                name:"Chem",
+                                type: "line",
+                                color: "purple",
+                                dataPoints: sub5
+                            },
+                           { showInLegend: true,
+                                name:"Pass Marks",
+                                type: "line",
+                                color: "red",
+                                dataPoints: sub6
+                            },
+                        ]
+                    });
+                //alert(chart.dataPoints);
+
+                chart.render();
+
+
+
+
+
+
+            }
+
+
+
+
+        </script>
+
+        <script>
+            $(document).ready(function () {
+
+                var events = [];
+                $.ajax({
+                    type: "GET",
+                    url: "/SchoolAdmin/GetEvents",
+                    success: function (data) {
+                        $.each(data, function (i, v) {
+                            //alert(this['Subject']);
+                            //alert(this['Theme_Color']);
+                            // alert(this['Is_Full_Day']);
+                            events.push({
+                                title: v.Subject,
+                                description: v.Description,
+                                start: moment(v.Start_Date),
+                                end: v.End_Date != null ? moment(v.End_Date) : null,
+                                color: v.Theme_Color,
+                                allDay: v.Is_Full_Day
+                            });
+                        })
+
+                        GenerateCalender(events);
+                    },
+                    error: function (error) {
+                        alert('failed');
+                    }
+                })
+
+                function GenerateCalender(events) {
+                    // alert("hi");
+                    $('#calender').fullCalendar('destroy');
+                    $('#calender').fullCalendar({
+                        contentHeight: 400,
+                        defaultDate: new Date(),
+                        timeFormat: 'h(:mm)a',
+                        header: {
+                            left: 'prev,next today',
+                            center: 'title',
+                            right: 'month,basicWeek,basicDay,agenda'
+                        },
+                        eventLimit: true,
+                        eventColor: '#378006',
+                        events: events,
+                        eventClick: function (calEvent, jsEvent, view) {
+                            $('#myModal #eventTitle').text(calEvent.title);
+                            var $description = $('<div/>');
+                            $description.append($('<p/>').html('<b>Start:</b>' + calEvent.start.format("DD-MMM-YYYY HH:mm a")));
+                            if (calEvent.end != null) {
+                                $description.append($('<p/>').html('<b>End:</b>' + calEvent.end.format("DD-MMM-YYYY HH:mm a")));
+                            }
+                            $description.append($('<p/>').html('<b>Description:</b>' + calEvent.description));
+                            $('#myModal #pDetails').empty().html($description);
+
+                            $('#myModal').modal();
+                        }
+                    })
+                }
+            })
+        </script>
+    }
+
+
+    <meta name="viewport" content="width=device-width" />
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.2/Chart.bundle.min.js"></script>
+</body>
+</html>
+
+<script type="text/javascript">
+
+
+    //var colors = ['#ffffff', '#ffffff', '#ffffff', '#ffffff'];
+
+    //i = 0;
+
+    //$(".body-div").click(function () {
+    //    $(".body-div").css("backgroundColor", colors[i++]);
+    //    if (i >= colors.length)
+    //        i = 0;
+
+    //});
+
+</script>

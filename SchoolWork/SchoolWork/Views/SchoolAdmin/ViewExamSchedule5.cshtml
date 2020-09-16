@@ -1,0 +1,894 @@
+﻿@model SchoolWork.Models.CreateExamSchedule
+
+
+@{
+    ViewBag.Title = "SchoolWork";
+}
+
+
+<br />
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <!-- This file has been downloaded from Bootsnipp.com. Enjoy! -->
+    <title>STUDENT ADMISSION FORM</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    <style>
+        * {
+            box-sizing: border-box
+        }
+
+        body {
+            font-family: "Lato", sans-serif;
+            overflow-x: hidden;
+            max-width: 200%
+        }
+
+        /* Style the tab */
+        .tab {
+            float: left;
+            border: 1px solid #ccc;
+            background-color: #f1f1f1;
+            width: 15%;
+            height: auto;
+        }
+
+            /* Style the buttons inside the tab */
+            .tab button {
+                display: block;
+                background-color: inherit;
+                color: black;
+                /*padding: 22px 16px;*/
+                padding: 10px;
+                width: 100%;
+                border: none;
+                outline: none;
+                text-align: center;
+                cursor: pointer;
+                transition: 0.3s;
+                font-size: 17px;
+                border: 1px solid red;
+            }
+
+                /* Change background color of buttons on hover */
+                .tab button:hover {
+                    background-color: #ddd;
+                }
+
+                /* Create an active/current "tab button" class */
+                .tab button.active {
+                    background-color: #ccc;
+                }
+
+        /* Style the tab content */
+        .tabcontent {
+            float: left;
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            width: 85%;
+            border-left: none;
+            height: auto;
+            text-align: center;
+        }
+
+            .tabcontent h3 {
+                text-align: center;
+                padding: 10px;
+            }
+
+            .tabcontent h4 {
+                color: red;
+                font-size: 20px;
+                -webkit-text-stroke-width: 1px;
+                -webkit-text-stroke-color: black;
+            }
+
+            .tabcontent p {
+                text-align: center;
+                color: #FF3333;
+            }
+
+        .input-group p {
+            font-weight: 700;
+        }
+    </style>
+
+    <style>
+        #show1, #show2, #local, #Parent, #Education, #Photo, #Declaration, #div1, #div2, #disabilitydesc, #SpCaredec {
+            display: none;
+        }
+
+        .text-danger {
+            font-weight: 700;
+            color: red;
+        }
+
+        #SignaturePreview, #imagePreview {
+            border: 1px solid black;
+        }
+
+        .control-label {
+            text-align: center;
+            font-weight: 700;
+            margin: 10px;
+        }
+
+        .col-md-2 {
+            text-align: center;
+        }
+    </style>
+    <style>
+        h3 {
+            color: red;
+            font-size: 25px;
+            -webkit-text-stroke-width: 1px;
+            -webkit-text-stroke-color: black;
+            margin-top: -30px;
+        }
+
+
+        .lb1 {
+            color: #ef370d;
+            font-size: 15px;
+            -webkit-text-stroke-width: 1px;
+            -webkit-text-stroke-color: black;
+            padding: 10px;
+        }
+
+        #bt1 {
+            margin-top: 5px;
+            margin-left: 10px;
+        }
+    </style>
+
+
+
+
+</head>
+<body>
+
+
+
+
+    <div class="tab">
+        <button class="tablinks" onclick="openCity(event, 'Student')">
+            <i class="fa fa-file-text-o fa-2x"></i><p><small>COKING TIME REPORT</small></p>
+            @using (Html.BeginForm())
+            {
+
+                <div class="container-fluid">
+                    <div class="row">
+
+                        <div class="input-group">
+                            @* <label class="lb1">Please Select Start Date:</label>*@
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
+
+                            @Html.EditorFor(model => model.InputTime, new { htmlAttributes = new { @class = "form-control", @Placeholder = "Enter Start Date" } })
+
+                        </div>
+                        <br><br>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
+
+                            @Html.EditorFor(model => model.InputTimeA, new { htmlAttributes = new { @class = "form-control", @Placeholder = "Enter End Date", @Value = "" } })
+
+                        </div>
+
+
+                        @Html.ValidationMessageFor(model => model.InputTime, "", new { @class = "text-danger" })
+
+                        <div class="form-group">
+                            <input type="reset" value="Reset" id="bt1" class="btn btn-warning btn-sm">
+                        </div>
+                    </div>
+                </div>
+
+
+            }
+        </button>
+
+
+        @*
+            <button class="tablinks" onclick="openCity(event, 'Parent')">
+                <i class="fa fa-file-text-o fa-2x"></i><p><small>A SHIFT REPORT</small></p>
+                @using (Html.BeginForm())
+                {
+
+                    <div class="container-fluid">
+                        <div class="row">
+
+                            <div class="input-group">
+                                <label class="lb1">Please Select  Date:</label>
+
+                                @Html.EditorFor(model => model.InputTimeA, new { htmlAttributes = new { @class = "form-control", @Placeholder = "Enter Your Date" } })
+                                <div class="form-group">
+                                    <input type="reset" value="Reset" id="bt1" class="btn btn-primary btn-sm">
+                                </div>
+                            </div>
+                            @Html.ValidationMessageFor(model => model.InputTimeA, "", new { @class = "text-danger" })
+
+
+                        </div>
+                    </div>
+
+
+                }
+
+
+
+            </button>
+
+            <button class="tablinks" onclick="openCity(event, 'Education')">
+                <i class="fa fa-file-text-o fa-2x"></i><p><small>B SHIFT REPORT</small></p>
+                @using (Html.BeginForm())
+                {
+
+                    <div class="container-fluid">
+                        <div class="row">
+
+                            <div class="input-group">
+                                <label class="lb1">Please Select  Date:</label>
+
+                                @Html.EditorFor(model => model.InputTimeB, new { htmlAttributes = new { @class = "form-control", @Placeholder = "Enter Your Date" } })
+                                <div class="form-group">
+                                    <input type="reset" value="Reset" id="bt1" class="btn btn-danger btn-sm">
+                                </div>
+                            </div>
+                            @Html.ValidationMessageFor(model => model.InputTimeB, "", new { @class = "text-danger" })
+
+
+                        </div>
+                    </div>
+
+
+                }
+            </button>
+
+            <button class="tablinks" onclick="openCity(event, 'Photo')">
+                <i class="fa fa-file-text-o fa-2x"></i><p><small>C SHIFT REPORT</small></p>
+                @using (Html.BeginForm())
+                {
+
+                    <div class="container-fluid">
+                        <div class="row">
+
+                            <div class="input-group">
+                                <label class="lb1">Please Select  Date:</label>
+
+                                @Html.EditorFor(model => model.InputTimeC, new { htmlAttributes = new { @class = "form-control", @Placeholder = "Enter Your Date" } })
+                                <div class="form-group">
+                                    <input type="reset" value="Reset" id="bt1" class="btn btn-info btn-sm">
+                                </div>
+                            </div>
+                            @Html.ValidationMessageFor(model => model.InputTimeC, "", new { @class = "text-danger" })
+
+
+                        </div>
+                    </div>
+
+
+                }
+            </button>*@
+
+
+        @*<button class="tablinks" onclick="openCity(event, 'Declaration')"><i class="fa fa-file fa-2x"></i><p><small><h1>B</h1><br />SHIFT REPORT</small></p> </button>*@
+
+    </div>
+
+    @using (Html.BeginForm("StudentFormFillup", "StudentAdmission", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+
+
+
+        <div id="Student" class="tabcontent">
+
+
+
+            <h4>COKING TIME REPORT</h4>
+
+            <div class="container-fluid">
+                <div id="LoginForm">
+
+                </div>
+
+
+            </div>
+
+
+
+        </div>
+
+
+
+
+    }
+
+    @*   @using (Html.BeginForm())
+        {
+
+
+            <div id="Parent" class="tabcontent">
+
+
+                <h4>A SHIFT REPORT</h4>
+
+                <div class="container-fluid">
+                    <div id="LoginFormA">
+
+                    </div>
+
+
+                </div>
+            </div>
+
+        }
+
+
+        @using (Html.BeginForm())
+        {
+
+
+            <div id="Education" class="tabcontent">
+
+                <h4>B SHIFT REPORT</h4>
+                <div class="container-fluid">
+                    <div id="LoginFormB">
+
+                    </div>
+
+                </div>
+
+
+
+            </div>
+
+        }
+
+
+        @using (Html.BeginForm("StudentFormFillup", "StudentAdmission", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+
+
+            <div id="Photo" class="tabcontent">
+                <h4>C SHIFT REPORT</h4>
+                <div class="container-fluid">
+                    <div id="LoginFormC">
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        }*@
+
+
+    @*@using (Html.BeginForm())
+        {
+
+
+            <div id="Declaration" class="tabcontent">
+
+
+            </div>
+
+        }*@
+
+
+
+
+    @section Scripts
+   {
+        @Scripts.Render("~/bundles/jqueryval")
+
+
+
+
+
+
+        <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+        <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+        <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="Scripts/jquery_calendar/jquery-ui.js"></script>
+        <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+
+
+        <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+        <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+        <link href="~/CSS/StyleSheet5.css" rel="stylesheet" />
+        <link href="~/CSS/Table.css" rel="stylesheet" />
+
+
+
+        <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+        <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+        <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+
+        <script type="text/javascript" src="Scripts/jquery_calendar/jquery-ui.js"></script>
+        <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+
+
+
+        <script>
+            $(function () {
+                $('input[name="InputTime"]').daterangepicker({
+                    singleDatePicker: true,
+                    timePicker: false,
+                    showDropdowns: true,
+                    minYear: 1901,
+                    startDate: moment().startOf('hour'),
+                    ///endDate: moment().startOf('hour').add(32, 'hour'),
+                    locale: {
+                        format: 'YYYY/MM/DD'
+                    }
+
+
+
+                });
+            });
+        </script>
+
+
+        <script>
+            $(function () {
+                $('input[name="InputTimeA"]').daterangepicker({
+                    singleDatePicker: true,
+                    timePicker: false,
+                    showDropdowns: true,
+                    minYear: 1901,
+                    startDate: moment().startOf('hour'),
+                    ///endDate: moment().startOf('hour').add(32, 'hour'),
+                    locale: {
+                        format: 'YYYY/MM/DD'
+                    }
+                });
+            });
+        </script>
+
+
+        <script>
+            $(function () {
+                $('input[name="InputTimeB"]').daterangepicker({
+                    singleDatePicker: true,
+                    timePicker: false,
+                    showDropdowns: true,
+                    minYear: 1901,
+                    startDate: moment().startOf('hour'),
+                    ///endDate: moment().startOf('hour').add(32, 'hour'),
+                    locale: {
+                        format: 'YYYY/MM/DD'
+                    }
+                });
+            });
+        </script>
+
+        <script>
+            $(function () {
+                $('input[name="InputTimeC"]').daterangepicker({
+                    singleDatePicker: true,
+                    timePicker: false,
+                    showDropdowns: true,
+                    minYear: 1901,
+                    startDate: moment().startOf('hour'),
+                    drops: "up",
+                    ///endDate: moment().startOf('hour').add(32, 'hour'),
+                    locale: {
+                        format: 'YYYY/MM/DD'
+                    }
+
+                });
+            });
+        </script>
+
+        <script type="text/javascript">
+            $('#InputTimeA').change(function () {
+                var end_date = 0;
+                var im = 1;
+                if ($(this).val() != "") {
+                    end_date = $(this).val();
+                     alert(end_date);
+                }
+                var start_date = 0;
+                start_date = $('#InputTime').val();
+                //var id = $(this).attr("id");
+                //alert(start_date);
+                $('#LoginForm').html('Loading Data...');
+                $.ajax({
+                    url: '/SchoolAdmin/ViewExamScheduled',
+                    type: 'POST',
+                    data: '{start_date:"' + start_date + '",end_date: "' + end_date + '"}',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: 'json',
+                    success: function (d) {
+                        if (d.StuentList.length > 0) {
+                            var $data = $('<table  id="products"></table>').addClass('table table-responsive table-striped').css({});
+                            var header = "<thead><tr>COKING TIME REPORT</tr><tr><th>ID</th><th>Oven</th><th>ChargingTime</th><th>PushingTime</th><th>CokingTime</th><th>Pushing Gap</th><th>Notes</th><th>Reason</th></tr></thead>";
+                            $data.append(header);
+
+                            $.each(d.StuentList, function (i, item) {
+
+                                var $row = $('<tr/>');
+                                $row.append($('<td/>').html(im));
+                                $row.append($('<td/>').html('<input type = text  name = "LastPushedOven"  id = "LastPushedOven" value = " ' + item.LastPushedOven + '" />'));
+                                $row.append($('<td/>').html('<input type = text  name = "LastChargingTime"  id = "LastChargingTime" value = " ' + item.LastChargingTime + '" />'));
+                                $row.append($('<td/>').html('<input type = text  name = "LastPushingTime"  id = "LastPushingTime" value = " ' + item.LastPushingTime + '" />'));
+                                $row.append($('<td/>').html('<input type = text  name = "CokingTime"  id = "CokingTime" value = " ' + item.CokingTime + '" />'));
+                                $row.append($('<td/>').html('<input type = text  name = "PushGap"  id = "PushGap" value = " ' + item.PushGap + '" />'));
+
+                                //d.Oven_List.forEach(function (item2, index1) {
+                                //    if (item.LastPushedOven==item2.empty_oven) {
+                                //        $row.append($('<td/>').html('<input type = text  name = "Comment"  id = "Comment" value = " Empty Oven" />'));
+
+                                //    }
+                                //       else {
+                                //    $row.append($('<td/>').html('<input type = text  name = "LastPushedOven"  id = "LastPushedOven" value = " " />'));
+                                //}
+                                //});
+                                // //else if (item.DELAY>20) {
+                                // //    $row.append($('<td/>').html('<input type = text  name = "Comment"  id = "Comment" value = " Delay" />'));
+
+                                // //}
+
+                                if (item.DELAY != null || item.MACHINE != null || item.REASON != null || item.NOTES) {
+                                    if (item.DELAY > 20) {
+                                        $row.append($('<td/>').html('<input type = text  name = "Comment"  id = "Comment" value = " Delay : ' + item.MACHINE + '" />'));
+
+                                    }
+                                    else {
+                                        $row.append($('<td/>').html('<input type = text  name = "Comment"  id = "Comment" value = "" />'));
+
+                                    }
+                                }
+                                else {
+                                    $row.append($('<td/>').html('<input type = text  name = "Comment"  id = "Comment" value = "" />'));
+
+                                }
+
+                                if (item.REASON != null) {
+                                    $row.append($('<td/>').html('<input type = text  name = "Comment"  id = "Comment" value = "' + item.REASON + '" />'));
+
+                                }
+                                else {
+                                    $row.append($('<td/>').html('<input type = text  name = "Comment"  id = "Comment" value = " " />'));
+
+                                }
+
+                                $data.append($row);
+                                im++;
+
+
+                            });
+
+                            $('#LoginForm').html($data);
+                        }
+                        else {
+                            var $noData = $('<div/>').html('No Data Found!');
+                            $('#LoginForm').html($noData);
+                        }
+                    },
+                    error: function () {
+                        alert('Error! Please try again.');
+                    }
+                });
+
+            });
+
+
+        </script>
+
+
+
+
+
+
+
+        <script type="text/javascript">
+            //$('#InputTimeA').change(function () {
+            //    var end_date = 0;
+            //    var im = 1;
+            //    if ($(this).val() != "") {
+            //        end_date = $(this).val();
+            //        // alert(end_date);
+            //    }
+            //    var start_date = 0;
+            //    start_date = $('#InputTime').val();
+            //    //var id = $(this).attr("id");
+            //    //alert(start_date);
+            //    $('#LoginForm').html('Loading Data...');
+            //    $.ajax({
+            //        url: '/HMI/AjaxMethod_CokingTimeReport',
+            //        type: 'POST',
+            //        data: '{start_date:"' + start_date + '",end_date: "' + end_date + '"}',
+            //        contentType: "application/json; charset=utf-8",
+            //        dataType: 'json',
+            //        success: function (d) {
+            //            if (d.length > 0) {
+            //                var $data = $('<table  id="products"></table>').addClass('table table-responsive table-striped').css({});
+            //                var header = "<thead><tr>COKING TIME REPORT</tr><tr><th>ID</th><th>Oven</th><th>ChargingTime</th><th>PushingTime</th><th>CokingTime</th><th>Pushing Gap</th><th>Notes</th></tr></thead>";
+            //                $data.append(header);
+
+            //                $.each(d, function () {
+            //                    var $row = $('<tr/>');
+            //                    $row.append($('<td/>').html(im));
+            //                    //$row.append("<input type='hidden' name='Student_Idd' value='" + this['Student_Id'] + "' >");
+            //                    $row.append($('<td/>').html('<input type = text  name = "LastPushedOven"  id = "LastPushedOven" value = " ' + this['LastPushedOven'] + '" />'));
+            //                    $row.append($('<td/>').html('<input type = text  name = "LastChargingTime"  id = "LastChargingTime" value = " ' + this['LastChargingTime'] + '" />'));
+            //                    $row.append($('<td/>').html('<input type = text  name = "LastPushingTime"  id = "LastPushingTime" value = " ' + this['LastPushingTime'] + '" />'));
+            //                    $row.append($('<td/>').html('<input type = text  name = "CokingTime"  id = "CokingTime" value = " ' + this['CokingTime'] + '" />'));
+            //                    $row.append($('<td/>').html('<input type = text  name = "PushGap"  id = "PushGap" value = " ' + this['PushGap'] + '" />'));
+            //                    if (this['TIME'] === this['LastPushingTime']) {
+            //                        // $row.append($('<td/>').html('<input type = text  name = "Comment"  id = "Comment" value = " ' + this['TIME'] + ' == ' + this['LastPushingTime'] + ' ? ' + this['MACHINE'] + '' + this['NOTES'] + '' + this['REASON']+' : null " />'));
+            //                        $row.append($('<td/>').html('<input type = text  name = "Comment"  id = "Comment" value = " ' + this['MACHINE'] + '' + this['NOTES'] + '' + this['REASON'] + '" />'));
+
+            //                    }
+            //                    else {
+            //                        $row.append($('<td/>').html('<input type = text  name = "LastPushedOven"  id = "LastPushedOven" value = "' + this['empty_oven'] + '" />'));
+            //                    }
+            //                    //$row.append($('<td/>').html('<input type = text  name = "AvgCokeEndTemp"  id = "AvgCokeEndTemp" value = " ' + this['AvgCokeEndTemp'] + '" />'));
+
+            //                    //$row.append($('<td/>').html(this['Class_Name']));
+            //                    //$row.append($('<td/>').html(this['Section_Name']));
+            //                    // $row.append($('<td/>').html("<input type='text' name='student_markss'  class = 'form - control' >"));
+
+            //                    $data.append($row);
+            //                    im++;
+            //                });
+
+            //                $('#LoginForm').html($data);
+            //            }
+            //            else {
+            //                var $noData = $('<div/>').html('No Data Found!');
+            //                $('#LoginForm').html($noData);
+            //            }
+            //        },
+            //        error: function () {
+            //            alert('Error! Please try again.');
+            //        }
+            //    });
+
+            //});
+
+
+        </script>
+
+        <script type="text/javascript">
+            /*  $('#InputTimeA').change(function () {
+                  var value = 0;
+                  var im = 1;
+                  if ($(this).val() != "") {
+                      value = $(this).val();
+                      //alert(value);
+                  }
+
+                  //var id = $(this).attr("id");
+                  //   alert(id);
+                  $('#LoginFormA').html('Loading Data...');
+                  $.ajax({
+                      url: '/HMI/AjaxMethod_AShiftReportInfo',
+                      type: 'POST',
+                      data: '{value: "' + value + '"}',
+                      contentType: "application/json; charset=utf-8",
+                      dataType: 'json',
+                      success: function (d) {
+                          if (d.length > 0) {
+                              var $data = $('<table  id="products"></table>').addClass('table table-responsive table-striped').css({});
+                              var header = "<thead><tr>SHIFT A REPORT</tr><tr><th>ID</th><th>Oven</th><th>ChargingTime</th><th>PushingTime</th><th>CokingTime</th><th>Pushing Gap</th><th>Max_PushingForce</th><th>AvgCokeEndTemp</th></tr></thead>";
+                              $data.append(header);
+
+                              $.each(d, function () {
+                                  var $row = $('<tr/>');
+                                  $row.append($('<td/>').html(im));
+                                  //$row.append("<input type='hidden' name='Student_Idd' value='" + this['Student_Id'] + "' >");
+                                  $row.append($('<td/>').html('<input type = text  name = "LastPushedOven"  id = "LastPushedOven" value = " ' + this['LastPushedOven'] + '" />'));
+                                  $row.append($('<td/>').html('<input type = text  name = "LastChargingTime"  id = "LastChargingTime" value = " ' + this['LastChargingTime'] + '" />'));
+                                  $row.append($('<td/>').html('<input type = text  name = "LastPushingTime"  id = "LastPushingTime" value = " ' + this['LastPushingTime'] + '" />'));
+                                  $row.append($('<td/>').html('<input type = text  name = "CokingTime"  id = "CokingTime" value = " ' + this['CokingTime'] + '" />'));
+                                  $row.append($('<td/>').html('<input type = text  name = "PushGap"  id = "PushGap" value = " ' + this['PushGap'] + '" />'));
+                                  $row.append($('<td/>').html('<input type = text  name = "Max_PushingForce"  id = "Max_PushingForce" value = " ' + this['Max_PushingForce'] + '" />'));
+                                  $row.append($('<td/>').html('<input type = text  name = "AvgCokeEndTemp"  id = "AvgCokeEndTemp" value = " ' + this['AvgCokeEndTemp'] + '" />'));
+
+                                  //$row.append($('<td/>').html(this['Class_Name']));
+                                  //$row.append($('<td/>').html(this['Section_Name']));
+                                  // $row.append($('<td/>').html("<input type='text' name='student_markss'  class = 'form - control' >"));
+
+                                  $data.append($row);
+                                  im++;
+                              });
+
+                              $('#LoginFormA').html($data);
+                          }
+                          else {
+                              var $noData = $('<div/>').html('No Data Found!');
+                              $('#LoginFormA').html($noData);
+                          }
+                      },
+                      error: function () {
+                          alert('Error! Please try again.');
+                      }
+                  });
+
+              });
+
+          */
+        </script>
+
+        <script type="text/javascript">
+            /* $('#InputTimeB').change(function () {
+                 var value = 0;
+                 var im = 1;
+                 if ($(this).val() != "") {
+                     value = $(this).val();
+                     //alert(value);
+                 }
+
+                 //var id = $(this).attr("id");
+                 //   alert(id);
+                 $('#LoginFormB').html('Loading Data...');
+                 $.ajax({
+                     url: '/HMI/AjaxMethod_BShiftReportInfo',
+                     type: 'POST',
+                     data: '{value: "' + value + '"}',
+                     contentType: "application/json; charset=utf-8",
+                     dataType: 'json',
+                     success: function (d) {
+                         if (d.length > 0) {
+                             var $data = $('<table  id="products"></table>').addClass('table table-responsive table-striped').css({});
+                             var header = "<thead><tr>SHIFT A REPORT</tr><tr><th>ID</th><th>Oven</th><th>ChargingTime</th><th>PushingTime</th><th>CokingTime</th><th>Pushing Gap</th><th>Max_PushingForce</th><th>AvgCokeEndTemp</th></tr></thead>";
+                             $data.append(header);
+
+                             $.each(d, function () {
+                                 var $row = $('<tr/>');
+                                 $row.append($('<td/>').html(im));
+                                 //$row.append("<input type='hidden' name='Student_Idd' value='" + this['Student_Id'] + "' >");
+                                 $row.append($('<td/>').html('<input type = text  name = "LastPushedOven"  id = "LastPushedOven" value = " ' + this['LastPushedOven'] + '" />'));
+                                 $row.append($('<td/>').html('<input type = text  name = "LastChargingTime"  id = "LastChargingTime" value = " ' + this['LastChargingTime'] + '" />'));
+                                 $row.append($('<td/>').html('<input type = text  name = "LastPushingTime"  id = "LastPushingTime" value = " ' + this['LastPushingTime'] + '" />'));
+                                 $row.append($('<td/>').html('<input type = text  name = "CokingTime"  id = "CokingTime" value = " ' + this['CokingTime'] + '" />'));
+                                 $row.append($('<td/>').html('<input type = text  name = "PushGap"  id = "PushGap" value = " ' + this['PushGap'] + '" />'));
+                                 $row.append($('<td/>').html('<input type = text  name = "Max_PushingForce"  id = "Max_PushingForce" value = " ' + this['Max_PushingForce'] + '" />'));
+                                 $row.append($('<td/>').html('<input type = text  name = "AvgCokeEndTemp"  id = "AvgCokeEndTemp" value = " ' + this['AvgCokeEndTemp'] + '" />'));
+
+                                 //$row.append($('<td/>').html(this['Class_Name']));
+                                 //$row.append($('<td/>').html(this['Section_Name']));
+                                 // $row.append($('<td/>').html("<input type='text' name='student_markss'  class = 'form - control' >"));
+
+                                 $data.append($row);
+                                 im++;
+                             });
+
+                             $('#LoginFormB').html($data);
+                         }
+                         else {
+                             var $noData = $('<div/>').html('No Data Found!');
+                             $('#LoginFormB').html($noData);
+                         }
+                     },
+                     error: function () {
+                         alert('Error! Please try again.');
+                     }
+                 });
+
+             });
+
+         */
+        </script>
+
+        <script type="text/javascript">
+            /*  $('#InputTimeC').change(function () {
+                  var value = 0;
+                  var im = 1;
+                  if ($(this).val() != "") {
+                      value = $(this).val();
+                      //alert(value);
+                  }
+
+                  //var id = $(this).attr("id");
+                  //   alert(id);
+                  $('#LoginFormC').html('Loading Data...');
+                  $.ajax({
+                      url: '/HMI/AjaxMethod_CShiftReportInfo',
+                      type: 'POST',
+                      data: '{value: "' + value + '"}',
+                      contentType: "application/json; charset=utf-8",
+                      dataType: 'json',
+                      success: function (d) {
+                          if (d.length > 0) {
+                              var $data = $('<table  id="products"></table>').addClass('table table-responsive table-striped').css({});
+                              var header = "<thead><tr>SHIFT A REPORT</tr><tr><th>ID</th><th>Oven</th><th>ChargingTime</th><th>PushingTime</th><th>CokingTime</th><th>Pushing Gap</th><th>Max_PushingForce</th><th>AvgCokeEndTemp</th></tr></thead>";
+                              $data.append(header);
+
+                              $.each(d, function () {
+                                  var $row = $('<tr/>');
+                                  $row.append($('<td/>').html(im));
+                                  //$row.append("<input type='hidden' name='Student_Idd' value='" + this['Student_Id'] + "' >");
+                                  $row.append($('<td/>').html('<input type = text  name = "LastPushedOven"  id = "LastPushedOven" value = " ' + this['LastPushedOven'] + '" />'));
+                                  $row.append($('<td/>').html('<input type = text  name = "LastChargingTime"  id = "LastChargingTime" value = " ' + this['LastChargingTime'] + '" />'));
+                                  $row.append($('<td/>').html('<input type = text  name = "LastPushingTime"  id = "LastPushingTime" value = " ' + this['LastPushingTime'] + '" />'));
+                                  $row.append($('<td/>').html('<input type = text  name = "CokingTime"  id = "CokingTime" value = " ' + this['CokingTime'] + '" />'));
+                                  $row.append($('<td/>').html('<input type = text  name = "PushGap"  id = "PushGap" value = " ' + this['PushGap'] + '" />'));
+                                  $row.append($('<td/>').html('<input type = text  name = "Max_PushingForce"  id = "Max_PushingForce" value = " ' + this['Max_PushingForce'] + '" />'));
+                                  $row.append($('<td/>').html('<input type = text  name = "AvgCokeEndTemp"  id = "AvgCokeEndTemp" value = " ' + this['AvgCokeEndTemp'] + '" />'));
+
+                                  //$row.append($('<td/>').html(this['Class_Name']));
+                                  //$row.append($('<td/>').html(this['Section_Name']));
+                                  // $row.append($('<td/>').html("<input type='text' name='student_markss'  class = 'form - control' >"));
+
+                                  $data.append($row);
+                                  im++;
+                              });
+
+                              $('#LoginFormC').html($data);
+                          }
+                          else {
+                              var $noData = $('<div/>').html('No Data Found!');
+                              $('#LoginFormC').html($noData);
+                          }
+                      },
+                      error: function () {
+                          alert('Error! Please try again.');
+                      }
+                  });
+
+              });
+
+          */
+        </script>
+
+
+
+
+
+    }
+
+
+
+    <script>
+        var checkboxes = $("input[type='checkbox']"),
+            Butt = $("input[type='']");
+
+        checkboxes.click(function () {
+            Butt.attr("disabled", !checkboxes.is(":checked"));
+        });
+
+    </script>
+    <script>
+        function openCity(evt, cityName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(cityName).style.display = "block";
+            evt.currentTarget.className += " active";
+            // window.location.reload();
+        }
+
+                                            // Get the element with id="defaultOpen" and click on it
+                                            //document.getElementById("defaultOpen").click();
+    </script>
+
+
+
+
+
+</body>
+</html>
+
+

@@ -1,0 +1,185 @@
+﻿@model IEnumerable<SchoolWork.Models.ClassNoteModule>
+
+
+<h2>NoticeBoard</h2>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="~/CSS/StyleSheet1.css" rel="stylesheet" />
+    <link href="~/CSS/Table.css" rel="stylesheet" />
+    <style>
+        .text-danger {
+            font-weight: 700;
+            color: red;
+        }
+    </style>
+
+
+</head>
+
+<body id="LoginForm" style="background-color:gainsboro;padding:10px;">
+    @*<div class="container" >*@
+    <h1 class="form-heading"></h1>
+    <br />
+    <br />
+    <br />
+    <br />
+    @*<div class="login-form">
+        <div class="body-div" style="border:1px solid black;background-color:gainsboro; max-width:100%">*@
+
+    <h1 style="color:green; margin-top:-30px; text-align:center"><b>CLASS NOTE DETAILS</b></h1>
+    <br />
+
+    @if (TempData["msg"] != null)
+    {
+        <p class="alert alert-success" id="successMessage" style="color:#5cb85c;text-align:center">@TempData["msg"]</p>
+    }
+
+        <h3 style="text-align:right;margin-top:-15px">
+            <a class="btn btn-primary btn-product" onclick="@("window.location.href='" + @Url.Action("AddClassNote", "Employee") + "'");"><span class="glyphicon glyphicon-pencil"></span>Add New Class Note</a>
+
+            <input type="button" value="Home" class="btn btn-success" onclick="@("window.location.href='" + @Url.Action("EmployeeHeaderBoard", "DashBoard") + "'");" />
+
+            <input type="button" onclick="history.go(-1)" value="Return" class="btn btn-success" />
+
+        </h3>
+
+    @using (Html.BeginForm("SchoolRegister", "SchoolRegistration", FormMethod.Post, new { id = "myID", name = "randform" }))
+
+    {
+
+        <table class="table" id="products">
+            <thead>
+                <tr>
+                    <th>@Html.DisplayName(" Note Id")</th>
+                    <th>@Html.DisplayName("School Id")</th>
+                    <th>@Html.DisplayName("School Code")</th>
+                    <th>@Html.DisplayName("School Name")</th>
+                    <th>@Html.DisplayName("Class Name")</th>
+                    <th>@Html.DisplayName("Section Name")</th>
+                    <th>@Html.DisplayName("Subject Name")</th>
+                    <th>@Html.DisplayName("Employee Name")</th>
+                    <th>@Html.DisplayName("Note Type Name")</th>
+                    <th>@Html.DisplayName("Topic Name")</th>
+                    <th>@Html.DisplayName("Note Description")</th>
+                    <th>@Html.DisplayName("Note Date")</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.Note_Id)</td>
+                        <td>@Html.DisplayFor(modelItem => item.School_Id)</td>
+                        <td>@Html.DisplayFor(modelItem => item.School_Code)</td>
+                        <td>@Html.DisplayFor(modelItem => item.School_Name)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Class_Namee)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Section_Namee)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Subject_Namee)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Employee_Namee)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Note_Type_Namee)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Topic_Name)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Note_Description)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Note_Date)</td>
+                        <td>
+
+                            @Html.ActionLink("Details", "NoteDetails", new { id = item.Note_Id })
+
+                            @*@Html.ActionLink("Delete", "DeleteDetails", new { id = item.Note_Id })*@
+
+                            <a onclick="delDetails(this,@item.Note_Id)"><font color="blue"/>Delete</a>
+
+
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    }
+    @*</div>*@
+    @*</div>
+        </div>*@
+
+    @section Scripts
+   {
+        @Scripts.Render("~/bundles/jqueryval")
+        <!-- DataTables CSS -->
+
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.5/css/jquery.dataTables.css">
+
+        <!-- jQuery -->
+        <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+
+        <!-- DataTables -->
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.5/js/jquery.dataTables.js">
+        </script>
+
+        <script type="text/javascript" charset="utf8">
+            $(document).ready(function () {
+                $('#products').DataTable();
+            });
+            function delDetails(r, id){
+
+
+                var x = confirm("Do you want to delete?");
+                if (x == true) {
+
+
+                     $.ajax({
+                    type: "POST",
+                    url: "/Employee/AjaxDelDetails",
+                    data: '{id: ' + id+ ' }',
+
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    // alert("before");
+
+                         success: function (response) {
+
+
+                              var i = r.parentNode.parentNode.rowIndex;
+                        document.getElementById("products").deleteRow(i);
+                       
+                        alert(response);
+
+                       
+
+
+
+
+                    },
+                    failure: function (response) {
+                        alert("from failure" + response.responseText);
+                    },
+                    error: function (response) {
+                        alert("from error  " + response.responseText);
+                    }
+                });
+
+
+
+
+
+
+                }
+
+               // alert(id);
+
+            }
+
+
+
+
+
+        </script>
+    }
+</body>
+
+
+
+</html>
+

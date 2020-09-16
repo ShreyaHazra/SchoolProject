@@ -1,0 +1,226 @@
+﻿@model SchoolWork.Models.CreateExamSchedule
+@{
+
+    ViewBag.Title = "StudentExamMaster";
+
+}
+<h2>FeesMaster</h2>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+
+    <link href="~/CSS/stylesheet2.css" rel="stylesheet" />
+    <style>
+        .text-danger {
+            font-weight: 700;
+            color: red;
+        }
+    </style>
+
+</head>
+<body id="LoginForm" style="background-color:cadetblue">
+    
+    <div class="container">
+        <h1 class="form-heading"></h1>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+
+
+        <div class="login-form">
+            @*<div class="body-div" style="background-color:blanchedalmond; max-width:100%">*@
+
+
+            <div class="body-div col-sm-12" style="background-color:blanchedalmond; max-width:100%">
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <h1 style="color:blueviolet; margin-top:-30px"><b> EXAM RE-SCHEDULE </b></h1>
+                <br />
+                <br />
+                <br />
+                <br />
+
+                @{
+                    int examscheduleid = 0;
+                    string classname = null;
+                    string subjectname = null;
+                    string examtermname = null;
+
+
+                }
+                @foreach (var item in Model.ExamSchduleList)
+                {
+                    examscheduleid = item.ExamSchedule_Id;
+                    classname = item.Class;
+                    subjectname = item.Subject_Namee;
+                    examtermname = item.Exm_Term_Name;
+
+                }
+
+                @using (Html.BeginForm("Update_ExamSchedule", "SchoolAdmin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    <input type="hidden" name="ExamSchedule_Id" value=@examscheduleid />
+
+                    <div class="input-group">
+
+                        @Html.EditorFor(model => model.Exm_Term_Name, new { htmlAttributes = new { @class = "form-control", @type = "hidden", @onkeydown = "return false", @Value = examtermname } })
+
+                    </div>
+                    @Html.ValidationMessageFor(model => model.Exm_Term_Name, "", new { @class = "text-danger" })
+
+
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="input-group">
+
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-barcode"></i></span>
+                                @Html.EditorFor(model => model.Class, new { htmlAttributes = new { @class = "form-control", @onkeydown = "return false", @Value = classname } })
+                            </div>
+
+                            @Html.ValidationMessageFor(model => model.Class, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="col-sm-4">
+                            <div class="input-group">
+
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-education"></i></span>
+                                @Html.EditorFor(model => model.Exm_Term_Name, new { htmlAttributes = new { @class = "form-control", @onkeydown = "return false", @Value = examtermname } })
+
+                            </div>
+
+                            @Html.ValidationMessageFor(m => m.Exam_Term_id, "", new { @class = "text-danger" })
+                        </div>
+
+
+
+
+                        <div class="col-sm-4">
+                            <div class="input-group">
+
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                @Html.EditorFor(model => model.Subject_Namee, new { htmlAttributes = new { @class = "form-control", @onkeydown = "return false", @Value = subjectname } })
+
+                            </div>
+
+                            @Html.ValidationMessageFor(m => m.Subject_Namee, "", new { @class = "text-danger" })
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="input-group">
+
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-education"></i></span>
+                                @Html.EditorFor(model => model.Exam_Date, new { htmlAttributes = new { @class = "form-control datepicker", @placeholder = "Please Select Exam Date" } })
+
+                            </div>
+
+                            @Html.ValidationMessageFor(model => model.Exam_Date, "", new { @class = "text-danger" })
+                        </div>
+
+
+                        <div class="col-sm-4">
+                            <div class="input-group">
+
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                @Html.EditorFor(model => model.Start_Time, new { htmlAttributes = new { @class = "form-control", @type = "time", @placeholder = "Please Select Exam  Start Date" } })
+                            </div>
+                            @Html.ValidationMessageFor(model => model.Start_Time, "", new { @class = "text-danger" })
+                        </div>
+
+
+
+
+
+
+                        <div class="col-sm-4">
+                            <div class="input-group">
+
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-education"></i></span>
+                                @Html.EditorFor(model => model.End_Time, new { htmlAttributes = new { @class = "form-control", @type = "time", @placeholder = "Please Select Exam End Date" } })
+                            </div>
+
+                            @Html.ValidationMessageFor(model => model.End_Time, "", new { @class = "text-danger" })
+                        </div>
+
+
+                    </div>
+
+
+
+                    <br>
+
+                    <div class="form-group">
+
+                        <input type="submit" value="Submit" class="btn btn-success" />
+                        &nbsp;&nbsp;
+                        <input type="reset" value="Reset" class="btn btn-warning">
+                        &nbsp;&nbsp;
+                        <input type="button" value="Home" class="btn btn-success" onclick="@("window.location.href='" + @Url.Action("AdminHeaderBoard", "DashBoard") + "'");" />
+                        &nbsp;&nbsp;
+                        <input type="button" onclick="history.go(-1)" value="Return" class="btn btn-success" />
+
+                    </div>
+
+
+                }
+            </div>
+        </div>
+    </div>
+    @section Scripts
+    {
+
+        @Scripts.Render("~/bundles/jqueryval")
+
+
+        @Styles.Render("~/Content/cssjqryUi")
+
+
+
+        <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+        <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+        <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+
+        <script type="text/javascript" src="Scripts/jquery_calendar/jquery-ui.js"></script>
+        <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+        <script>
+            $(function () {
+                $(".datepicker").datepicker(
+                    {
+                        dateFormat: 'yy-mm-dd',
+                        showStatus: true,
+                        showWeeks: true,
+                        highlightWeek: true,
+                        numberOfMonths: 1,
+                        showAnim: "scale",
+                        showOptions: { origin: ["top", "left"] }
+                    }
+                );
+            });
+        </script>
+    }
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.3/jquery.min.js"></script>
+    <script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.js"></script>
+    <script src="//ajax.aspnetcdn.com/ajax/mvc/5.2.3/jquery.validate.unobtrusive.js"></script>
+    <script src="http://code.jquery.com/ui/1.11.1/jquery-ui.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.css" rel="stylesheet">
+
+</body>
+</html>
+

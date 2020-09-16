@@ -1,0 +1,506 @@
+﻿@model SchoolWork.Models.Routine
+
+@{
+    ViewBag.Title = "Assign Subject";
+}
+
+@{
+
+   int cnt=0;
+}
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+    @*<meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>*@
+
+    <link href="~/CSS/stylesheet2.css" rel="stylesheet" />
+    <style>
+        .text-danger {
+            font-weight: 700;
+            color: red;
+        }
+        .inactive{
+
+            pointer-events: none;
+            cursor: default;
+
+
+        }
+        .body-div {
+            margin-top: 140px;
+            border-color: indigo;
+            border-style: groove;
+            padding: 35px;
+        }
+
+        .Education {
+            border-color: lightyellow;
+            border-style: inset;
+            padding: 17px;
+        }
+
+        p {
+            text-align: center;
+        }
+
+
+        .container {
+            width: 70% !important;
+            padding: 10px !important;
+        }
+
+        .well {
+            background-color: #ead4b3 !important;
+            border-style: inset;
+        }
+
+        .left {
+            float: left;
+            margin-right: 10px;
+            width: 48%;
+        }
+
+        .right {
+            float: left;
+            margin-left: 10px;
+            width: 48%;
+        }
+
+        .hr {
+            margin-top: 14px !important;
+            margin-bottom: 14px !important;
+        }
+    </style>
+
+</head>
+<body id="LoginForm" style="background-color:cornflowerblue;">
+    <div class="container">
+        <div class="body-div" style="background-color:blanchedalmond; max-width:100%">
+            <div class="row">
+                <div class="col-sm-12 col-md-12">
+                    @*<a class="btn btn-primary btn-product" onclick="@("window.location.href='" + @Url.Action("SchoolNoticeAdd", "SchoolAdmin") + "'");"><span class="glyphicon glyphicon-pencil"></span>Add Notice</a>*@
+                    <a class="btn btn-primary" onclick="@("window.location.href='" + @Url.Action("AdminHeaderBoard", "DashBoard") + "'");"><span class="glyphicon glyphicon-home"></span> &nbsp; Home</a>
+
+                    <a class="btn btn-danger" onclick="history.go(-1)"><span class="glyphicon glyphicon-arrow-left"></span> &nbsp; Return</a>
+
+                    @*<input type="button"  value="Return" class="btn btn-danger" />*@
+                </div>
+                <div class="col-sm-12 col-md-12 text-center">
+                    <h1 style="color:blueviolet;"><b>Addition Of Period</b></h1>
+
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="row Education" id="extTab1">
+                <div class="col-sm-12">
+                    <ul class="nav nav-pills">
+                        <li class="active col-md-6 text-center left">
+                            <a href="#1a" data-toggle="tab">Add Period</a>
+                        </li>
+                        <li class="col-md-6 text-center right" onclick="return false" >
+                            <a  href="#2a" data-toggle="tab"  class="inactive" id="view">View Period</a>
+                        </li>
+                    </ul>
+                    <br />
+                    <div class="tab-content clearfix">
+                        <!--Adding Form-->
+                        <div class="tab-pane active well" id="1a">
+
+                            @using (Html.BeginForm("PeriodSetting", "SchoolAdmin", FormMethod.Post, new { enctype = "multipart/form-data", @id = "Roomform" }))
+                            {
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-12">
+                                        <div class="class-sm-2 col-md-2 col-md-offset-2">
+                                            <label>
+                                                <font color="brown">Class:</font>
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-4 col-md-4">
+                                            @Html.DropDownListFor(m => m.Class_ID, Model.Class_Name, "--Select Class--", new { @class = "form-control", @onChange="divEnable()" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+
+                               <div id="formInput" hidden="hidden">
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-12">
+                                        <div class="class-sm-2 col-md-2 col-md-offset-2">
+                                            <label>
+                                                <font color="brown">
+                                                    Period Type
+                                                </font>
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-4 col-md-4">
+                                            <select class="form-control" id="prdbrk" name="prdbrk">
+                                                <option value="">--Period Type---</option>
+                                                <option value="Period">Period</option>
+                                                <option value="Break">Break</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-12">
+                                        <div class="class-sm-2 col-md-2 col-md-offset-2">
+                                            <label>
+                                                <font color="brown">
+                                                    Period Name :
+                                                </font>
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-4 col-md-4">
+                                            @Html.TextBoxFor(m => m.Period_Name, new { @class = "form-control", @id = "Floor" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-12">
+                                        <div class="class-sm-2 col-md-2 col-md-offset-2">
+                                            <label>
+                                                <font color="brown">Start Time :</font>
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-4 col-md-4">
+                                            <input type="time" class="form-control" id="Stime" name="Stime">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+
+
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-12">
+                                        <div class="class-sm-2 col-md-2 col-md-offset-2">
+                                            <font color="brown"> End Time:</font>
+                                        </div>
+                                        <div class="col-sm-4 col-md-4">
+                                            <input type="time" class="form-control" id="Etime" name="Etime" onchange="Javascript:CalDuration()">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div><br />
+
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-12">
+                                        <div class="class-sm-2 col-md-2 col-md-offset-2">
+                                            <label>
+                                                <font color="brown"> Duration(minutes):</font>
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-4 col-md-4">
+                                            <input type="number" id="duration" class="form-control" disabled="disabled">
+
+                                            <input type="hidden" id="duration_h" name="duration_h">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+
+
+
+
+
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-12">
+                                        <div class="class-sm-2 col-md-2 col-md-offset-2">
+                                            <font color="brown"></font>
+                                        </div>
+                                        <div class="col-sm-4 col-md-4">
+                                          
+
+                                            <input type="hidden" id="order" name="order">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div><br />
+
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-10 col-md-offset-3">
+                                        <input type="button" value="Add" class="btn btn-success" onclick="addPeriod(@cnt++)" id="submt" />
+                                        &nbsp;&nbsp;
+                                        <input type="reset" value="Clear" class="btn btn-warning">
+                                        &nbsp;&nbsp;
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                             </div>   
+                            }
+
+                        </div>
+                        <!--End Adding Form--->
+                        <div class="tab-pane well" id="2a">
+                         
+                        </div>
+                        <!---End View Table-->
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div><br />
+            <!-- GRAPH ROW START-->
+            <div class="row Education pre-scrollable" style="height:250px;" id="graphDiv" hidden="hidden">
+                <div class="col-sm-12 text-center">
+                    <h3><b><u>Period Allocation</u></b></h3>
+                </div>
+                <div class="clearfix"></div><br />
+                <div class="bottom col-sm-12 col-md-12">
+
+                    <table id="periodlist" class="form-control">
+
+                        <tr>
+                            <th>
+                                @Html.Display("Class")
+                            </th>
+                            <th>
+                                @Html.Display("Period")
+                            </th>
+
+                            <th>
+                                @Html.Display("Period Name")
+                            </th>
+                            <th>
+                                @Html.Display("Start Time")
+                            </th>
+                            <th>
+                                @Html.Display("End Time")
+                            </th>
+                            <th>
+                                @Html.Display("Duration")
+                            </th>
+                            
+                        </tr>
+                    </table>
+                   
+                </div><!---End of table div-->
+
+                <div class="col-sm-12 col-md=12 col-md-offset-10">
+                    <input type="button" value="Save" class="btn btn-success" onclick="addall()" id="saveall" />
+                    &nbsp;&nbsp;
+                    <input type="button" value="Delete" class="btn btn-warning">
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <!-- GRAPH ROW END-->
+        </div>
+    </div>
+
+
+
+    @section Scripts
+    {
+
+        @Scripts.Render("~/bundles/jqueryval")
+
+
+        @Styles.Render("~/Content/cssjqryUi")
+
+
+
+        <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+        <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+        <link href="~/CSS/StyleSheet5.css" rel="stylesheet" />
+        <link href="~/CSS/Table.css" rel="stylesheet" />
+
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+
+
+
+        <!--sweet alert-->
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+
+        <!-- DataTables CSS -->
+
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.5/css/jquery.dataTables.css">
+
+
+        <!-- DataTables -->
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.5/js/jquery.dataTables.js">
+        </script>
+       
+
+
+
+
+
+        <script type="text/javascript">
+            //$("#view").removeClass("inactive");
+
+            //$("#view").addClass("active");
+            var count = 0;
+
+            function divEnable() {
+                //enabling input form
+               
+                $("#formInput").show();
+
+
+                //to Check whether this class's routine exists or not
+                var cls = $("#Class_ID").val();
+
+                $.ajax({
+                    type: "POST",
+                    url: "/SchoolAdmin/AjaxCheckCount",
+                    data: '{cls:"' + cls + '"}',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+
+                        var str="<table id='classroutine'>"
+
+
+                        if (response.length == 0) {
+
+
+
+
+                        }
+
+
+
+
+
+
+
+                        if (response.length != 0) {
+                            swal({
+                                title: "",
+                                text: response,
+                                icon: "error",
+                            });
+
+                            $("#submt").prop("disabled", "disabled");
+                        }//end if
+
+                        else {
+
+
+                            //if response.length =0
+
+
+
+                            $.ajax({
+                                type: "POST",
+                                url: "/SchoolAdmin/AjaxParentCount",
+                                data: '{cls:"' + cls + '"}',
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                                success: function (response) {
+
+
+                                    if (response.length != 0) {
+                                        swal({
+                                            title: "",
+                                            text: response,
+                                            icon: "error",
+                                        });
+
+                                         $("#submt").prop('disabled', true);;
+                                    }
+                                    else
+                                        $("#submt").prop("disabled", false);
+                                },
+                                failure: function (response) {
+                                    alert("from  parent failure" + response.responseText);
+                                },
+                                error: function (response) {
+                                    alert("from parent error  " + response.responseText);
+                                }
+
+                            });
+                        }//end else
+                    },
+                    failure: function (response) {
+                        alert("from  outer failure" + response.responseText);
+                    },
+                    error: function (response) {
+                        alert("from outer error  " + response.responseText);
+                    }
+                });//end outer ajax
+
+
+
+
+
+
+            } //end function
+
+            function CalDuration() {
+
+
+                
+                var stime = $("#Stime").val();
+               
+                var etime = $("#Etime").val();
+                
+                var t1 = stime.split(':');
+
+                
+
+                var t2 = etime.split(':');
+
+
+                var d1 = new Date(0, 0, 0, t1[0], t1[1]);
+
+               
+                var d2 = new Date(0, 0, 0, t2[0], t2[1]);
+               
+                var diff = (d2.getTime() - d1.getTime())/60000;
+
+                
+                if (diff < 0) {
+                    swal("End time Should be greater than start time!!");
+                    $("#Stime").val("");
+
+                    $("#Etime").val("");
+
+                    $("#Stime").focus();
+
+                }
+                else {
+
+                    $("#duration").val(diff);
+                    $("#duration_h").val(diff);
+                }
+
+            }
+
+
+            function addPeriod() {
+               
+                var cnt = $("#order").val();
+
+                
+                
+
+                alert( $("#order").val());
+                
+
+            }
+
+            $(document).ready(function () {
+
+
+               
+
+
+            });
+        </script>
+
+    }
+</body>
+
+</html>

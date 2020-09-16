@@ -1,0 +1,473 @@
+﻿@model SchoolWork.Models.School_Session_Year
+
+@{
+    ViewBag.Title = "Assign Subject";
+}
+
+@{
+
+    String bgcolor = "";
+}
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+    @*<meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>*@
+
+    <link href="~/CSS/stylesheet2.css" rel="stylesheet" />
+    <style>
+        .text-danger {
+            font-weight: 700;
+            color: red;
+        }
+
+        .body-div {
+            margin-top: 140px;
+            border-color: indigo;
+            border-style: groove;
+            padding: 35px;
+        }
+
+        .Education {
+            border-color: lightyellow;
+            border-style: inset;
+            padding: 17px;
+        }
+
+        p {
+            text-align: center;
+        }
+
+
+        .container {
+            width: 70% !important;
+            padding: 10px !important;
+        }
+
+        .well {
+            background-color: #ead4b3 !important;
+            border-style: inset;
+        }
+
+        .left {
+            float: left;
+            margin-right: 10px;
+            width: 48%;
+        }
+
+        .right {
+            float: left;
+            margin-left: 10px;
+            width: 48%;
+        }
+
+        .hr {
+            margin-top: 14px !important;
+            margin-bottom: 14px !important;
+        }
+    </style>
+
+</head>
+<body id="LoginForm" style="background-color:cornflowerblue;">
+    <div class="container">
+        <div class="body-div" style="background-color:blanchedalmond; max-width:100%">
+            <div class="row">
+                <div class="col-sm-12 col-md-12">
+                    @*<a class="btn btn-primary btn-product" onclick="@("window.location.href='" + @Url.Action("SchoolNoticeAdd", "SchoolAdmin") + "'");"><span class="glyphicon glyphicon-pencil"></span>Add Notice</a>*@
+                    <a class="btn btn-primary" onclick="@("window.location.href='" + @Url.Action("AdminHeaderBoard", "DashBoard") + "'");"><span class="glyphicon glyphicon-home"></span> &nbsp; Home</a>
+
+                    <a class="btn btn-danger" onclick="history.go(-1)"><span class="glyphicon glyphicon-arrow-left"></span> &nbsp; Return</a>
+
+                    @*<input type="button"  value="Return" class="btn btn-danger" />*@
+                </div>
+                <div class="col-sm-12 col-md-12 text-center">
+                    <h1 style="color:blueviolet;"><b>Assign Room Category</b></h1>
+
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="row Education" id="extTab1">
+                <div class="col-sm-12">
+                    <ul class="nav nav-pills">
+                        <li class="active col-md-6 text-center left">
+                            <a href="#1a" data-toggle="tab">Add Session Year</a>
+                        </li>
+                        <li class="col-md-6 text-center right">
+                            <a href="#2a" data-toggle="tab">View Session Year</a>
+                        </li>
+                    </ul>
+                    <br />
+                    <div class="tab-content clearfix">
+                        <!--Adding Form-->
+                        <div class="tab-pane active well" id="1a">
+
+                            @using (Html.BeginForm("AddSessionYear", "SchoolAdmin", FormMethod.Post, new { enctype = "multipart/form-data", @id = "Roomform" }))
+                            {
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-12">
+                                        <div class="class-sm-2 col-md-2 col-md-offset-2">
+                                            <label>
+                                            <font color="brown"> Start Month:</font>
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-4 col-md-4">
+
+                                            <select id="Start Month" name="Start_Month" class="form-control">
+                                                <option class="form-control" value="">--Month--</option>
+
+
+                                                <option value="January">January</option>
+                                                <option value="February">February</option>
+                                                <option value="March">March</option>
+                                                <option value="April">April</option>
+                                                <option value="May">May</option>
+                                                <option value="June">June</option>
+                                                <option value="July">July</option>
+                                                <option value="August">August</option>
+                                                <option value="September">September</option>
+                                                <option value="October">October</option>
+                                                <option value="November">November</option>
+                                                <option value="December">December</option>
+
+
+
+                                            </select>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-12">
+                                        <div class="class-sm-2 col-md-2 col-md-offset-2">
+                                            <label>
+                                                @*<i class="glyphicon glyphicon-list"></i>*@ <font color="brown"> Start Year:</font>
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-4 col-md-4">
+                                            <input type="text" name="Start_Year" id="Start_Year" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+
+
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-12">
+                                        <div class="class-sm-2 col-md-2 col-md-offset-2">
+                                            <label>
+                                                @*<i class="glyphicon glyphicon-list"></i>*@ <font color="brown"> End Month :</font>
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-4 col-md-4">
+
+
+
+                                            <select id="End_Month" name="End_Month" class="form-control">
+                                                <option value="">--Month--</option>
+                                                <option value="January">January</option>
+                                                <option value="February">February</option>
+                                                <option value="March">March</option>
+                                                <option value="April">April</option>
+                                                <option value="May">May</option>
+                                                <option value="June">June</option>
+                                                <option value="occupied">July</option>
+                                                <option value="July">August</option>
+                                                <option value="September">September</option>
+                                                <option value="October">October</option>
+                                                <option value="November">November</option>
+                                                <option value="December">December</option>
+                                            </select>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+
+
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-12">
+                                        <div class="class-sm-2 col-md-2 col-md-offset-2">
+                                            <font color="brown"> End Year:</font>
+                                        </div>
+                                        <div class="col-sm-4 col-md-4">
+                                            <input type="text" name="End_Year" id="End_Year" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div><br />
+
+
+                               
+                                <div class="clearfix"></div><br />
+
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-10 col-md-offset-3">
+                                        <input type="submit" value="Submit" class="btn btn-success" />
+                                        &nbsp;&nbsp;
+                                        <input type="reset" value="Reset" class="btn btn-warning">
+                                        &nbsp;&nbsp;
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+
+                            }
+
+                        </div>
+                        <!--End Adding Form--->
+                        <div class="tab-pane well" id="2a">
+                            <table class="table" id="products">
+                                <thead>
+                                    <tr>
+                                        <th>@Html.DisplayName("Start Month")</th>
+                                        <th>@Html.DisplayName("Start Year")</th>
+                                        <th>@Html.DisplayName("End Month")</th>
+                                        <th>@Html.DisplayName("End Year")</th>
+                                     
+
+
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model.SessionYearList.Count != 0)
+                                    {
+                                        foreach (var item in Model.SessionYearList)
+                                        {
+                                            <tr>
+                                                <td>@Html.DisplayFor(modelItem => item.Start_Month)</td>
+                                                <td>@Html.DisplayFor(modelItem => item.Start_Year)</td>
+                                                <td>@Html.DisplayFor(modelItem => item.End_Month)</td>
+                                                <td>@Html.DisplayFor(modelItem => item.End_Year)</td>
+
+                        
+                                            </tr>
+                                        }
+                                    }
+                                    @if (Model.SessionYearList.Count == 0)
+                                    {
+
+                                        <tr>
+                                            <td colspan="5">
+                                                <p style="text-align:center">
+                                                    <h2><font color="cornflowerblue"> No Data Found</font></h2>
+                                                </p>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                        <!---End View Table-->
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div><br />
+            <!-- GRAPH ROW START-->
+            <!-- GRAPH ROW END-->
+        </div>
+    </div>
+
+
+
+    @section Scripts
+    {
+
+        @Scripts.Render("~/bundles/jqueryval")
+
+
+        @Styles.Render("~/Content/cssjqryUi")
+
+
+
+        <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+        <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+        <link href="~/CSS/StyleSheet5.css" rel="stylesheet" />
+        <link href="~/CSS/Table.css" rel="stylesheet" />
+
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+
+
+
+        <!--sweet alert-->
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+
+        <!-- DataTables CSS -->
+
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.5/css/jquery.dataTables.css">
+
+
+        <!-- DataTables -->
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.5/js/jquery.dataTables.js">
+        </script>
+        <script>
+            $(document).ready(function () {
+                $('#products').DataTable();
+
+                $("#products").on('click', '.btnDelete', function () {
+                    $(this).closest('tr').remove();
+                });
+
+
+            });
+        </script>
+
+
+
+
+
+        <script type="text/javascript">
+
+
+            ////function Rem(id) {
+
+            ////    $.ajax({
+            ////        type: "POST",
+            ////        url: "/SchoolAdmin/AjaxDeleteRoom",
+            ////        data: '{RoomId:' + id + '}',
+            ////        contentType: "application/json; charset=utf-8",
+            ////        dataType: "json",
+            ////        success: function (response) {
+            ////            swal({
+            ////                title: "",
+            ////                text: response,
+            ////                icon: "success",
+            ////                timer: 700000
+            ////            });
+
+            ////            // window.location.reload();
+
+            ////        },
+            ////        failure: function (response) {
+            ////            alert("from  inner failure" + response.responseText);
+            ////        },
+            ////        error: function (response) {
+            ////            alert("from inner error  " + response.responseText);
+            ////        }
+            ////    });
+
+            ////    location.reload();
+            ////    //$("#divId").load(location.href + " #divId>*", "");
+            ////    // $("#graphDiv").load(location.href + " #graphDiv>*", "");
+            ////}
+            ////function CheckRoomName() {
+            ////    var rmnm = $("#RoomName").val();
+            ////    $.ajax({
+            ////        type: "POST",
+            ////        url: "/SchoolAdmin/AjaxCheckRoomName",
+            ////        data: '{RoomName:"' + rmnm + '"}',
+            ////        contentType: "application/json; charset=utf-8",
+            ////        dataType: "json",
+            ////        success: function (response) {
+
+
+            ////            if (response.length != 0) {
+            ////                swal({
+            ////                    title: "",
+            ////                    text: response,
+            ////                    icon: "error",
+            ////                });
+
+            ////                $("#RoomName").val("");
+            ////                $("#RoomName").focus(true);
+            ////            }
+            ////            else;
+
+
+            ////        },
+            ////        failure: function (response) {
+            ////            alert("from  inner failure" + response.responseText);
+            ////        },
+            ////        error: function (response) {
+            ////            alert("from inner error  " + response.responseText);
+            ////        }
+            ////    });
+
+            ////}
+            ////function CheckRoomNumber() {
+
+
+
+
+            ////    var rval = $("#RoomNo").val();
+
+            ////    //alert(rval);
+            ////    $.ajax({
+            ////        type: "POST",
+            ////        url: "/SchoolAdmin/AjaxCheckRoomNumber",
+            ////        data: '{RoomNumber:' + rval + '}',
+            ////        contentType: "application/json; charset=utf-8",
+            ////        dataType: "json",
+            ////        success: function (response) {
+
+
+            ////            if (response.length != 0) {
+            ////                swal({
+            ////                    title: "",
+            ////                    text: response,
+            ////                    icon: "error",
+            ////                });
+
+            ////                $("#RoomNo").val("");
+
+
+            ////                $("#RoomNo").focus();
+
+
+            ////            }
+            ////            else;
+
+
+            ////        },
+            ////        failure: function (response) {
+            ////            alert("from  failure" + response.responseText);
+            ////        },
+            ////        error: function (response) {
+            ////            alert("from  error  " + response.responseText);
+            ////        }
+            ////    });
+
+
+
+            ////}
+
+            //function formReset() {
+
+            //    alert("Reset");
+
+            //    document.getElementById("RoomNo").value = "";
+
+            //    alert(document.getElementById("RoomNo").value);
+            //    $("#RoomName").val("");
+            //     $("#Floor").val("");
+            //    //$("#RoomNo").val("");
+            //     //$("#RoomNo").val("");
+
+            //    //document.getElementById("Roomform").reset();
+
+            //    // $('#configform')[0].reset();
+            //}
+
+
+
+
+            ////$('.btn:reset').click(function (ev) {
+            ////    ev.preventDefault();
+            ////    $(this).closest('form').find("input").each(function (i, v) {
+            ////        $(this).val("");
+            ////    });
+            ////});
+        </script>
+
+    }
+</body>
+
+</html>

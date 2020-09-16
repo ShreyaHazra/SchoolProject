@@ -1,0 +1,510 @@
+﻿@model SchoolWork.Models.Homework
+
+
+@{
+
+    ViewBag.Title = "Assignment Homework";
+
+}
+@{
+
+    int id = Model.id;
+    int Student_ID = 0;
+    int Teacher_ID = 0;
+    String Assigned_Date = null;
+    string Due_Date = null;
+    string subm_date = null;
+    int subject_id = 0;
+    string description = null;
+    string status = null;
+    int class_id = 0;
+    int section_id = 0;
+    string section_name = null;
+    string topic = null;
+    string file_name = null;
+    string file_path = null;
+    int i = 0;
+    string varupld = "upload";
+    string varupldlnk = "upload_link";
+
+}
+<h2>Student Assignment</h2>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    <link href="~/CSS/stylesheet2.css" rel="stylesheet" />
+    <style>
+        .text-danger {
+            font-weight: 700;
+            color: red;
+        }
+
+
+        .row {
+            align-content: center !important;
+        }
+
+        
+        .Education {
+            border-color: lightyellow;
+            border-style: inset;
+            padding: 30px 20px;
+        }
+
+        #description {
+
+            border: groove red;
+        }
+        
+    </style>
+
+</head>
+<body id="LoginForm" style="background-color:cornflowerblue">
+
+    <div class="container">
+        <div class="body-div" style="background-color:blanchedalmond; max-width:100%">
+           
+            <div class="row">
+                <div class="col-sm-12 col-md-12">
+
+                    @*<a class="btn btn-primary btn-product" onclick="@("window.location.href='" + @Url.Action("SchoolNoticeAdd", "SchoolAdmin") + "'");"><span class="glyphicon glyphicon-pencil"></span>Add Notice</a>*@
+                    <a class="btn btn-primary" onclick="@("window.location.href='" + @Url.Action("StudentHeaderBoard", "DashBoard") + "'");"><span class="glyphicon glyphicon-home"></span> &nbsp; Home</a>
+
+
+                    <a class="btn btn-danger" onclick="history.go(-1)"><span class="glyphicon glyphicon-arrow-left"></span> &nbsp; Return</a>
+
+
+                </div>
+                <div class="col-sm-12 col-md-12 text-center">
+
+                    <h1 style="color:blueviolet;"><b>Homework List</b></h1>
+
+
+
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="row">
+                <div class="col-sm-12 col-md-10 col-md-offset-1 Education">
+                    <!--form start-->
+                    @using (Html.BeginForm("HomeWorkUpload", "StudentDetail", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+                        <table id="subject" class="table">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayName("Subject Name")
+                                    </th>
+                                    <th>
+                                        @Html.DisplayName("Topic ")
+                                    </th>
+
+                                    <th>
+                                        @Html.DisplayName("Date Assigned")
+                                    </th>
+                                    <th>
+                                        @Html.DisplayName("Due Date")
+                                    </th>
+                                    <th>
+                                        @Html.DisplayName("View Details")
+                                    </th>
+                                </tr>
+                            </thead>
+                           
+                            @foreach (var stu_details in Model.Templist)
+                            {
+
+                                Student_ID = @stu_details.stu_id;
+                                Teacher_ID = @stu_details.Teacher_ID;
+                                Assigned_Date = Convert.ToString(@stu_details.date_assigned);
+                                Due_Date = Convert.ToString(@stu_details.due_date);
+                                //subm_date = @stu_details;
+                                subject_id = @stu_details.sub_id;
+                                description = @stu_details.Home_Desc;
+                                //status = null;
+                                class_id = @stu_details.class_id;
+                                section_id = @stu_details.sec_id;
+                                section_name = @stu_details.SectionName;
+                                topic = @stu_details.topic;
+                                //file_name = null;
+                                //file_path
+                                ++@i;
+                                @varupld = "upld" + @i;
+                                @varupldlnk = "upload_link" + @i;
+                                <tr>
+                                    <td>
+                                        <!--@Html.DisplayName(""+@i)-->
+                                        @Html.DisplayFor(modelItem => stu_details.subject_name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => stu_details.topic)
+                                    </td>
+
+                                    <td>
+                                        @Html.DisplayFor(modelItem => stu_details.date_assigned)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => stu_details.due_date)
+                                    </td>
+                                    <td>
+
+
+                                        @* <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#demo" onclick="testdemo(@stu_details.ID)">View</button>*@
+
+
+                                        <button type="button" class="btn btn-primary" onclick="testdemo(@stu_details.ID)">View</button>
+                                                @*@Html.DisplayFor(modelItem => stu_details.File_Name)*@
+                                    </td>
+                                </tr>
+
+
+
+
+                            }
+
+                            @if (@Model.Templist.Count() == 0)
+                            {
+                                <tr>
+                                    <td colspan="6">
+                                        <p style="text-align:center"><font size="4" color="cornflowerblue">No Data Found</font></p>
+                                    </td>
+                                </tr>
+                            }
+                        </table>
+
+                        <!--Collapsible-->
+
+
+                            <div id="demo" class="col-sm-12 col-md-12" hidden="hidden">
+
+                            </div>
+
+
+
+
+
+
+                        <!--Collapsible-->
+
+                    }
+                    <!--form end-->
+
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+
+
+
+
+
+
+
+    @section Scripts
+    {
+
+        @Scripts.Render("~/bundles/jqueryval")
+
+
+        @Styles.Render("~/Content/cssjqryUi")
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+        @*<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+            <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+            <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">*@
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+        <link href="~/CSS/StyleSheet5.css" rel="stylesheet" />
+        <link href="~/CSS/Table.css" rel="stylesheet" />
+
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+
+        <!-- DataTables CSS -->
+
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.5/css/jquery.dataTables.css">
+
+
+
+        <!-- DataTables -->
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.5/js/jquery.dataTables.js"></script>
+
+
+
+
+        <script type="text/javascript" charset="utf8">
+
+
+            $(document).ready(function () {
+                $('#subject').DataTable();
+            });
+
+
+            function cancelcall() {
+
+                $("#demo").hide();
+            }
+            function testdemo(id) {
+
+
+                var Sub_Date = "";
+                var status = "";
+                //alert("ID:"+id);
+                $("#demo").show();
+
+                 $.ajax({
+                    url: "/StudentDetail/AjaxgetDetail",
+                    type: "POST",
+                    data: '{Id:"' + id + '"}',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        var list1, list2,list3;
+                        var count = 1;
+                        var str = "";
+                        list1 = response.Templist;
+                       // alert(list1.length);
+                        list2 = response.Filelist;
+
+                        list3 = response.Fileresponse;
+                        //alert(list2.length);
+
+                        str += '<div class="col-sm-12 col-md-12 Education">';
+
+                        if (list1.length > 0) {
+                            $.each(list1, function () {
+
+                                str += ' <div class="col-sm-8 col-md-8 Education">';
+                                str += '<div class="row">';
+                                  str += '<div class="col-sm-4 col-md-4 text-left">';
+                                    str += '<font color="brown"><b>Teacher</b></font>&nbsp;';
+                                     str += this['Teacher_Name'];
+                                  str += '</div>';
+                                  str += '<div class="col-sm-4 col-md-4 text-left">';
+                                    str += '<font color="brown"><b>Class</b></font>&nbsp;';
+                                     str += this['ClassName'];
+                                  str += '</div>';
+                                   str += '<div class="col-sm-4 col-md-4 text-left">';
+                                    str += '<font color="brown"><b>Section</b></font>&nbsp;';
+                                     str += this['SectionName'];
+                                str += '</div>';
+                                str += "</div>";
+                                str += '<div class="row">';
+                                       str+='<div class="col-sm-6 ">';
+
+                                str += '<font color="Brown"><b>Submission Date:</b></font>&nbsp;';
+
+                                if (response.Subm_Date != "N/A")
+                                    Sub_Date = response.Subm_Date;
+                                        
+                                     str += response.Subm_Date;
+                                       str+='</div> ';
+                                       str+='<div class="col-sm-6">';
+                                str += '<font color="Brown"><b>Status:</b></font>&nbsp;';
+                                if (response.status != "N/A")
+                                    status = response.status;
+                                          str += response.status;
+                                str += "</div>";
+                                       str += '</div>';
+
+                               
+                                str += "<div class='row'>";
+                                    str+='<font color="brown"><b>';
+                                        str += 'Files to Download';
+                                    str+='</b></font>';
+                                str += "</div>";
+                                
+                                str += "<div class='row'>";
+                                    $.each(list2, function () {
+
+                                       // str += '<div>';
+                                            str += '<a href=' + this["File_Name"] + ' download> File ' + count++ + '</a> &nbsp;&nbsp;';
+
+                                       // str += '</div>';
+                                     });
+                                str += "</div>";
+                                if (Sub_Date.length == 0) {
+                                    str += "<div class='row'>";
+
+                                    str += '<font color="brown"><b>';
+                                    str += 'Files to Upload:';
+                                    str += '</b></font> &nbsp;';
+
+                                    str += "<input type='file' id='fresponse' name='fresponse' multiple>";
+
+
+                                    str += "</div>";
+                                }
+                                else {
+                                    count = 1;
+                                    str += "<div class='row'>";
+
+                                     str += '<font color="brown"><b>';
+                                    str += 'Uploaded Files:';
+                                     str += '</b></font> &nbsp;';
+                                    $.each(list3, function () {
+
+                                       // str += '<div>';
+                                            str += '<a href=' + this["File_Name"] + ' download> File ' + count++ + '</a> &nbsp;&nbsp;';
+
+                                       // str += '</div>';
+                                     });
+                                str += "</div>";
+
+
+
+                                }
+
+
+                                str += '</div>';
+
+
+
+
+
+                                str += ' <div class="col-sm-4 col-md-4 Education">';
+
+                                 str+='<div class="row text-left col-sm-12 col-md-12">';
+                                     str+='<font color="brown"> <b>Instruction: </b></font>';
+                                 str+='</div>';
+                                 str+='<div class="row text-left col-sm-12 col-md-12">';
+                             str += this["Home_Desc"];
+                                 str+='</div>';
+                              
+
+                                str += '</div>';
+
+
+                            });
+
+                        }
+
+
+                        str += '<div class="row col-sm-12 col-md-12 text-right">';
+
+                        if (Sub_Date.length == 0) {
+                            str += '<input type="button" class="btn btn-primary" value="Update" onclick="uploadData(' + id + ')"> &nbsp;&nbsp;';
+                        }
+                        str += '<input type="button" class="btn btn-danger" value="Cancel" onclick="cancelcall()">';
+                        str += '</div>';
+                        str += '</div>';
+
+                       
+                        document.getElementById("demo").innerHTML = str;
+                    },
+                    error: function (err) {
+                        alert("Error: " + err.statusText);
+                    }
+                });
+
+
+            }
+            
+            $(function () {
+                $('a[id^="upload_link"]').on('click', function (e) {
+                    var i=($(this).attr("id")).match(/-?\d+\.?\d*/);
+                    e.preventDefault();
+                     //$('input[id^="upld"'+@i+']').trigger('click');
+                    $("#upld" + i).trigger('click');
+                });
+            });
+
+            function uploadData(id) {
+
+
+                 var filepath, filename="";
+               
+               if (window.FormData !== undefined) {  
+                     
+                    var fileUpload = $("#fresponse").get(0);  
+                   var files = fileUpload.files;
+
+                   //alert(files.length);
+                   if (files.length > 0) {
+                       // Create FormData object  
+                       var fileData = new FormData();
+
+                       var File_ID
+
+                       for (var i = 0; i < files.length;i++)
+                           fileData.append(files[i].name, files[i]);
+
+
+                         $.ajax({
+                            url: "/StudentDetail/AjaxuploadDetail",
+                            type: "POST",
+                            data: '{Id:"' + id + '"}',
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                             success: function (response) {
+                                 File_ID = response.FID;
+
+                                 //alert(File_ID);
+                                
+                                  $.ajax({
+                                     url: "/StudentDetail/AjaxUploadFile",
+                                     type: "POST",
+
+                                       contentType: false, // Not to set any content header  
+                                     processData: false,                 // Not to process data  
+                                     data:  fileData ,
+                                   success: function (result) {
+                                       alert("Files Uploaded!!");
+                                   },
+                                   error: function (err) {
+                                       alert("Error: " + err.statusText);
+                                   }
+                               });
+
+                             },
+                             error: function (err) {
+                                       alert("Error: " + err.statusText);
+                                   }
+                          });
+            
+
+                       //filename = files[0].name;
+
+
+                      
+                   }
+                   else {
+
+                       alert("Please Select  file(s)!!");
+                   }
+
+                   
+
+
+
+                } else {  
+                        alert("FormData is not supported.");  
+                    } 
+
+
+
+
+
+            }
+
+            
+  </script>
+    }
+
+
+</body>
+
+</html>

@@ -1,0 +1,654 @@
+﻿@model SchoolWork.Models.Routine
+
+@{
+    ViewBag.Title = "Create Holiday";
+}
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+
+    <link href="~/CSS/stylesheet2.css" rel="stylesheet" />
+    <style>
+        .text-danger {
+            font-weight: 700;
+            color: red;
+        }
+
+        .body-div {
+            margin-top: 140px;
+            border-color: indigo;
+            border-style: groove;
+            padding: 35px;
+        }
+
+        .Education {
+            border-color: lightyellow;
+            border-style: inset;
+            padding: 17px;
+        }
+
+        p {
+            text-align: center;
+        }
+        select option[value="red"] {
+                 background-color: #FF7F50;  
+        }
+
+        select option[value="yellow"] {
+                background-color: #f0eb80;   
+        }
+
+         select option[value="white"] {
+                background-color: white;   
+        }
+
+
+        .container {
+            width: 70% !important;
+            padding: 10px !important;
+        }
+
+        .well {
+            background-color: #ead4b3 !important;
+            padding: 10px 19px !important;
+            /*border-style: inset;*/
+        }
+
+        .left {
+            float: left;
+            margin-right: 10px;
+            width: 48%;
+        }
+        .radio{
+
+            width:1.2em;
+            height:1.2em;
+        }
+        .right {
+            float: left;
+            margin-left: 10px;
+            width: 48%;
+        }
+
+        .hr {
+            margin-top: 14px !important;
+            margin-bottom: 14px !important;
+        }
+    </style>
+</head>
+<body id="LoginForm" style="background-color:cornflowerblue;">
+    <div class="container">
+        <div class="body-div" style="background-color:blanchedalmond; max-width:100%">
+            <div class="row">
+                <div class="col-sm-12 col-md-12">
+                    @*<a class="btn btn-primary btn-product" onclick="@("window.location.href='" + @Url.Action("SchoolNoticeAdd", "SchoolAdmin") + "'");"><span class="glyphicon glyphicon-pencil"></span>Add Notice</a>*@
+                    <a class="btn btn-primary" onclick="@("window.location.href='" + @Url.Action("AdminHeaderBoard", "DashBoard") + "'");"><span class="glyphicon glyphicon-home"></span> &nbsp; Home</a>
+
+                    <a class="btn btn-danger" onclick="history.go(-1)"><span class="glyphicon glyphicon-arrow-left"></span> &nbsp; Return</a>
+
+                    @*<input type="button"  value="Return" class="btn btn-danger" />*@
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 col-md-12 text-center">
+                    <h1 style="color:blueviolet;"><b>Holiday Module</b></h1>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="row Education">
+                <div class="col-md-12 col-sm-12 well">
+                    <div class="col-md-12 col-sm-12 ">
+                        <h4 class="text-center" style="color: blueviolet;font-weight: bold;">Add Holiday </h4>
+                        <hr />
+                    </div>
+
+                    <div class="col-sm-12 col-md-12">
+
+                        <div class="row">
+
+                            <div class="form-group col-sm-6">
+                                <div class="col-sm-4">
+                                    <label> Name:</label>
+                                </div>
+                                <div class="col-sm-8">
+                                    <input class="form-control" placeholder="Holiday/Event Name" type="text" id="holidayname" name="holidayname" onchange="changeHoliday()" />
+                                </div>
+                            </div>
+
+
+                            <div class="form-group col-sm-6">
+                                <div class="col-sm-4">
+                                    <label>Holiday Type:</label>
+                                </div>
+                                <div class="col-sm-8">
+                                    <select id="htype" name="htype" class="form-control">
+                                        <option value="">---Select Type----</option>
+                                        <option value="Event">Event</option>
+                                        <option value="Holiday">Holiday</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="row">
+
+                            <div class="form-group col-sm-6">
+                                <div class="col-sm-4">
+                                    <label> Start Date:</label>
+                                </div>
+                                <div class="col-sm-8">
+                                    @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Your Date", @Value = "" } })
+
+                                </div>
+                            </div>
+
+
+                            <div class="form-group col-sm-6">
+                                <div class="col-sm-4">
+                                    <label>End Date:</label>
+                                </div>
+                                <div class="col-sm-8">
+                                    @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control", @Placeholder = "Enter Your Date", @Value = "" } })
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="clearfix"></div>
+
+                        <div class="row">
+
+                            <div class="form-group col-sm-6">
+                                <div class="form-group col-sm-6">
+                                    <label for="fullday">Full Day</label>
+                                    <input type="radio" id="fullday" name="fullday" value="Full day" class="radio radio-inline" checked>
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <label for="halfday">Half Day</label>
+                                    <input type="radio" id="fullday" name="fullday" value="Half day" class="radio radio-inline">
+                                </div>
+                            </div>
+
+
+                            <div class="form-group col-sm-6">
+                                <div class="col-sm-4">
+                                    <label> Theme Color:</label>
+                                </div>
+                                <div class="col-sm-8">
+
+                                    <select id="themecolor" name="themecolor" class="form-control" onchange="ChangeColor()">
+                                        <option value="white">----Select Color----</option>
+                                        <option value="red">Red</option>
+                                        <option value="yellow">Yellow</option>
+
+                                    </select>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="row">
+                            <div class="form-group col-sm-6">
+                                <div class="col-sm-4">
+                                    <label>Short Description:</label>
+                                </div>
+                                <div class="col-sm-8">
+                                    <textarea id="description" name="description" cols="8" rows="2" class="form-control"></textarea>
+                                </div>
+
+                            </div>
+
+                            <div class="form-group col-sm-6">
+                                <div class="col-sm-12" style="text-align:center;padding-top:4em;">
+                                    <a class="btn btn-success btn-lg" id="save" onclick="Javascript:check()">Save</a>
+                                    <a class="btn btn-warning btn-lg" onclick="Javascript:ClearAll()">Clear</a>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+
+
+
+                </div>
+
+
+                
+
+
+                <div class="clearfix "></div><br />
+                <div class="col-sm-12 well">
+                    <h4 class="text-center" style="color: blueviolet;font-weight: bold;">View Holiday</h4>
+                    <hr />
+                    <div class="col-sm-12 col-md-12; table-responsive" id="viewclass">
+                        <!--insert dynamic table here-->
+                    </div>
+                </div>
+            </div>
+        </div><!---end class body div row-->
+    </div><!--container-->
+
+    @section Scripts
+    {
+
+        @Scripts.Render("~/bundles/jqueryval")
+
+
+        @Styles.Render("~/Content/cssjqryUi")
+
+
+
+        <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+        <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+        <link href="~/CSS/StyleSheet5.css" rel="stylesheet" />
+        <link href="~/CSS/Table.css" rel="stylesheet" />
+
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+
+        <!--daterange picker-->
+
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+        <!--sweet alert-->
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+
+        <!-- DataTables CSS -->
+
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.5/css/jquery.dataTables.css">
+
+
+        <!-- DataTables -->
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.5/js/jquery.dataTables.js">
+        </script>
+        <script type="text/javascript">
+
+            function ClearAll() {
+
+              location.reload(); 
+
+            }
+
+            function check() {
+              //  var fullday = $("#fullday").val();
+
+               var fullday= $("input[name='fullday']:checked"). val();
+                //alert(fullday);
+                var hname = $("#holidayname").val();
+                var htype = $("#htype").val();
+                var SDate = $("#StartDate").val();
+                var EDate = $("#EndDate").val();
+                var daytype = $("#daytype").val();
+                var themecolor = $("#themecolor").val();
+                var description = $("#description").val();
+
+                $.ajax({
+                    type: "POST",
+                    url: "/SchoolAdmin/Ajaxaddholiday",
+                    data: '{holidayname:"' + hname + '",htype:"' + htype + '",SDate:"' + SDate + '",EDate:"' + EDate + '",daytype:"' + daytype + '",themecolor:"' + themecolor + '",description:"' + description + '",fullday:"' + fullday + '" }',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        swal({
+                            title: "",
+                            text: response,
+                            icon: "success"
+
+                        });
+
+
+                        ///getting a list of holidays
+
+                        createList(); 
+
+                        ///ending table draawing
+                    },
+                    failure: function (response) {
+                        alert("from   failure" + response.responseText);
+                    },
+                    error: function (response) {
+                        alert("from  error  " + response.responseText);
+                    }
+                });
+
+
+
+            }
+
+
+            function createList() {
+
+                 $.ajax({
+                            type: "POST",
+                            url: "/SchoolAdmin/AjaxgetList",
+                            data: '{}',
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            success: function (response) {
+
+                                
+                                var list = response.TempHoliday;
+
+                                
+                                createTable(list);
+                            },
+                            failure: function (response) {
+                                alert("from inner  failure" + response.responseText);
+                            },
+                            error: function (response) {
+                                alert("from  inner error  " + response.responseText);
+                            }
+                        });
+
+
+            }
+            function ChangeColor() {
+
+                var eID = document.getElementById("themecolor");
+                var colorVal = eID.options[eID.selectedIndex].value;
+                //var colortxt = eID.options[eID.selectedIndex].text;
+                document.getElementById('themecolor').style.background = colorVal;
+
+
+
+            }
+            function CheckHoliday() {
+
+               // alert("Before");
+                 $.ajax({
+                            type: "POST",
+                            url: "/SchoolAdmin/Ajaxcheckholiday",
+                            data: '{}',
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            success: function (response) {
+                                
+                                createTable(response.TempHoliday);
+                            },
+                            failure: function (response) {
+                                alert("from   failure" + response.responseText);
+                            },
+                            error: function (response) {
+                                alert("from  error  " + response.responseText);
+                            }
+                        });
+
+
+            }
+
+
+            function toggleHoliday(Event_ID) {
+                //alert("#DisplaySection" + Event_ID);
+                $("#DisplaySection"+Event_ID).hide();
+                $("#EditSection"+Event_ID).show();
+
+
+            }
+
+            function editHoliday(Event_ID) {
+
+
+                
+                var fullday = $("#fullday" + Event_ID).val();
+
+               // alert("fullday"+fullday);
+                var hname = $("#holidayname"+Event_ID).val();
+                var htype = $("#htype"+Event_ID).val();
+                var SDate = $("#SDate"+Event_ID).val();
+                var EDate = $("#EDate"+Event_ID).val();
+               // var daytype = $("#daytype"+Event_ID).val();
+                //var themecolor = $("#themecolor"+Event_ID).val();
+                var description = $("#description"+Event_ID).val();
+                //alert('{Event_ID:'+Event_ID+',holidayname:"' + hname + '",htype:"' + htype + '",SDate:"' + SDate + '",EDate:"' + EDate + '",description:"' + description + '",fullday:"' + fullday + '" }');
+                $.ajax({
+                    type: "POST",
+                    url: "/SchoolAdmin/AjaxEditholiday",
+                    data: '{Event_ID:'+Event_ID+',holidayname:"' + hname + '",htype:"' + htype + '",SDate:"' + SDate + '",EDate:"' + EDate + '",description:"' + description + '",fullday:"' + fullday + '" }',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        swal({
+                            title: "",
+                            text: response,
+                            icon: "success"
+
+                        });
+                        createList();
+                   },
+                    failure: function (response) {
+                        alert("from   failure" + response.responseText);
+                    },
+                    error: function (response) {
+                        alert("from  error  " + response.responseText);
+                    }
+                });
+
+
+
+            }
+
+            //glyphicon glyphicon - edit
+            //glyphicon glyphicon-remove-sign
+            
+
+            function deleteHoliday(Event_ID) {
+
+
+
+                $.ajax({
+                    type: "POST",
+                    url: "/SchoolAdmin/AjaxDeleteHoliday",
+                    data: '{Event_ID:'+Event_ID+' }',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        swal({
+                            title: "",
+                            text: response,
+                            icon: "success"
+
+                        });
+                        createList();
+                   },
+                    failure: function (response) {
+                        alert("from   failure" + response.responseText);
+                    },
+                    error: function (response) {
+                        alert("from  error  " + response.responseText);
+                    }
+                });
+
+
+            }
+            function createTable(list) {
+
+               // alert(list.length);
+                var str = "";
+
+                         str = "<table id='periodadd'>";
+                         str += "<thead>";
+                         str += "<tr>";
+                         str += "<th>";
+                         str += "Subject";
+                         str += "</th>";
+                         str += "<th>";
+                         str += "Description";
+                         str += "</th>";
+                         str += "<th>";
+                         str += "Start Date";
+                         str += "</th>";
+                         str += "<th>";
+                         str += "End Date";
+                         str += "</th>";
+                         str += "<th>";
+                         str += "Full Day";
+                         str += "</th>";
+                         str += "<th>";
+                         str += "Event Type";
+                         str += "</th>";
+                         str += "<th>";
+                         str += "Action";
+                         str += "</th>";
+                          str += "</tr>";
+                         str += "</thead>";
+
+
+                if (list != null) {
+
+                    $.each(list, function () {
+
+                        var disp='DisplaySection'+this['Event_ID'];
+                        var edit = 'EditSection' + this['Event_ID'];
+
+                        str += "<tr id='"+disp+"'>";
+                        str += "<td>";
+                        str += this['Subject'];
+                        str += "</td>";
+                        str += "<td>";
+                        str += this['Description'];
+                        str += "</td>";
+                        str += "<td>";
+                        str += this['StartDate'];
+                        str += "</td>";
+                        str += "<td>";
+                        str += this['EndDate'];
+                        str += "</td>";
+                        str += "<td>";
+                        str += this['full_day'];
+                        str += "</td>";
+                        str += "<td>";
+                        str += this['EventType'];
+                        str += "</td>";
+                        
+                                
+                        str += "<td>";
+                        str += "<a href='javascript:toggleHoliday(" + this['Event_ID'] + ")' data-toggle='tooltip' title='Edit'> <span class='glyphicon glyphicon-edit' style='font-size:27px;'></span></a>";
+                        str += "<a href='javascript:deleteHoliday(" + this['Event_ID'] + ")' data-toggle='tooltip' title='Delete'  > <span class='glyphicon glyphicon-remove-circle' style='font-size:27px;color: #f11414ed;'></span></a>";
+                        str += "</td>";
+
+                        str += "</tr>";
+
+                        str += "<tr id="+edit+" hidden='hidden'>";
+                        str += "<td>";
+                        str += "<input type='text' id='holidayname" + this['Event_ID'] + "' value='" + this['Subject'] + "' class='form-control'>";
+                        str += "</td>";
+                        str += "<td>";
+                        str += "<input type='text' id='description" + this['Event_ID'] + "' value='" + this['Description'] + "' class='form-control'>";
+                        str += "</td>";
+                        str += "<td>";
+                        str += "<input type='text' id='SDate" + this['Event_ID'] + "' value=" + this['StartDate'] + " class='form-control'>";
+                        str += "</td>";
+                        str += "<td>";
+                        str += "<input type='text' id='EDate" + this['Event_ID'] + "' value=" + this['EndDate'] + " class='form-control'>";
+                        str += "</td>";
+                        str += "<td>";
+                        str += "<input type='text' id='fullday" + this['Event_ID'] + "' value='" + this['full_day'] + "' class='form-control'>";
+                        str += "</td>";
+                        str += "<td>";
+                        str += "<input type='text' id='htype" + this['Event_ID'] + "' value='" + this['EventType'] + "' class='form-control'>";
+                        str += "</td>";
+                        //glyphicon glyphicon-save
+
+                        str += "<td>";
+                       
+                       // <a href='javascript:editHoliday(" + this['Event_ID'] + ")' data-toggle='tooltip' title='Edit'> <span class='glyphicon glyphicon-edit' style='font-size:27px;'></span></a> 
+                        str += "<a href='javascript:editHoliday(" + this['Event_ID'] + ")' data-toggle='tooltip' title='Save'  class='btn btn-success btn-sm'>Save</a>";
+                        str += "<a href='javascript:createList()' data-toggle='tooltip' title='Hide'  class='btn btn-warning btn-sm'>Hide</a>";
+                        str += "</td>";
+
+                        str += "</tr>";
+
+
+
+
+                    });
+
+                }
+
+               // alert(list==null);
+                if(list==null){
+                    str += "<tr>";
+
+                    str += "<td colspan='7'>";
+
+                    str+="<font size='5' color='brown'>"
+                    str += "No Record Found";
+                    str += "</font>";
+                    str += "</td>";
+                    str += "</tr>";
+
+                }
+
+              
+
+                str += "</table>";
+                
+
+                $("#viewclass").html(str);
+
+                // $("#periodadd").DataTable();
+
+                
+               
+
+            }
+        </script>
+
+        <script>
+
+            $(function () {
+                $('input[name="StartDate"]').daterangepicker({
+                    singleDatePicker: true,
+                    timePicker: true,
+                    showDropdowns: true,
+                    minYear: 2001,
+                    
+                    locale: {
+                        format: 'YYYY/MM/DD'
+                    }
+                });
+            });
+
+            $(function () {
+                $('input[name="EndDate"]').daterangepicker({
+                    singleDatePicker: true,
+                    timePicker: true,
+                    showDropdowns: true,
+                    minYear: 2001,
+                    
+                    locale: {
+                        format: 'YYYY/MM/DD'
+                    }
+                });
+            });
+
+
+
+
+            
+             $(window).load(function () {
+                 //alert("");
+                 CheckHoliday();
+
+                
+                 
+            });
+
+            $(document).ready(function () {
+
+              
+
+            });
+        </script>
+
+    }
+
+</body>
+</html>

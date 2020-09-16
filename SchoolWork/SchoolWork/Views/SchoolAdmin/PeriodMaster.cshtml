@@ -1,0 +1,776 @@
+﻿@model SchoolWork.Models.Routine
+
+@{
+    ViewBag.Title = "Create Class";
+}
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+
+    <link href="~/CSS/stylesheet2.css" rel="stylesheet" />
+    <style>
+        .text-danger {
+            font-weight: 700;
+            color: red;
+        }
+
+        .body-div {
+            margin-top: 140px;
+            border-color: indigo;
+            border-style: groove;
+            padding: 35px;
+        }
+
+        .Education {
+            border-color: lightyellow;
+            border-style: inset;
+            padding: 17px;
+        }
+
+        p {
+            text-align: center;
+        }
+
+
+        .container {
+            width: 70% !important;
+            padding: 10px !important;
+        }
+
+        .well {
+            background-color: #ead4b3 !important;
+            padding: 10px 19px !important;
+            /*border-style: inset;*/
+        }
+
+        .left {
+            float: left;
+            margin-right: 10px;
+            width: 48%;
+        }
+
+        .right {
+            float: left;
+            margin-left: 10px;
+            width: 48%;
+        }
+
+        .hr {
+            margin-top: 14px !important;
+            margin-bottom: 14px !important;
+        }
+
+        span.glyphicon-saved{
+                font-size: 2em;
+            }
+        span.glyphicon-remove-sign{
+             font-size: 1em;
+
+        }
+    </style>
+</head>
+<body id="LoginForm" style="background-color:cornflowerblue;">
+    <div class="container">
+        <div class="body-div" style="background-color:blanchedalmond; max-width:100%">
+            <div class="row">
+                <div class="col-sm-12 col-md-12">
+                    @*<a class="btn btn-primary btn-product" onclick="@("window.location.href='" + @Url.Action("SchoolNoticeAdd", "SchoolAdmin") + "'");"><span class="glyphicon glyphicon-pencil"></span>Add Notice</a>*@
+                    <a class="btn btn-primary" onclick="@("window.location.href='" + @Url.Action("AdminHeaderBoard", "DashBoard") + "'");"><span class="glyphicon glyphicon-home"></span> &nbsp; Home</a>
+
+                    <a class="btn btn-danger" onclick="history.go(-1)"><span class="glyphicon glyphicon-arrow-left"></span> &nbsp; Return</a>
+
+                    @*<input type="button"  value="Return" class="btn btn-danger" />*@
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 col-md-12 text-center">
+                    <h1 style="color:blueviolet;"><b>Create Period</b></h1>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="row Education">
+                <div class="col-md-12 col-sm-12 well">
+
+                    <div class="col-md-12 col-sm-12 text-center">
+                        <div class="col-md-4 col-sm-4 text-right">
+                            <font color="brown" style="text-align:right">
+                                Select Class:
+                            </font>
+                        </div>
+                        <div class="col-md-4 col-sm-4">
+                            @Html.DropDownListFor(m => m.Class_ID, Model.Class_Name, "--Select Class--", new { @class = "form-control col-md-4", @onChange = "createTable()" })
+                        </div>
+                        <div class="col-md-4 col-sm-4">
+
+                        </div>
+
+                    </div>
+                    <div class="col-md-12 col-sm-12 text-center">
+                        <hr />
+                    </div>
+
+                    <div class="clearfix"></div><br />
+
+
+                    <!---end of header-->
+                    <!--Addition of tab--->
+                    <ul class="nav nav-pills">
+                        <li class=" col-md-6 text-center left">
+                            <a href="#1a" data-toggle="tab" class="inactive">Add Period</a>
+                        </li>
+                        <li class="active col-md-6 text-center right" >
+                            <a href="#2a" data-toggle="tab" class="active" id="view">View Period</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content clearfix">
+                        <div class="tab-pane  well" id="1a">
+                            <div class="col-md-12 col-sm-12 text-right" id="DeleteMaster" hidden>
+                                <a class="btn btn-danger" onclick="JavaScript:Deleteall()"><span class="glyphicon glyphicon-remove-sign"></span> &nbsp; Delete</a>
+
+                            </div>
+                           
+
+                            <br />
+                            <br />
+                            <div id="dataAdd" class="col-sm-12 col-md-12 pre-scrollable table-responsive">
+                                <!--for insertion of table input-->
+
+
+
+
+                            </div>
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <div class="col-md-12 col-sm-12 text-right" id="SaveMaster" hidden="hidden">
+                                <a class="btn btn-primary" onclick="JavaScript:Saveall()"><span class="glyphicon glyphicon-ok-sign"></span> &nbsp; Save</a>
+
+                            </div>
+                        </div>
+
+
+                        <div class="tab-pane active " id="2a">
+                            
+                            <div class="col-md-12 col-sm-12 text-right" id="DeleteAll" hidden="hidden">
+                                <a class="btn btn-danger text-right" onclick="JavaScript:DeleteMasterall()"><span class="glyphicon glyphicon-remove-sign"></span> &nbsp; Delete</a>
+
+                            </div>
+                            <div id="dataMaster" class="col-sm-12 col-md-12 pre-scrollable table-responsive">
+                            </div>
+
+                        </div>
+                    </div>
+
+
+
+                    </div>
+                </div><!---end class body div row-->
+    </div><!--container-->
+</div>
+    @section Scripts
+    {
+
+        @Scripts.Render("~/bundles/jqueryval")
+
+
+        @Styles.Render("~/Content/cssjqryUi")
+
+
+
+        <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+        <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+        <link href="~/CSS/StyleSheet5.css" rel="stylesheet" />
+        <link href="~/CSS/Table.css" rel="stylesheet" />
+
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+
+
+
+        <!--sweet alert-->
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+
+        <!-- DataTables CSS -->
+
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.5/css/jquery.dataTables.css">
+
+
+        <!-- DataTables -->
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.5/js/jquery.dataTables.js">
+        </script>
+        <script type="text/javascript">
+          
+            //change class
+
+            function DeleteMasterall() {
+
+               var cname = ($("#Class_ID").val());
+                 
+                 if (cname.length == 0)
+                     cname = 0;
+
+                
+                 $.ajax({
+                     type: "POST",
+                     url: "/SchoolAdmin/AjaxDeleteAllMaster",
+                     data: '{cname:' + cname + '}',
+                     contentType: "application/json; charset=utf-8",
+                     dataType: "json",
+                     success: function (response) {
+                         
+                         swal({
+                                title: "",
+                                text: response,
+                                icon: "success"
+                         });
+                         createTable();
+                     },
+
+                     failure: function (response) {
+                        alert("from   failure" + response.responseText);
+                    },
+                    error: function (response) {
+                        alert("from  error  " + response.responseText);
+                    }
+                });
+
+
+            }
+            function Deleteall() {
+                    var cname = ($("#Class_ID").val());
+                 
+                 if (cname.length == 0)
+                     cname = 0;
+
+                
+                 $.ajax({
+                     type: "POST",
+                     url: "/SchoolAdmin/AjaxDeleteAllPeriod",
+                     data: '{cname:' + cname + '}',
+                     contentType: "application/json; charset=utf-8",
+                     dataType: "json",
+                     success: function (response) {
+                         
+                         swal({
+                                title: "",
+                                text: response,
+                                icon: "success"
+                         });
+
+                         createTable();
+                     },
+
+                     failure: function (response) {
+                        alert("from   failure" + response.responseText);
+                    },
+                    error: function (response) {
+                        alert("from  error  " + response.responseText);
+                    }
+                });
+            }
+          
+            function Saveall() {
+
+                  var cname = ($("#Class_ID").val());
+                 
+                 if (cname.length == 0)
+                     cname = 0;
+
+                
+                 $.ajax({
+                     type: "POST",
+                     url: "/SchoolAdmin/AjaxSaveAllPeriod",
+                     data: '{cname:' + cname + '}',
+                     contentType: "application/json; charset=utf-8",
+                     dataType: "json",
+                     success: function (response) {
+                         swal({
+                                title: "",
+                                text: response,
+                                icon: "success"
+                         });
+                         createTable();
+                     },
+
+                     failure: function (response) {
+                        alert("from   failure" + response.responseText);
+                    },
+                    error: function (response) {
+                        alert("from  error  " + response.responseText);
+                    }
+                });
+
+            }
+
+          
+
+               function CalDuration(count) {
+
+
+
+                   var stime, etime;
+
+                   
+                        stime = $("#ST"+count).val();
+
+                       etime = $("#ET"+count).val();
+
+                   
+
+                var t1 = stime.split(':');
+
+
+
+                var t2 = etime.split(':');
+
+
+                var d1 = new Date(0, 0, 0, t1[0], t1[1]);
+
+
+                var d2 = new Date(0, 0, 0, t2[0], t2[1]);
+
+                var diff = (d2.getTime() - d1.getTime())/60000;
+
+
+                if (diff < 0) {
+                    swal("End time Should be greater than start time!!");
+
+                    
+
+                        //$("#ST"+count).val("");
+
+                        $("#ET"+count).val("");
+
+                        //$("#ST"+count).focus("");
+                   
+
+
+                   }
+                   $("#duration" + count).val(diff)
+                  // return diff;
+
+            }
+
+
+             function createTable() {
+                 var cname = ($("#Class_ID").val());
+                 
+                 if (cname.length == 0) {
+                     //alert(cname.length);
+                     
+                     swal("Please Select a class");
+                 }
+                     //cname = 0;
+                 var parentendtime = "";
+                 if (cname.length != 0) {
+                     $.ajax({
+                         type: "POST",
+                         url: "/SchoolAdmin/AjaxCreateForm",
+                         data: '{cname:' + cname + '}',
+                         contentType: "application/json; charset=utf-8",
+                         dataType: "json",
+                         success: function (response) {
+
+                             $("#DeleteMaster").show();
+
+                             $("#SaveMaster").show();// Delete All and save all will be shown
+
+                             var count = 0;
+                             var str;
+
+                             str = "<table id='periodadd'>";
+                             str += "<thead>";
+                             str += "<tr>";
+                             str += "<th>";
+                             str += "Period #";
+                             str += "</th>";
+                             str += "<th>";
+                             str += "Period Name";
+                             str += "</th>";
+                             str += "<th>";
+                             str += "Period Type";
+                             str += "</th>";
+                             str += "<th>";
+                             str += "Start Time";
+                             str += "</th>";
+                             str += "<th>";
+                             str += "End Time";
+                             str += "</th>";
+                             str += "<th>";
+                             str += "Duration (min)";
+                             str += "</th>";
+
+                             //<select class="form-control" id="prdbrk" name="prdbrk">
+                             //                       <option value="">--Period Type---</option>
+                             //                       <option value="Period">Period</option>
+                             //                       <option value="Break">Break</option>
+                             //                   </select>
+
+                             if ((response.TemplistParent) == null) {
+                                 parentstr = str;
+
+                                 parentstr += "</tr></thead><tbody><tr><td colspan=6 align='center'>";
+                                 parentstr += "<font size='5' color='cornflourblue'>No Record Found</font>";
+                                 parentstr += "</td></tr></tbody> </table>";
+
+                                 $("#dataMaster").html(parentstr);
+                             }
+                             if ((response.TemplistParent) != null) {
+                                 var cnt = 1;
+                                 parentstr = str;
+
+                                 parentstr += "</tr></thead><tbody>";
+
+                                 listParent = response.TemplistParent;
+
+                                 $.each(listParent, function () {
+
+
+                                     $("#DeleteAll").show();
+                                     parentstr += "<tr>";
+                                     parentstr += "<td>";
+                                     parentstr += "<input type='text' id='Period" + cnt + "' class='form-control' value='" + this['period_order'] + "' readonly>";
+                                     parentstr += "</td>";
+                                     parentstr += "<td>";
+                                     parentstr += "<input type='text' id='PeriodName" + cnt + "' class='form-control' value='" + this['period_name'] + "' readonly>";
+                                     parentstr += "</td>";
+                                     parentstr += "<td>";
+
+                                     parentstr += "<input type='text' id='PeriodType" + cnt + "' class='form-control'  value='" + this['period_type'] + "'readonly>";
+
+
+
+
+                                     parentstr += "</td>";
+                                     parentstr += "<td>";
+                                     parentstr += "<input type='time' id='ST" + cnt + "' class='form-control' value='" + this['starttime'] + "' readonly >";
+                                     parentstr += "</td>";
+                                     parentstr += "<td>";
+                                     parentstr += "<input type='time' id='ET" + cnt + "' class='form-control'  value='" + this['endtime'] + "' readonly>";
+                                     parentstr += "</td>";
+                                     parentstr += "<td>";
+                                     parentstr += "<input type='text' id='duration" + cnt + "' class='form-control' value='" + this['Duration'] + "' readonly>";
+                                     parentstr += "</td>";
+                                     parentstr += "</tr>";
+
+                                     parentendtime = this['endtime'];
+
+                                     cnt++;
+
+                                 });
+
+                                 parentstr += "</tbody></table>"
+                                 $("#dataMaster").html(parentstr);
+
+                                 // $('#periodadd').DataTable();
+                             }
+
+
+                             //alert("Before Add list");
+                             if (response.TemplistChild == null) {
+
+
+                                 if (response.TemplistParent == null) {
+
+                                     count = 1;
+                                     endtime = response.Stime;
+                                     //alert(endtime+" response.STime");
+                                 }
+                                 if ((response.TemplistParent) != null) {
+                                     var list2 = response.TemplistParent;
+                                     count = list2.length + 1;
+
+                                     endtime = parentendtime;
+
+                                 }
+                                 //var childstr = str;
+                                 //alert("endtime: " + endtime);
+                                 str += "<th>";
+                                 str += "Action";
+                                 str += "</th>";
+                                 str += "</tr>";
+                                 str += "</thead>";
+
+                                 //alert("bet  "+str);
+                                 str += "<tbody><tr>";
+                                 str += "<td>";
+                                 str += "<input type='text' id='Period" + count + "' class='form-control' value='" + count + "' readonly>";
+                                 str += "</td>";
+                                 str += "<td>";
+                                 str += "<input type='text' id='PeriodName" + count + "' class='form-control'>";
+                                 str += "</td>";
+                                 str += "<td>";
+
+                                 //<select class="form-control" id="prdbrk" name="prdbrk">
+                                 //                       <option value="">--Period Type---</option>
+                                 //                       <option value="Period">Period</option>
+                                 //                       <option value="Break">Break</option>
+                                 //                   </select>
+                                 str += "<select class='form-control' id='PeriodType" + count + "' class='form-control'>";
+                                 str += "<option value=''>--Period Type---</option>";
+                                 str += "<option value='Period'>Period</option>";
+                                 str += "<option value='Break'>Break</option>";
+                                 str += " </select>";
+
+
+                                 //str += "<input type='text' id='PeriodType" + count + "' class='form-control'>";
+                                 str += "</td>";
+                                 str += "<td>";
+
+                                 //alert("bet  " + str);
+
+                                 //alert(endtime);
+                                 str += "<input type='time' id='ST" + count + "' class='form-control' value=" + endtime + " readonly >";
+                                 str += "</td>";
+                                 str += "<td>";
+                                 str += "<input type='time' id='ET" + count + "' class='form-control' onchange='Javascript:CalDuration(" + count + ")'>";
+                                 str += "</td>";
+                                 str += "<td>";
+                                 str += "<input type='text' id='duration" + count + "' class='form-control' value=''>";
+                                 str += "</td>";
+                                 str += "<td>";
+
+
+                                 str += "<a data-toggle='tooltip' title='Save Row' id='Save" + count + "' onclick='javascript:periodSave(" + count + ")'>";
+                                 str += "<span class='glyphicon glyphicon-saved' ></span></a>";
+
+
+                                 str += "&nbsp;&nbsp;&nbsp;";
+
+
+                                 str += "<a  id='Add" + count + "' data-toggle='tooltip' title='Add Row' onClick='addPeriod(" + count + ")' hidden>";
+                                 str += "<span class='glyphicon glyphicon-plus'></span>";
+                                 str += "</a>";
+
+                                 str += "</td>";
+                                 str += "</tr></tbody></table>";
+                                 //alert("Final  "+str);
+                                 $("#dataAdd").html(str);
+
+
+
+                             }
+
+
+                             if ((response.TemplistChild) != null) {
+                                 str += "<th>";
+                                 str += "Action";
+                                 str += "</th>";
+                                 str += "</tr>";
+                                 str += "</thead>";
+                                 var list = response.TemplistChild;
+                                 var etime;
+                                 if (list.length > 0) {
+                                     var count = (response.TemplistParent).length + 1;
+                                     $.each(list, function () {
+
+                                         str += "<tr>";
+                                         str += "<td>";
+                                         str += "<input type='text' id='Period" + count + "' class='form-control' value='" + this['period_order'] + "' readonly>";
+                                         str += "</td>";
+                                         str += "<td>";
+                                         str += "<input type='text' id='PeriodName" + count + "' class='form-control' value='" + this['period_name'] + "' readonly>";
+                                         str += "</td>";
+                                         str += "<td>";
+                                         str += "<input type='text' id='PeriodType" + count + "' class='form-control'  value='" + this['period_type'] + "'readonly>";
+                                         str += "</td>";
+                                         str += "<td>";
+                                         str += "<input type='time' id='ST" + count + "' class='form-control' value='" + this['starttime'] + "' readonly >";
+                                         str += "</td>";
+                                         str += "<td>";
+                                         str += "<input type='time' id='ET" + count + "' class='form-control'  value='" + this['endtime'] + "' readonly>";
+                                         str += "</td>";
+                                         str += "<td>";
+                                         str += "<input type='text' id='duration" + count + "' class='form-control' value='" + this['Duration'] + "' readonly>";
+                                         str += "</td>";
+                                         str += "<td>";
+                                         //($("#Class_ID").val())
+                                         etime = this['endtime'];
+
+                                         count++;
+
+                                     });
+
+                                     str += "<tr>";
+                                     str += "<td>";
+                                     str += "<input type='text' id='Period" + count + "' class='form-control' value=" + count + " readonly>";
+                                     str += "</td>";
+                                     str += "<td>";
+                                     str += "<input type='text' id='PeriodName" + count + "' class='form-control'>";
+                                     str += "</td>";
+                                     str += "<td>";
+
+
+                                     str += "<select class='form-control' id='PeriodType" + count + "' class='form-control'>";
+                                     str += "<option value=''>--Period Type---</option>";
+                                     str += "<option value='Period'>Period</option>";
+                                     str += "<option value='Break'>Break</option>";
+                                     str += " </select>";
+                                     str += "</td>";
+                                     str += "<td>";
+                                     str += "<input type='time' id='ST" + count + "' class='form-control' value=" + etime + " readonly >";
+                                     str += "</td>";
+                                     str += "<td>";
+                                     str += "<input type='time' id='ET" + count + "' class='form-control' onchange='Javascript:CalDuration(" + count + ")'>";
+                                     str += "</td>";
+                                     str += "<td>";
+                                     str += "<input type='text' id='duration" + count + "' class='form-control' value=''>";
+                                     str += "</td>";
+                                     str += "<td>";
+
+
+                                     str += "<a data-toggle='tooltip' title='Save Row'id='Save" + count + "' onclick='javascript:periodSave(" + count + ")'>";
+                                     str += "<span class='glyphicon glyphicon-saved' ></span></a>";
+
+
+                                     str += "&nbsp;&nbsp;&nbsp;";
+
+
+                                     str += "<a  id='Add" + count + "' data-toggle='tooltip' title='Add Row' onClick='addPeriod(" + count + ")' hidden>";
+                                     str += "<span class='glyphicon glyphicon-plus'></span>";
+                                     str += "</a>";
+
+                                     str += "</td>";
+                                     str += "</tr>";
+                                     str += "</table>";
+
+                                     $("#dataAdd").html(str);
+                                 }
+
+                             }
+
+                             //alert("Final     "+str);
+
+                             // $('#periodadd').DataTable();
+                         },
+                         failure: function (response) {
+                             alert("from   failure" + response.responseText);
+                         },
+                         error: function (response) {
+                             alert("from  error  " + response.responseText);
+                         }
+                     });
+                 }
+
+            }
+
+
+            function addPeriod(cnt) {
+
+                $("#Add" + cnt).hide();
+
+                var STval = $("#ET" + cnt).val();
+                
+                cnt++;
+                           var table = document.getElementById("periodadd");
+                        var count = table.rows.length;
+           
+                        var row = table.insertRow(count);
+
+                        var cell1 = row.insertCell(0);
+                        var cell2 = row.insertCell(1);
+                         var cell3 = row.insertCell(2);
+                        var cell4 = row.insertCell(3);
+                        var cell5 = row.insertCell(4);
+
+                        var cell6 = row.insertCell(5);
+                        var cell7 = row.insertCell(6);
+                        var str = "";
+                        //alert("Period" + cnt );
+                        cell1.innerHTML = "<td><input type='text' id='Period" + cnt + "' class='form-control' value="+cnt+" readonly></td>";
+                   
+                        cell2.innerHTML = "<td><input type='text' id='PeriodName" + cnt + "' class='form-control'></td>";
+                    
+                        
+                
+                            str += "<td><select class='form-control' id='PeriodType"+cnt+"' class='form-control'>";
+                             str += "<option value=''>--Period Type---</option>";
+                             str += "<option value='Period'>Period</option>";
+                             str += "<option value='Break'>Break</option>";
+                             str+="</select ></td > ";
+
+
+                        cell3.innerHTML = str;
+                        cell4.innerHTML = "<td><input type='time' id='ST" + cnt + "' class='form-control' value='" + STval + "' readonly></td>";
+
+
+
+                        cell5.innerHTML = "<td><input type='time' id='ET" + cnt + "' class='form-control' onchange='Javascript:CalDuration(" + cnt + ")'></td>";
+
+                        cell6.innerHTML = "<td><input type='text' id='duration" + cnt + "' class='form-control' value=''></td>";
+                        cell7.innerHTML = "<td><a data-toggle='tooltip' title='Save Row' id='Save" + cnt + "' onclick='javascript:periodSave("+cnt+")' ><span class='glyphicon glyphicon-saved'></span></a>&nbsp;&nbsp;&nbsp; <a  id='Add" + cnt + "' data-toggle='tooltip' title='Add Row' onClick='addPeriod("+cnt+")' hidden><span class='glyphicon glyphicon-plus'></span></a></td>";
+                   
+            }
+
+            function periodSave(count) {
+
+
+               var pname=$("#PeriodName" + count).val();
+               var period= $("#Period" + count).val();
+                var ST = $("#ST" + count).val();
+                var ptype=$("#PeriodType" + count).val();
+                var cname = $("#Class_ID").val();
+                var ET = $("#ET" + count).val();
+                var duration = $("#duration" + count).val();
+
+                 
+                    $.ajax({
+                        type: "POST",
+                        url: "/SchoolAdmin/AjaxSavePeriodChild",
+                        data: '{pname:"' + pname + '",period:"' + period + '",ST:"' + ST + '",ptype:"' + ptype + '",cname:"' + cname + '",ET:"' + ET + '",duration:"' + duration + '"}',
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function (response) {
+                            //alert(response.length);
+                            if (response.length > 0) {
+                                swal({
+                                    title: "",
+                                    text: response,
+                                    icon: "success"
+                                });
+
+                                $("#Add" + count).show();
+                                $("#Save" + count).hide();
+
+                                $("#PeriodName" + count).attr('disabled', 'disabled');
+                                $("#Period" + count).attr('disabled', 'disabled');
+                                $("#ST" + count).attr('disabled', 'disabled');
+                                $("#PeriodType" + count).attr('disabled', 'disabled');
+                                ;
+
+                                $("#ET" + count).attr('disabled', 'disabled') ;
+                                $("#duration" + count).attr('disabled', 'disabled');
+                            }
+                            else;
+
+
+
+
+
+                        },
+                        failure: function (response) {
+                            alert("from  inner failure" + response.responseText);
+                        },
+                        error: function (response) {
+                            alert("from inner error  " + response.responseText);
+                        }
+                    });
+
+                
+                
+
+
+            }
+        </script>
+       
+
+
+    }
+
+</body>
+</html>

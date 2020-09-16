@@ -1,0 +1,115 @@
+﻿@model SchoolWork.Models.SchoolAdminLogin
+@{
+    ViewBag.Title = "SchoolAdminLogin";
+}
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+
+    <link href="~/CSS/stylesheet2.css" rel="stylesheet" />
+    <style>
+        .text-danger {
+            font-weight: 700;
+            color: red;
+        }
+    </style>
+
+</head>
+
+<body id="LoginForm" style="background-color:#12CF99">
+    <div class="container">
+        <h1 class="form-heading"></h1>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <div class="login-form">
+            <div class="body-div" style="background-color:blanchedalmond;max-width:38%">
+
+                <h1 style="color:#C70039; margin-top:-30px;-webkit-text-stroke: 1px black;"><b>SCHOOL ADMIN SIGN-IN HERE</b></h1>
+                <br />
+                <br />
+
+                @if (@ViewData["message"] != null)
+                {
+                    <p style="color:orangered">@ViewData["message"] </p>
+                }
+
+                @using (Html.BeginForm())
+                {
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="input-group">
+
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control", @Placeholder = "Enter Your  UserName" } })
+                            </div>
+                            @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="input-group">
+
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", @type = "Password", @Placeholder = "Enter Your Password " } })
+                            </div>
+                            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                        </div>
+
+                    </div>
+
+
+
+
+                    <div class="form-group">
+
+                        <input type="submit" value="LogIn" id="s1" class="btn btn-success" />
+                        &nbsp;&nbsp;
+                        <input type="reset" value="Reset" id="s2" class="btn btn-warning">
+                        &nbsp;&nbsp;
+                      
+                    </div>
+                    <br>
+                    @*<div class="form-group">
+
+                            <p>Not Registered Yet! <a href="ParentRegister"><b>Click Here To Register</b></a></p>
+
+                        </div>*@
+
+                }
+
+            </div>
+        </div>
+    </div>
+
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }
+</body>
+</html>
+
+<script type="text/javascript">
+
+    var colors = ['#ffffff', '#ffffff', '#ffffff', '#ffffff'],
+        i = 0;
+
+    $("body").click(function () {
+        $(".body-div").css("backgroundColor", colors[i++]);
+        if (i >= colors.length)
+            i = 0;
+
+    });
+
+</script>

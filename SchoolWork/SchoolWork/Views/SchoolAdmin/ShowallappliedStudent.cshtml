@@ -1,0 +1,127 @@
+﻿ @model IEnumerable<SchoolWork.Models.StudentAdmission>
+@* @model SchoolWork.Models.StudentAdmission*@
+
+<h2>Student List</h2>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="~/CSS/StyleSheet1.css" rel="stylesheet" />
+    <link href="~/CSS/Table.css" rel="stylesheet" />
+    <style>
+        .text-danger {
+            font-weight: 700;
+            color: red;
+        }
+    </style>
+
+
+</head>
+
+<body id="LoginForm" style="background-color:gainsboro;padding:10px;" onload = "JavaScript:AutoRefresh(5000);">
+    @*<div class="container" >*@
+    <h1 class="form-heading"></h1>
+    <br />
+    <br />
+    <br />
+    <br />
+    @*<div class="login-form">
+        <div class="body-div" style="border:1px solid black;background-color:gainsboro; max-width:100%">*@
+
+    <h1 style="color:green; margin-top:-30px; text-align:center"><b>Student List</b></h1>
+
+    @if (TempData["msg"] != null)
+    {
+        <p class="alert alert-success" id="successMessage" style="color:#5cb85c;text-align:center">@TempData["msg"]</p>
+    }
+
+        <h3 style="text-align:right;margin-top:-15px">
+            <a class="btn btn-primary btn-product" onclick="@("window.location.href='" + @Url.Action("SchoolNoticeAdd", "SchoolAdmin") + "'");"><span class="glyphicon glyphicon-pencil"></span>Add Notice</a>
+            <input type="button" value="Home" class="btn btn-info" onclick="@("window.location.href='" + @Url.Action("AdminHeaderBoard", "DashBoard") + "'");" />
+
+            <input type="button" onclick="history.go(-1)" value="Return" class="btn btn-info" />
+
+        </h3>
+
+    @using (Html.BeginForm("SchoolRegister", "SchoolAdmin", FormMethod.Post, new { id = "myID", name = "randform" }))
+
+    {
+
+        <table class="table" id="products">
+            <thead>
+                <tr>
+                    <th>@Html.DisplayName("Student Id")</th>
+                    <th>@Html.DisplayName("School Code")</th>
+                    <th>@Html.DisplayName("Full Name")</th>
+                    <th>@Html.DisplayName("Father's Name")</th>
+                    <th>@Html.DisplayName("Date of Birth")</th>
+                    <th>@Html.DisplayName("Gender")</th>
+                    <th>@Html.DisplayName("Last School Class")</th>
+
+                    <th>@Html.DisplayName("Status")</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.Student_Id)</td>
+                        <td>@Html.DisplayFor(modelItem => item.School_Code)</td>
+                        <td>@Html.DisplayFor(modelItem => item.FullName)</td>
+                        <td>@Html.DisplayFor(modelItem => item.FatherName)</td>
+                        <td>@Html.DisplayFor(modelItem => item.DOB)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Gender_Id)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Last_School_Class)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Application_Status)</td>
+                        <td>
+
+                            @Html.ActionLink("Details", "ShowAppliedStudentDetails", new { id = item.Student_Id })
+
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    }
+    @*</div>*@
+    @*</div>
+        </div>*@
+
+    @section Scripts
+   {
+        @Scripts.Render("~/bundles/jqueryval")
+        <!-- DataTables CSS -->
+
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.5/css/jquery.dataTables.css">
+
+        <!-- jQuery -->
+        <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+
+        <!-- DataTables -->
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.5/js/jquery.dataTables.js">
+        </script>
+
+        <script type="text/javascript" charset="utf8">
+            $(document).ready(function () {
+                $('#products').DataTable();
+            });
+        </script>
+
+        <script type="text/JavaScript">
+    
+            function AutoRefresh(t) {
+                setTimeout("location.reload(true);", t);
+            }
+                
+        </script>
+    }
+
+</body>
+
+
+
+</html>
+

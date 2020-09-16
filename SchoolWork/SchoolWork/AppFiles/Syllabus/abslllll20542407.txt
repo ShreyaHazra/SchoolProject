@@ -1,0 +1,1163 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>ISO Metric</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=yes"/>
+<link rel="stylesheet" type="text/css" href="http://dpm.linkcontech.com/admin/css/styles.css" media="all" />
+<link rel="stylesheet" type="text/css" href="http://dpm.linkcontech.com/admin/css/reset.css" media="all" />
+<!--[if lt IE 9 ]>
+<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+<!--[if lte IE 9]><link rel="stylesheet" href="css/ie9.css" /><![endif]-->
+<!--[if lte IE 8]><link rel="stylesheet" href="css/ie8.css" /><![endif]-->
+<!--[if lte IE 7]><script src="js/lte-ie7.js"></script><![endif]-->
+<link rel="stylesheet" href="http://dpm.linkcontech.com/admin/css/slicknav.css">
+<link rel="stylesheet" href="http://dpm.linkcontech.com/admin/css/validate/screen.css">
+<link rel="stylesheet" href="http://dpm.linkcontech.com/admin/css/jquery-ui.css">
+<link rel="stylesheet" href="http://dpm.linkcontech.com/admin/css/jquery.ui.theme.css">
+<link rel="stylesheet" href="http://dpm.linkcontech.com/admin/css/jquery.fancybox.css">
+
+<script src="http://dpm.linkcontech.com/admin/js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="http://dpm.linkcontech.com/admin/js/jquery-ui.js"></script>
+<script type="text/javascript" src="http://dpm.linkcontech.com/admin/js/custom_functions.js"></script>
+
+
+</head>
+<body>
+<section class="page">
+  <!--START : top navigation is loaded here-->
+	
+<header class="header" style="padding: 10px 0 !important;margin: 0 0 14px 0 !important;">
+  <div class="mainWrap clearfix">
+    <div class="logo"><a href="#"><img src="http://dpm.linkcontech.com/admin/images/9b678e16cab9b34818df09f00edd1e4a.png" height="71" width="150"  alt=""/></a>
+    <strong style="color: #232323;float: left;font-family: monospace;margin-left: 40px;margin-top: 10px;margin-bottom: -10px;">Linkcon Technology Services<br><span style="color: #163a84;"> Primarc Tower, DN-36, Salt Lake City </span></strong></div>
+    <div class="midHeader">
+      <nav class="navigation">
+        <ul id="menu">
+          <li class="active"><a href="http://dpm.linkcontech.com/dashboard/">Home</a></li>
+          <!--<li><a href="#">About</a></li>
+          <li><a href="#">Module</a>
+            <ul>
+              <li><a href="#">Home</a></li>
+              <li><a href="#">About</a></li>
+              <li><a href="#">Module</a>
+                <ul>
+                  <li><a href="#">Home</a></li>
+                  <li><a href="#">About</a></li>
+                  <li><a href="#">Module</a></li>
+                  <li><a href="#">Contact</a></li>
+                  <li><a href="#">Help</a></li>
+                  <li><a href="#">Search</a></li>
+                </ul>
+              </li>
+              <li><a href="#">Contact</a></li>
+              <li><a href="#">Help</a></li>
+              <li><a href="#">Search</a></li>
+            </ul>
+          </li>
+          <li><a href="#">Contact</a></li>
+          <li><a href="#">Help</a></li>
+          <li><a href="#">Search</a></li>-->
+          
+          <li><a href="http://dpm.linkcontech.com/dashboard/logout/">Logout</a></li>
+		  
+        </ul>
+      </nav>
+      <p><marquee><strong>Policy 1:</strong>Linkcon Technology Services is committed in providing the services to its clients in a secured manner. We are committed to satisfy the needs of our customer with respect to providing required information in secured manner through our infrastructure protected by our information security management systems. We will continue our endeavor in continually improve our quality system in providing the best services to our clients.(ISO 27001:2013)(2)|</marquee></p>
+    </div>
+    <div class="isoLogo"><img src="http://dpm.linkcontech.com/images/isometrix_logo.png" height="70" width="250" alt=""/></div>
+    
+  		<strong style="font-size: 12px;color: wheat;float: right;font-family: monospace;padding-right: 3px;padding-top: 10px;margin-bottom: -10px;">Raj | <a href="http://dpm.linkcontech.com/dashboard/logout/">Logout</a></strong>
+	
+  </div>
+</header>
+	            			
+  <!--END : top navigation here-->
+  <section class="main">
+    <div class="mainWrap clearfix">
+      <article class="layoutTwo layoutPan">
+        <section class="mainTop clearfix">
+           <!--START : top navigation is loaded here-->
+          	
+<script type="text/javascript">
+
+$(document).ready(function() {
+
+    $(".collMenu a").click(function() {
+
+		$(this).parent().toggleClass("collMinus");
+
+        $(this).next(".collMenuSub").slideToggle();
+
+    });
+
+	 $(".collMenu1 a").click(function() {
+
+		$(this).parent().toggleClass("collMinus");
+
+        $(this).next(".collMenuSub").slideToggle();
+
+    });
+
+});
+
+</script>
+
+<aside class="leftSide">
+
+  <div class="blockDiv">
+
+  	<div class="user-data">
+
+  	</div>
+
+  	
+
+    <h4>Modules</h4>
+
+    <ul>
+
+
+
+
+<li class="collMenu "><a ><em></em>Task List</a>
+
+	<ul class="collMenuSub" >    
+
+  
+
+		  <li class="collMenu"><a href="http://dpm.linkcontech.com/taskaction/index/CA/">Task From Breach Management</a></li>
+
+  
+
+		  <li class="collMenu"><a href="http://dpm.linkcontech.com/riskaction/taskListForPerformer/">Task From Preventive Action</a></li>
+
+  
+
+		  <li class="collMenu"><a href="http://dpm.linkcontech.com/changemgmt/taskListForPerformer/">Task From Change Management</a></li>
+
+
+	</ul>
+
+</li> 
+
+<li class="collMenu "><a ><em></em>Review List</a>
+
+	<ul class="collMenuSub" >       
+
+  
+
+		  <li class="collMenu"><a href="http://dpm.linkcontech.com/taskreview/index/CA/">Review of Breach Management Task</a></li>
+
+  
+
+		  <li class="collMenu"><a href="http://dpm.linkcontech.com/riskaction/taskListToReview/">Review of Preventive Action Task</a></li>
+
+  
+
+		  <li class="collMenu"><a href="http://dpm.linkcontech.com/changemgmt/taskListForReviewer/">Review of Change Action Task</a></li>
+
+
+	</ul>
+
+</li> 
+
+<li class="collMenu "><a ><em></em>Analysis List</a>
+
+	<ul class="collMenuSub" >       
+
+  
+
+		  <li class="collMenu"><a href="http://dpm.linkcontech.com/issueanalysis/CAListing/">Breach Management  Analysis</a></li>
+
+  
+
+		  <li class="collMenu"><a href="http://dpm.linkcontech.com/riskaction/analysisList/">Preventive Action Analysis</a></li>
+
+  
+
+		  <li class="collMenu"><a href="http://dpm.linkcontech.com/changemgmt/changeAnalysisList/">Change Request Analysis</a></li>
+
+
+	</ul>
+
+</li> 
+
+<li class="collMenu "><a ><em></em>Approval List</a>
+
+	<ul class="collMenuSub" >       
+
+  
+
+		  <li class="collMenu"><a href="http://dpm.linkcontech.com/caapproval/index/">Breach Approval</a></li>
+
+  
+
+		  <li class="collMenu"><a href="http://dpm.linkcontech.com/riskaction/approvalList/">Preventive Action Approval</a></li>
+
+  
+
+		  <li class="collMenu"><a href="http://dpm.linkcontech.com/control/versionlist">Approve Control Version</a></li>
+
+  
+
+		  <li class="collMenu"><a href="http://dpm.linkcontech.com/riskaction/approverisk/">Risk Approval</a></li>
+
+  
+
+		  <li class="collMenu"><a href="http://dpm.linkcontech.com/dpia/apprddlist">Approve Data Modification</a></li>
+
+  
+
+		  <li class="collMenu"><a href="http://dpm.linkcontech.com/dpia/apprmodellist">Approve New Entity</a></li>
+
+  
+
+		  <li class="collMenu"><a href="http://dpm.linkcontech.com/gdpr/approveversionlist">Approve GDPR Article Version</a></li>
+
+  
+
+		  <li class="collMenu"><a href="http://dpm.linkcontech.com/ccpa/approveversionlist">Approve CCPA Title Version</a></li>
+
+  
+
+		  <li class="collMenu"><a href="http://dpm.linkcontech.com/pims/approveversionlist">Approve PIMS Control Version</a></li>
+
+
+	</ul>
+
+</li> 
+
+<li class="collMenu "><a ><em></em>Breach Management</a>
+
+	<ul class="collMenuSub" >       
+
+  
+
+		  <li class="collMenu"><a href="http://dpm.linkcontech.com/correctiveaction/index/">Breach List</a></li>
+
+  
+
+		  <li class="collMenu"><a href="http://dpm.linkcontech.com/correctiveaction/addNewCA/">Add Breach</a></li>
+
+
+	</ul>
+
+</li> 
+
+<li class="collMenu "><a ><em></em>Document Management</a>
+
+	<ul class="collMenuSub" >       
+
+  
+
+		  <li class="collMenu"><a href="http://dpm.linkcontech.com/docaction/index/">Change Request List</a></li>
+
+  
+
+		  <li class="collMenu"><a href="http://dpm.linkcontech.com/docaction/docHeaderList/">Document List</a></li>
+
+  
+
+		  <li class="collMenu"><a href="http://dpm.linkcontech.com/docaction/docList_publish/">Document Publish List</a></li>
+
+  
+
+		  <li class="collMenu"><a href="http://dpm.linkcontech.com/doctemplate/index/">Document Template List</a></li>
+
+  
+
+		  <li class="collMenu"><a href="http://dpm.linkcontech.com/docaction/uploadExistingDoc/">Upload Existing Document</a></li>
+
+  
+
+		  <li class="collMenu"><a href="http://dpm.linkcontech.com/docprocess/index/">Document Task List for Performer</a></li>
+
+  
+
+		  <li class="collMenu"><a href="http://dpm.linkcontech.com/docapprove/index/">Document List for Approval</a></li>
+
+  
+
+		  <li class="collMenu"><a href="http://dpm.linkcontech.com/docreview/index/">Document List for Review</a></li>
+
+  
+
+		  <li class="collMenu"><a href="http://dpm.linkcontech.com/docdistribution/index/">Document List for Distribution</a></li>
+
+
+	</ul>
+
+</li> 
+
+<li class="collMenu "><a ><em></em>RISK Management</a>
+
+	<ul class="collMenuSub" >       
+
+  
+
+		  <li class="collMenu"><a href="http://dpm.linkcontech.com/riskaction/riskBox/">RISK List</a></li>
+
+  
+
+		  <li class="collMenu"><a href="http://dpm.linkcontech.com/riskaction/addNewRisk/">Create New RISK</a></li>
+
+  
+
+		  <li class="collMenu"><a href="http://dpm.linkcontech.com/riskaction/reviewrisk/">Review RISK</a></li>
+
+
+	</ul>
+
+</li> 
+
+<li class="collMenu "><a ><em></em>Preventive Action</a>
+
+	<ul class="collMenuSub" >       
+
+  
+
+		  <li class="collMenu"><a href="http://dpm.linkcontech.com/riskaction/index/">Preventive Action Assignment</a></li>
+
+
+	</ul>
+
+</li> 
+
+<li class="collMenu "><a ><em></em>Change Request Management</a>
+
+	<ul class="collMenuSub" >       
+
+  
+
+		  <li class="collMenu"><a href="http://dpm.linkcontech.com/changemgmt/changeRequestList/">Change Request List</a></li>
+
+
+	</ul>
+
+</li> 
+
+<li class="collMenu "><a ><em></em>PIMS Management</a>
+
+	<ul class="collMenuSub" >       
+
+  
+
+		  <li class="collMenu"><a href="http://dpm.linkcontech.com/pims/gdprlist">PIMS Control</a></li>
+
+  
+
+		  <li class="collMenu"><a href="http://dpm.linkcontech.com/pims/addnewversion">Add New PIMS Control Version </a></li>
+
+  
+
+		  <li class="collMenu"><a href="http://dpm.linkcontech.com/pims/articlehistorylist">PIMS Control History</a></li>
+
+  
+
+		  <li class="collMenu"><a href="http://dpm.linkcontech.com/pims/chapterscorelist">PIMS Chapter Score</a></li>
+
+  
+
+		  <li class="collMenu"><a href="http://dpm.linkcontech.com/pims/maturitychart">PIMS Maturity Chart</a></li>
+
+
+	</ul>
+
+</li> 
+
+<li class="collMenu "><a ><em></em>GDPR Management</a>
+
+	<ul class="collMenuSub" >       
+
+  
+
+		  <li class="collMenu"><a href="http://dpm.linkcontech.com/gdpr/gdprlist">GDPR Article</a></li>
+
+  
+
+		  <li class="collMenu"><a href="http://dpm.linkcontech.com/gdpr/addnewversion">Add New GDPR Article Version</a></li>
+
+  
+
+		  <li class="collMenu"><a href="http://dpm.linkcontech.com/gdpr/articlehistorylist">GDPR Article History</a></li>
+
+  
+
+		  <li class="collMenu"><a href="http://dpm.linkcontech.com/gdpr/chapterscorelist">GDPR Chapter Score</a></li>
+
+  
+
+		  <li class="collMenu"><a href="http://dpm.linkcontech.com/gdpr/maturitychart">GDPR Maturity Chart</a></li>
+
+
+	</ul>
+
+</li> 
+
+<li class="collMenu "><a ><em></em>Chart</a>
+
+	<ul class="collMenuSub" >       
+
+  
+
+		  <li class="collMenu"><a href="http://dpm.linkcontech.com/charts/correctiveactionstatus">Corrective Action Chart</a></li>
+
+  
+
+		  <li class="collMenu"><a href="http://dpm.linkcontech.com/charts/riskstatus">Risk Chart</a></li>
+
+  
+
+		  <li class="collMenu"><a href="http://dpm.linkcontech.com/charts/riskimpactchart">Risk Impact Chart</a></li>
+
+  
+
+		  <li class="collMenu"><a href="http://dpm.linkcontech.com/charts/rootcauseanalysis">Root Cause Analysis</a></li>
+
+  
+
+		  <li class="collMenu"><a href="http://dpm.linkcontech.com/charts/processmaturity">Process Maturity</a></li>
+
+  
+
+		  <li class="collMenu"><a href="http://dpm.linkcontech.com/charts/processinterface">Process Interface</a></li>
+
+  
+
+		  <li class="collMenu"><a href="http://dpm.linkcontech.com/charts/changemanagementstatus">Change Management Chart</a></li>
+
+
+	</ul>
+
+</li> 
+
+<li class="collMenu "><a ><em></em>CCPA Management</a>
+
+	<ul class="collMenuSub" >       
+
+  
+
+		  <li class="collMenu"><a href="http://dpm.linkcontech.com/ccpa/gdprlist">CCPA Title</a></li>
+
+  
+
+		  <li class="collMenu"><a href="http://dpm.linkcontech.com/ccpa/addnewversion">Add New CCPA Title Version</a></li>
+
+  
+
+		  <li class="collMenu"><a href="http://dpm.linkcontech.com/ccpa/articlehistorylist">CCPA Title History</a></li>
+
+  
+
+		  <li class="collMenu"><a href="http://dpm.linkcontech.com/ccpa/chapterscorelist">CCPA Chapter Score</a></li>
+
+  
+
+		  <li class="collMenu"><a href="http://dpm.linkcontech.com/ccpa/maturitychart">CCPA Maturity Chart</a></li>
+
+
+	</ul>
+
+</li> 
+
+<li class="collMenu "><a ><em></em>DPIA Management</a>
+
+	<ul class="collMenuSub" >       
+
+  
+
+		  <li class="collMenu"><a href="http://dpm.linkcontech.com/dpia/datadictionary">Data Dictionary</a></li>
+
+  
+
+		  <li class="collMenu"><a href="http://dpm.linkcontech.com/dpia/datamodel">Data Model</a></li>
+
+  
+
+		  <li class="collMenu"><a href="http://dpm.linkcontech.com/dpia/interrelate">Entity Relationship</a></li>
+
+
+	</ul>
+
+</li> 
+
+<li class="collMenu "><a ><em></em>SAR Managemnt</a>
+
+	<ul class="collMenuSub" >       
+
+  
+
+		  <li class="collMenu"><a href="http://dpm.linkcontech.com/sarmanagement/AddSar">Add SAR</a></li>
+
+  
+
+		  <li class="collMenu"><a href="http://dpm.linkcontech.com/sarmanagement/sarList">SAR List</a></li>
+
+
+	</ul>
+
+</li> 
+
+<li class="collMenu "><a ><em></em>Consent Management</a>
+
+	<ul class="collMenuSub" >       
+
+  
+
+		  <li class="collMenu"><a href="http://dpm.linkcontech.com/consent/addConsentRequest">Add Consent Request</a></li>
+
+  
+
+		  <li class="collMenu"><a href="http://dpm.linkcontech.com/consent/consentRequestlist">Consent Request List</a></li>
+
+
+	</ul>
+
+</li> 
+
+<li class="collMenu "><a ><em></em>Data Processing Register</a>
+
+	<ul class="collMenuSub" >       
+
+  
+
+		  <li class="collMenu"><a href="http://dpm.linkcontech.com/dataprocessing/addProcessingItem">Add Data Processing Item</a></li>
+
+  
+
+		  <li class="collMenu"><a href="http://dpm.linkcontech.com/dataprocessing/registerList">Add Data Processing Item</a></li>
+
+
+	</ul>
+
+</li> 
+
+<li class="collMenu "><a ><em></em>Collection/ Deliver Management</a>
+
+	<ul class="collMenuSub" >       
+
+  
+
+		  <li class="collMenu"><a href="http://dpm.linkcontech.com/collectionmgmt/add/">Add Collection</a></li>
+
+  
+
+		  <li class="collMenu"><a href="http://dpm.linkcontech.com/collectionmgmt/index/">Collection List</a></li>
+
+  
+
+		  <li class="collMenu"><a href="http://dpm.linkcontech.com/collectionmgmt/add_delivery">Add Delivery</a></li>
+
+  
+
+		  <li class="collMenu"><a href="http://dpm.linkcontech.com/collectionmgmt/listDelivery/">Delivery List</a></li>
+
+
+	</ul>
+
+</li> 
+
+<li class="collMenu "><a ><em></em>Compliance Management</a>
+
+	<ul class="collMenuSub" >       
+
+  
+
+		  <li class="collMenu"><a href="http://dpm.linkcontech.com/compliancemgmt/index">Compliance List</a></li>
+
+  
+
+		  <li class="collMenu"><a href="http://dpm.linkcontech.com/compliancemgmt/add">Add Question</a></li>
+
+
+	</ul>
+
+</li> 
+
+
+ 
+
+
+<!--		<li class="collMenu "><a ><em></em>GDPR Management</a>
+
+          <ul class="collMenuSub" >
+
+<li class="collMenu"><a href="http://dpm.linkcontech.com/gdpr/gdprlist">Details View</a></li>-->
+
+
+
+          </ul>
+
+        </li>  
+        
+         
+          
+
+          
+
+		<li class="collMenu "><a ><em></em>Profile Management</a>
+
+          <ul class="collMenuSub" >
+
+<li class="collMenu"><a href="http://dpm.linkcontech.com/manager/editprofile">Edit Profile</a></li>
+
+<li class="collMenu"><a href="http://dpm.linkcontech.com/manager/change_password">Change Password</a></li>
+
+          </ul>
+
+        </li>
+
+        <li><a href="http://dpm.linkcontech.com/dashboard/logout/">Logout</a></li>
+
+	
+
+
+      </li>
+
+
+    </ul>
+
+  </div>
+
+</aside>
+
+
+
+
+          
+
+	            			
+		  <!--END : top navigation here-->
+          <!--Start : show the main center block here that will be loaded from the method of the controller called-->
+		  	
+
+<section class="rightSide">
+
+  <div class="propertyListing propertySearch">
+
+<form action="http://dpm.linkcontech.com/sarmanagement/sarList//" method="post" id="myForm" enctype="multipart/form-data">  
+
+<input value="1" type="hidden" name="page" id="page" />
+
+<input type="hidden" name="count" id="count" value="0"/>
+
+<input value="1" type="hidden"id="totalPage" />
+
+    <h4 class="clearfix">SAR Listing<span class="rtAddMore">
+      <input onclick="window.location='http://dpm.linkcontech.com/sarmanagement/addSar/'" type="button" value="Add SAR" class="button_New"/>
+      </span></h4>
+
+    <div class="propertyListingTable propertySearchBox clearfix">
+
+      <table width="100%" border="0" cellspacing="0" cellpadding="0">
+
+        <thead>
+
+          <tr>
+
+          <td colspan="11">
+
+          <div class="propertyBoxLt">
+          
+           <label>Search</label>
+
+            <input type="text" id="search_keyword" placeholder="" name="search_keyword" class="form-control" value="">
+
+            <input type="submit" name="btn_search" id="btn_search" value="Search" />    
+          <input type="reset" value="Reset">
+
+
+          
+
+
+        </div>
+
+      
+        <div class="propertyBoxRt">
+
+          <label>Per page</label>
+
+            <div class="filedDiv">
+
+              <select name="qty" onchange="myQuantityChange();" class="form-control">
+
+                <option value="1"  >1</option>
+
+                <option value="2"  >2</option>
+
+                <option value="5"  >5</option>
+
+                <option value="10" selected="selected" >10</option>
+
+                <option value="20"  >20</option>
+
+                <option value="50"  >50</option>
+
+                <option value="100"  >100</option>
+
+                <option value="500"  >500</option>
+
+              </select>
+
+            </div>
+
+        </div>
+
+        
+
+          </td>
+
+          </tr>
+
+          <tr>
+
+            <th width="6%" align="left" valign="top">#Sar ID</th>
+
+            <th width="8%" align="left" valign="top">Name</th>
+
+          <th width="8%" align="left" valign="top">Verifiable Id</th>
+
+            <th width="12%" align="left" valign="top">Request</th>
+
+            <th width="12%" align="left" valign="top">Request Date</th>
+
+            <th width="12%" align="left" valign="top">Resolution Date</th>
+            <th width="12%" align="left" valign="top">Attachement</th>
+            
+                  <th width="12%" align="left" valign="top">Comment </th>
+
+      <!--     <th width="12%" align="left" valign="top">Action</th>-->
+
+          </tr>
+
+        </thead>
+
+        <tfoot>
+
+          <tr>
+
+            <td colspan="11">
+
+            	<div class="footerPagination"> <span class="showRecCount"></span>
+
+                    <div class="pagination">
+
+                        <div class="previous" onclick="myPrev();"><a href="#">Previous</a></div>
+
+                         
+                	<div class="current" onclick="myPage('1');"><a href="#">1</a></div>
+
+				
+                        <div class="next"  onclick="myNext();"><a href="#">Next</a></div>
+
+                    </div>                
+
+                </div>
+
+            </td>
+
+          </tr>
+
+        </tfoot>
+
+        <tbody>
+
+
+		<tr>
+
+            <td align="left" valign="middle">18</td>
+
+            <td align="left" valign="middle">Boris Johnson</td>
+
+      <td align="left" valign="middle">0</td>
+
+            <td align="left" valign="middle">Modify</td>
+
+            <td align="left" valign="middle">2020-05-09</td>
+
+            <td align="left" valign="middle"> 2020-05-11</td>
+            
+               <td align="left" valign="middle">               
+                                                              <a href="#" target="_blank" download="http://dpm.linkcontech.com/upload/sar_module/587c1075a7a1f8d49c2bc290304fa9fb.jpg">DPIA4.jpg</a>
+                                                   
+               </td>
+
+            <td align="left" valign="middle">Santosh please modify Boris' data</td>
+
+<!--            <td align="left" valign="middle">
+
+<p><input onclick="window.location='http://dpm.linkcontech.com/sarmanagement/detailsTask/wTw9MrQ8PBIFGOY9pxiLT5Vb1NKB11ZrM0uQiLMEmPZcwba2GIpbcOUOP1q5YyO18T5lKWzZ-dR7nLDFyaIvQw~~/'" type="button" value="Details" name="Details"/></p>
+
+            </td> -->
+
+		</tr>
+
+
+		<tr>
+
+            <td align="left" valign="middle">17</td>
+
+            <td align="left" valign="middle">test</td>
+
+      <td align="left" valign="middle">79</td>
+
+            <td align="left" valign="middle">Modify</td>
+
+            <td align="left" valign="middle">2020-05-20</td>
+
+            <td align="left" valign="middle"> 2020-05-12</td>
+            
+               <td align="left" valign="middle">               
+                                                              <a href="#" target="_blank" download="http://dpm.linkcontech.com/upload/sar_module/ebc558dab6d0c45ebaa2b8337eb53a7e.txt">absolutepath.txt</a>
+                                                   
+               </td>
+
+            <td align="left" valign="middle">comment</td>
+
+<!--            <td align="left" valign="middle">
+
+<p><input onclick="window.location='http://dpm.linkcontech.com/sarmanagement/detailsTask/hnrGdO4eP-7JZOa87QQ4t7whkafulDsdSJYqOMpC2nlZgT6wFUa0KmQRIv95fKl3yj5uyL-k_VvjMTVmxheA6A~~/'" type="button" value="Details" name="Details"/></p>
+
+            </td> -->
+
+		</tr>
+
+
+		<tr>
+
+            <td align="left" valign="middle">16</td>
+
+            <td align="left" valign="middle">Rajendra naarh</td>
+
+      <td align="left" valign="middle">79</td>
+
+            <td align="left" valign="middle">Delete</td>
+
+            <td align="left" valign="middle">2020-04-02</td>
+
+            <td align="left" valign="middle"> 2020-04-15</td>
+            
+               <td align="left" valign="middle">               
+                                                              <a href="#" target="_blank" download="http://dpm.linkcontech.com/upload/sar_module/c4463f43b9fed3538e17f0dc40d1e52c.jpg">india.jpg</a>
+                                                   
+               </td>
+
+            <td align="left" valign="middle">cvmcmvcmvc</td>
+
+<!--            <td align="left" valign="middle">
+
+<p><input onclick="window.location='http://dpm.linkcontech.com/sarmanagement/detailsTask/rYYNzzUoEPWaVOuwGL0tYy4pjrLQyoopECdSTUYeVEUuML26N3ExX4kaitWrJtgcWfxgXxspCaA5rKAvAkog6g~~/'" type="button" value="Details" name="Details"/></p>
+
+            </td> -->
+
+		</tr>
+
+
+		<tr>
+
+            <td align="left" valign="middle">15</td>
+
+            <td align="left" valign="middle">Rajendra naarh</td>
+
+      <td align="left" valign="middle">79</td>
+
+            <td align="left" valign="middle">Delete</td>
+
+            <td align="left" valign="middle">2020-04-01</td>
+
+            <td align="left" valign="middle"> 2020-04-23</td>
+            
+               <td align="left" valign="middle">               
+                                                              <a href="#" target="_blank" download="http://dpm.linkcontech.com/upload/sar_module/a04580fa22425b769184e913ed0494ab.docx">New Microsoft Word Document (2).docx</a>
+                                                   
+               </td>
+
+            <td align="left" valign="middle">cfdfdgdgd</td>
+
+<!--            <td align="left" valign="middle">
+
+<p><input onclick="window.location='http://dpm.linkcontech.com/sarmanagement/detailsTask/gHQl4Pw02mBdE4RuB2bmXa0plIVdyF6tLMaHXR3CPQb-wpwgRmUkvMJobYBAp2vI4aAU7InLK4138QhedIHfNg~~/'" type="button" value="Details" name="Details"/></p>
+
+            </td> -->
+
+		</tr>
+
+
+		<tr>
+
+            <td align="left" valign="middle">14</td>
+
+            <td align="left" valign="middle">Rajendra naarh ghj</td>
+
+      <td align="left" valign="middle">54</td>
+
+            <td align="left" valign="middle">Modify</td>
+
+            <td align="left" valign="middle">2020-04-17</td>
+
+            <td align="left" valign="middle"> 2020-04-15</td>
+            
+               <td align="left" valign="middle">               
+                                                              <a href="#" target="_blank" download="http://dpm.linkcontech.com/upload/sar_module/852f9a8ccd01cf9046de6e9794516ea9.pdf">2029516.pdf</a>
+                                                   
+               </td>
+
+            <td align="left" valign="middle">ghhh</td>
+
+<!--            <td align="left" valign="middle">
+
+<p><input onclick="window.location='http://dpm.linkcontech.com/sarmanagement/detailsTask/tP32E7IX9QV7I18fVIL-7NmZa7ZOoIrLdvPPJC5tzwfQ2WxFfrhn-1E92PmAmJmd5YHIy_KStp0bJ8YTRr_F2A~~/'" type="button" value="Details" name="Details"/></p>
+
+            </td> -->
+
+		</tr>
+
+
+		<tr>
+
+            <td align="left" valign="middle">4</td>
+
+            <td align="left" valign="middle">Kohinoor</td>
+
+      <td align="left" valign="middle">54</td>
+
+            <td align="left" valign="middle">Delete</td>
+
+            <td align="left" valign="middle">2020-04-09</td>
+
+            <td align="left" valign="middle"> 2020-04-15</td>
+            
+               <td align="left" valign="middle">               
+                                                            N/A               
+               </td>
+
+            <td align="left" valign="middle">cooment</td>
+
+<!--            <td align="left" valign="middle">
+
+<p><input onclick="window.location='http://dpm.linkcontech.com/sarmanagement/detailsTask/ro7Lqw9juy4RBm0QGn8UAYqUZ9gdK9VoEGhCoVixAmtEfylWZQWokBFlW2kp4XEJrMIE-w9vSCRhnapHMH39Pw~~/'" type="button" value="Details" name="Details"/></p>
+
+            </td> -->
+
+		</tr>
+
+
+		<tr>
+
+            <td align="left" valign="middle">3</td>
+
+            <td align="left" valign="middle">Suman</td>
+
+      <td align="left" valign="middle">34</td>
+
+            <td align="left" valign="middle">Delete</td>
+
+            <td align="left" valign="middle">2020-04-08</td>
+
+            <td align="left" valign="middle"> 2020-04-24</td>
+            
+               <td align="left" valign="middle">               
+                                                            N/A               
+               </td>
+
+            <td align="left" valign="middle">cooment</td>
+
+<!--            <td align="left" valign="middle">
+
+<p><input onclick="window.location='http://dpm.linkcontech.com/sarmanagement/detailsTask/I0ekF86sU1f8Us_Sz__IxERKE30i3n9M9YXZ6NzV2HNT9zP3iqL7fbFjbQe1dmai67TKo9E6VwX6yFU2kbB4QA~~/'" type="button" value="Details" name="Details"/></p>
+
+            </td> -->
+
+		</tr>
+
+
+		<tr>
+
+            <td align="left" valign="middle">2</td>
+
+            <td align="left" valign="middle">Raj</td>
+
+      <td align="left" valign="middle">21</td>
+
+            <td align="left" valign="middle">Modify</td>
+
+            <td align="left" valign="middle">2020-04-02</td>
+
+            <td align="left" valign="middle"> 2020-04-16</td>
+            
+               <td align="left" valign="middle">               
+                                                            N/A               
+               </td>
+
+            <td align="left" valign="middle">test</td>
+
+<!--            <td align="left" valign="middle">
+
+<p><input onclick="window.location='http://dpm.linkcontech.com/sarmanagement/detailsTask/Z71Grc-UD-okxsvTWLBojUFqKLeIPAsLT2DwXdLOtiHaumv4-bfGXj5SyPQhMIS_S2lNWjQXxo1oHAekv7q8mw~~/'" type="button" value="Details" name="Details"/></p>
+
+            </td> -->
+
+		</tr>
+
+
+		<tr>
+
+            <td align="left" valign="middle">1</td>
+
+            <td align="left" valign="middle">movius corp</td>
+
+      <td align="left" valign="middle">2</td>
+
+            <td align="left" valign="middle">please provide us exact machine learning device.</td>
+
+            <td align="left" valign="middle">2020-04-08</td>
+
+            <td align="left" valign="middle"> 2020-04-10</td>
+            
+               <td align="left" valign="middle">               
+                                                            N/A               
+               </td>
+
+            <td align="left" valign="middle">need urgent</td>
+
+<!--            <td align="left" valign="middle">
+
+<p><input onclick="window.location='http://dpm.linkcontech.com/sarmanagement/detailsTask/A93WyquuizA-WVVZw8Tw9ctC8nli57mtlK8E48gIJKGUdducplBm0pgQCh62DBfOfdocV9-putzTkryipfS9Zw~~/'" type="button" value="Details" name="Details"/></p>
+
+            </td> -->
+
+		</tr>
+
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    </form>
+
+  </div>
+
+</section>
+
+<script>
+
+function myQuantityChange(){
+
+	$('#page').val('1');
+
+	$('#count').val('0');
+
+	$('#myForm').submit();
+
+}
+
+function myNext(){
+
+	var page=$('#page').val();
+
+	if(page<$('#totalPage').val()){
+
+		var value=$('#count').val();
+
+		value=parseInt(value)+parseInt(10);
+
+		page++;
+
+		$('#page').val(page); 
+
+		$('#count').val(value); 
+
+		$('#myForm').submit();
+
+	}
+
+}
+
+function myPrev(){
+
+	var page=$('#page').val();
+
+	if(page>1){
+
+		var value=$('#count').val();
+
+		value=parseInt(value)-parseInt(10);
+
+		page--;
+
+		$('#page').val(page); 
+
+		$('#count').val(value);
+
+		$('#myForm').submit();
+
+	}
+
+}
+
+function myPage(param){//
+
+	$('#page').val(param); 
+
+	var value=$('#count').val();
+
+	value=parseInt(10)*(param-1);
+
+	//alert(param+','+value);
+
+	$('#count').val(value);
+
+	$('#myForm').submit();
+
+}
+
+
+
+
+
+</script>
+
+
+
+<script src="http://dpm.linkcontech.com/admin/js/jquery-1.7.2.min.js"></script>
+
+<script type="text/javascript">
+
+	$(document).ready(function() {
+
+			$('.fancybox').fancybox();
+
+	});
+
+</script>
+
+ 
+          <!--End : show the main content block-->
+          	
+        </section>
+        <!--START : top navigation is loaded here-->
+          		            			
+		<!--END : top navigation here-->	
+      </article>
+    </div>
+  </section>
+  <footer class="footer">
+    <div class="mainWrap"></div>
+  </footer>
+</section>
+<script src="http://dpm.linkcontech.com/admin/js/jquery.validate.js"></script>
+<script type="text/javascript" src="http://dpm.linkcontech.com/admin/ckeditor/ckeditor.js"></script>
+<script src="http://dpm.linkcontech.com/admin/js/jquery.fancybox.js"></script>
+<script src="http://dpm.linkcontech.com/admin/js/jquery.slicknav.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$('#menu').slicknav();
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,105 @@
+﻿@model SchoolWork.Models.ParentDetails
+
+@using (Html.BeginForm())
+{
+    // @Html.AntiForgeryToken()
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+
+
+    <div class="form-horizontal">
+        <h4>ParentDetails</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ParentID, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ParentID, new { htmlAttributes = new { @class = "form-control", @onkeydown = "return false", @Value = Session["ParentID"] } })
+                @Html.ValidationMessageFor(model => model.ParentID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ParentName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ParentName, new { htmlAttributes = new { @class = "form-control", @onkeydown = "return false", @Value = Session["ParentName"] } })
+                @Html.ValidationMessageFor(model => model.ParentName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ParentContact, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ParentContact, new { htmlAttributes = new { @class = "form-control", @onkeydown = "return false", @Value = Session["ParentContact"] } })
+                @Html.ValidationMessageFor(model => model.ParentContact, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ParentEmail, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ParentEmail, new { htmlAttributes = new { @class = "form-control", @onkeydown = "return false", @Value = Session["ParentEmail"] } })
+                @Html.ValidationMessageFor(model => model.ParentEmail, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.School_Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.School_Name, new { htmlAttributes = new { @class = "form-control", @onkeydown = "return false", @Value = Session["School_Name"] } })
+                @Html.ValidationMessageFor(model => model.School_Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.School_Id, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.School_Id, new { htmlAttributes = new { @class = "form-control", @onkeydown = "return false", @Value = Session["School_Id"] } })
+                @Html.ValidationMessageFor(model => model.School_Id, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.School_Code, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.School_Code, new { htmlAttributes = new { @class = "form-control", @onkeydown = "return false", @Value = Session["School_Code"] } })
+                @Html.ValidationMessageFor(model => model.School_Code, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ParentPassword, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ParentPassword, new { htmlAttributes = new { @class = "form-control", @Value = Session["ParentPassword"] } })
+                @Html.ValidationMessageFor(model => model.ParentPassword, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-success" />
+
+                <input type="button" value="Home" class="btn btn-success" onclick="@("window.location.href='" + @Url.Action("ParentHeaderBoard", "DashBoard") + "'");" />
+
+                <input type="button" onclick="history.go(-1)" value="Return" class="btn btn-success" />
+
+
+
+            </div>
+        </div>
+    </div>
+}
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+

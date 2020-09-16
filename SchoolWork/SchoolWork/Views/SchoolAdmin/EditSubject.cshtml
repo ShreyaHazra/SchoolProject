@@ -1,0 +1,285 @@
+﻿@model SchoolWork.Models.RoleAssigned
+@{
+    ViewBag.Title = "Edit Subjects";
+}
+@{ 
+    int eid = 0;
+    int subject_id = 0;
+    int class_id = 0;
+    int sec_id= 0;
+
+    int ID = 0;
+
+
+}
+
+
+
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+    @*<meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>*@
+
+    <link href="~/CSS/stylesheet2.css" rel="stylesheet" />
+    <style>
+        .text-danger {
+            font-weight: 700;
+            color: red;
+        }
+
+        .body-div {
+            margin-top: 140px;
+            border-color: indigo;
+            border-style: groove;
+            padding: 35px;
+        }
+
+        .Education {
+            border-color: lightyellow;
+            border-style: inset;
+            padding: 17px;
+        }
+
+        p {
+            text-align: center;
+        }
+
+        .container {
+            width: 70% !important;
+            padding: 10px !important;
+        }
+    </style>
+
+</head>
+<body id="LoginForm" style="background-color:cornflowerblue;">
+    @foreach (var stu_details in Model.RoleList)
+    {
+        eid = stu_details.eid;
+        subject_id = stu_details.Sub_ID;
+        class_id = stu_details.class_id;
+        sec_id = stu_details.sec_id;
+        ID = stu_details.ID;
+    }
+
+    <div class="container">
+
+       
+        <div class="body-div" style="background-color:blanchedalmond; max-width:100%">
+            <div class="row">
+                <div class="col-sm-12 col-md-12">
+
+                    @if (TempData["msg"] != null)
+                    {
+                        <p class="alert alert-success" id="successMessage" style="color:green">@TempData["msg"]</p>
+                    }
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 col-md-12">
+                    @*<a class="btn btn-primary btn-product" onclick="@("window.location.href='" + @Url.Action("SchoolNoticeAdd", "SchoolAdmin") + "'");"><span class="glyphicon glyphicon-pencil"></span>Add Notice</a>*@
+                    <a class="btn btn-info" onclick="@("window.location.href='" + @Url.Action("AdminHeaderBoard", "DashBoard") + "'");"><span class="glyphicon glyphicon-home"></span> &nbsp; Home</a>
+                    <input type="button" onclick="history.go(-1)" value="Return" class="btn btn-info" />
+                </div>
+                <div class="col-sm-12 col-md-12 text-center">
+                    <h1 style="color:blueviolet;"><b>Assigning Subject To Class</b></h1>
+                    <p>Please Fill Up All necessary Information mentioned in below Fields.</p>
+            </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 col-md-12 Education">
+                    @using (Html.BeginForm("EditSubject", "SchoolAdmin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="row">
+                            <div class="col-sm-12 col-md-12">
+                                <div class="class-sm-2 col-md-2 col-md-offset-2">
+                                    <label>
+                                        @*<i class="glyphicon glyphicon-list"></i>*@ <font color="brown"> Select Teacher</font>
+                                    </label>
+                                </div>
+                                <div class="col-sm-4 col-md-4">
+                                    @Html.DropDownListFor(m => m.Emp_Code, Model.Emp_Name, "Please Select An Employee", new { @class = "form-control", @disabled = "disabled" })
+                                    @Html.ValidationMessageFor(m => m.Emp_Code, "", new { @class = "text-danger" })
+
+
+                                    <input type="hidden" name="eid" value="@eid">
+                                    <input type="hidden" name="ID" value="@ID">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+
+                        <div class="row">
+                            <div class="col-sm-12 col-md-12">
+                                <div class="class-sm-2 col-md-2 col-md-offset-2">
+                                    <label>
+                                        @*<i class="glyphicon glyphicon-list"></i>*@ <font color="brown"> Select Subject</font>
+                                    </label>
+                                </div>
+                                <div class="col-sm-4 col-md-4">
+                                    @Html.DropDownListFor(m => m.Sub_ID, Model.Sub_Name, "Please Select A Subject", new { @class = "form-control", @onchange = "getAllChange()" })
+                                    @Html.ValidationMessageFor(m => m.Sub_ID, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+
+
+                        <div class="row">
+                            <div class="col-sm-12 col-md-12">
+                                <div class="class-sm-2 col-md-2 col-md-offset-2">
+                                    <label>
+                                        @*<i class="glyphicon glyphicon-list"></i>*@ <font color="brown"> Select Class</font>
+                                    </label>
+                                </div>
+                                <div class="col-sm-4 col-md-4">
+                                    @Html.DropDownListFor(m => m.class_name, Model.Class_ID, "Please Select Class", new { @class = "form-control", @onchange = "getAllChange()" })
+                                    @Html.ValidationMessageFor(m => m.class_name, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+
+
+                        <div class="row">
+                            <div class="col-sm-12 col-md-12">
+                                <div class="class-sm-2 col-md-2 col-md-offset-2">
+                                    <label>
+                                        @*<i class="glyphicon glyphicon-list"></i>*@ <font color="brown"> Select Section</font>
+                                    </label>
+                                </div>
+                                <div class="col-sm-4 col-md-4">
+                                    @Html.DropDownListFor(m => m.sec_name, Model.Sec_ID, "Please Select A Section", new { @class = "form-control", @onchange = "getAllChange()" })
+                                    @Html.ValidationMessageFor(m => m.sec_name, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div><br />
+
+                        <div class="row">
+                            <div class="col-sm-12 col-md-10 col-md-offset-3">
+                                <input type="submit" value="Submit" class="btn btn-success" />
+                                &nbsp;&nbsp;
+                                <input type="reset" value="Reset" class="btn btn-warning">
+                                &nbsp;&nbsp;
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+        @section Scripts
+    {
+
+            @Scripts.Render("~/bundles/jqueryval")
+
+
+            @Styles.Render("~/Content/cssjqryUi")
+
+
+
+            <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+            <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+            <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+            <link href="~/CSS/StyleSheet5.css" rel="stylesheet" />
+            <link href="~/CSS/Table.css" rel="stylesheet" />
+
+            <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+            <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+            <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+
+
+
+            <script>
+                $(function () {
+
+
+                    $('input[name="due_date"]').daterangepicker(
+                        {
+                            singleDatePicker: true,
+                            timePicker: false,
+                            showDropdowns: true,
+                            minYear: 2001,
+
+                            locale: {
+                                format: 'YYYY/MM/DD'
+                            }
+                        }
+                    );
+                });
+
+
+
+                $(function () {
+
+
+                    $('input[name="date_assigned"]').daterangepicker(
+                        {
+
+                            singleDatePicker: true,
+                            timePicker: false,
+                            showDropdowns: true,
+                            minYear: 2001,
+
+                            locale: {
+                                format: 'YYYY/MM/DD'
+
+                            }
+                        }
+                    );
+                });
+            </script>
+
+
+
+            <script type="text/javascript">
+                    window.onload = function () {
+
+                        
+                                    if (@eid != null) {
+
+                                    $('#Emp_Code option[value="@eid"]').attr("selected", "selected");
+
+                                    }
+
+                                     
+                                      if (@class_id != null) {
+                                          $('#class_name option[value="@class_id"]').attr("selected", "selected");
+
+                                      }
+                                      if (@sec_id != null) {
+
+                                            $('#sec_name option[value="@sec_id"]').attr("selected", "selected");
+
+                                      }
+
+                                      if (@subject_id != null) {
+
+                                         
+                                          $('#Sub_ID option[value="@subject_id"]').attr("selected", "selected");
+
+                                     }
+
+
+                      };
+
+            </script>
+
+
+        }
+
+
+    </body>
+</html>
+
+

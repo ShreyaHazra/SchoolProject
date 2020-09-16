@@ -1,0 +1,613 @@
+﻿@model SchoolWork.Models.CreateExamSchedule
+@{
+
+    ViewBag.Title = "StudentExamMaster";
+
+}
+
+
+<br />
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <!-- This file has been downloaded from Bootsnipp.com. Enjoy! -->
+    <title>view exam schedule</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    <style>
+        * {
+            box-sizing: border-box
+        }
+
+        body {
+            font-family: "Lato", sans-serif;
+            overflow-x: hidden;
+            max-width: 200%
+        }
+
+        /* Style the tab */
+        .tab {
+            float: left;
+            border: 1px solid #ccc;
+            background-color: #f1f1f1;
+            width: 15%;
+            height: auto;
+        }
+
+            /* Style the buttons inside the tab */
+            .tab button {
+                display: block;
+                background-color: inherit;
+                color: black;
+                /*padding: 22px 16px;*/
+                padding: 10px;
+                width: 100%;
+                border: none;
+                outline: none;
+                text-align: center;
+                cursor: pointer;
+                transition: 0.3s;
+                font-size: 17px;
+                border: 1px solid red;
+            }
+
+                /* Change background color of buttons on hover */
+                .tab button:hover {
+                    background-color: #ddd;
+                }
+
+                /* Create an active/current "tab button" class */
+                .tab button.active {
+                    background-color: #ccc;
+                }
+
+        /* Style the tab content */
+        .tabcontent {
+            float: left;
+            margin-bottom: 20px;
+            margin-left:85px;
+            margin-top:77px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            width: 85%;
+            border-left: none;
+            height: auto;
+            text-align: center;
+        }
+
+            /*.tabcontent h3 {
+                text-align: center;
+                padding: 10px;
+            }
+
+            .tabcontent h4 {
+                color: red;
+                font-size: 20px;
+                -webkit-text-stroke-width: 1px;
+                -webkit-text-stroke-color: black;
+            }
+
+            .tabcontent p {
+                text-align: center;
+                color: #FF3333;
+            }
+
+        .input-group p {
+            font-weight: 700;
+        }*/
+    </style>
+
+    <style>
+        /*#show1, #show2, #local, #Parent, #Education, #Photo, #Declaration, #div1, #div2, #disabilitydesc, #SpCaredec {
+            display: none;
+        }
+
+        .text-danger {
+            font-weight: 700;
+            color: red;
+        }
+
+        #SignaturePreview, #imagePreview {
+            border: 1px solid black;
+        }
+
+        .control-label {
+            text-align: center;
+            font-weight: 700;
+            margin: 10px;
+        }
+
+        .col-md-2 {
+            text-align: center;
+        }*/
+    </style>
+    <style>
+        h3 {
+            color: red;
+            font-size: 25px;
+            -webkit-text-stroke-width: 1px;
+            -webkit-text-stroke-color: black;
+            margin-top: -30px;
+        }
+
+
+        /*.lb1 {
+            color: #ef370d;
+            font-size: 15px;
+            -webkit-text-stroke-width: 1px;
+            -webkit-text-stroke-color: black;
+            padding: 10px;
+        }
+
+        #bt1 {
+            margin-top: 5px;
+            margin-left: 10px;
+        }*/
+    </style>
+
+
+
+
+</head>
+<body id="" style="background-color:gainsboro;padding:10px;">
+    @*<body id="LoginForm" style="background-color:cadetblue">*@
+
+
+    @using (Html.BeginForm("StudentFormFillup", "StudentAdmission", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+
+
+        <div id="Student" class="tabcontent well">
+            <div class="container ">
+                @*<div class="body-div" style="background-color:blanchedalmond; max-width:100%">*@
+
+                <div class="row">
+                    <div class="col-sm-3">
+                        <a class="btn btn-info" onclick="@("window.location.href='" + @Url.Action("AdminHeaderBoard", "DashBoard") + "'");"><span class="glyphicon glyphicon-home"></span> &nbsp; Home</a>
+
+                        <a class="btn btn-danger" onclick="history.go(-1)"><span class="glyphicon glyphicon-arrow-left"></span> &nbsp; Return</a>
+
+
+                    </div>
+                    <div class="col-sm-9">
+
+                    </div>
+
+
+
+                </div>
+
+
+
+                <br><br>
+                <h4>View Exam Schedule</h4>
+                <br>  <br>  <br>  <br>  <br>  <br>
+                <div class="row">
+
+                    <div class="col-sm-3">
+                        <div class="input-group">
+
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-education"></i></span>
+                            @Html.DropDownListFor(m => m.Year, Model.Year_Name, "Please Select Year", new { @class = "form-control" })
+
+                        </div>
+
+                        @Html.ValidationMessageFor(m => m.Year, "", new { @class = "text-danger" })
+                    </div>
+
+
+                    <div class="col-sm-3">
+                        <div class="input-group">
+
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                            @Html.DropDownListFor(m => m.Class_Id, Model.Class_Name, "Please Select Class", new { @class = "form-control" })
+                        </div>
+                        @Html.ValidationMessageFor(m => m.Class_Id, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="col-sm-3">
+                        <div class="input-group">
+
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-education"></i></span>
+                            @Html.DropDownListFor(m => m.Exam_Term_id, Model.Exam_Term_Name, "Please Select Exam Term", new { @class = "form-control" })
+                        </div>
+
+                        @Html.ValidationMessageFor(model => model.Exam_Term_id, "", new { @class = "text-danger" })
+                    </div>
+
+
+
+
+
+
+
+                    <div class="form-group">
+
+                        @*<input type="button" value="Print" class="btn btn-success" onclick="@("window.location.href='" + @Url.Action("CreateExamSchedule_Report", "SchoolAdmin") + "'");" />*@
+                        <input type="button" onclick="redirectReport()" value="Download" class="btn btn-success" />
+
+                        &nbsp;&nbsp;
+                        &nbsp;&nbsp;
+
+
+                        @*<input type="button" onclick="history.go(-1)" value="Return" class="btn btn-success" />*@
+
+                    </div>
+
+
+                </div>
+                <br>
+
+                <br> <br>
+                <div class="container-fluid">
+                    <div id="LoginForm">
+
+                    </div>
+
+
+                </div>
+
+
+
+            </div>
+        </div>
+
+
+
+    }
+
+
+
+
+    @section Scripts
+   {
+        @Scripts.Render("~/bundles/jqueryval")
+
+
+        @*<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+            <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+            <link href="~/CSS/StyleSheet5.css" rel="stylesheet" />
+            <link href="~/CSS/Table.css" rel="stylesheet" />*@
+
+
+
+        <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+        <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+        <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+
+        <script type="text/javascript" src="Scripts/jquery_calendar/jquery-ui.js"></script>
+
+
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+
+
+
+        <script>
+            $(function () {
+                $('input[name="InputTime"]').daterangepicker({
+                    singleDatePicker: true,
+                    timePicker: false,
+                    showDropdowns: true,
+                    minYear: 1901,
+                    startDate: moment().startOf('hour'),
+                    ///endDate: moment().startOf('hour').add(32, 'hour'),
+                    locale: {
+                        format: 'YYYY/MM/DD'
+                    }
+
+
+
+                });
+            });
+        </script>
+
+
+        <script>
+            $(function () {
+                $('input[name="InputTimeA"]').daterangepicker({
+                    singleDatePicker: true,
+                    timePicker: false,
+                    showDropdowns: true,
+                    minYear: 1901,
+                    startDate: moment().startOf('hour'),
+                    ///endDate: moment().startOf('hour').add(32, 'hour'),
+                    locale: {
+                        format: 'YYYY/MM/DD'
+                    }
+                });
+            });
+        </script>
+
+
+        <script>
+            $(function () {
+                $('input[name="Year"]').daterangepicker({
+                    changeMonth: false,
+                    singleDatePicker: true,
+                    timePicker: false,
+                    showDropdowns: true,
+                    minYear: 1901,
+                    // startDate: moment().startOf('hour'),
+                    ///endDate: moment().startOf('hour').add(32, 'hour'),
+                    locale: {
+                        format: 'YYYY'
+                    }
+                });
+            });
+        </script>
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('#Exam_Term_id').on('change', function () {
+             //   alert("hi");
+             //   var end_date = 0;
+                var im = 1;
+             //   //if ($(this).val() != "") {
+             //   end_date = $('#InputTimeA').val();
+             ////   alert(end_date);
+             //   //}
+             //   var start_date = 0;
+             //   start_date = $('#InputTime').val();
+             //  // alert(start_date);
+                    var class_id = $('#Class_Id').val();
+                    var exam_term_id = $('#Exam_Term_id').val();
+                    var exam_year = $('#Year').val();
+
+
+                    //alert(class_id);
+                    //alert(exam_term_id);
+                    //alert(exam_year);
+                $('#LoginForm').html('Loading Data...');
+
+                $.ajax({
+                    url: '/SchoolAdmin/ViewExamScheduled',
+                    type: 'POST',
+                    data: '{class_id:"' + class_id + '", exam_term_id: "' + exam_term_id + '", exam_year: "' + exam_year + '"}',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: 'json',
+                    success: function (d) {
+                        if (d.StudentList.length > 0) {
+                            var $data = $('<table  id="products"></table>').addClass('table table-responsive table-striped').css({});
+                            var header = "<thead style='background-color:#1b75a0;color:white'><tr><th class='text-center'>ID</th><th class='text-center'>Exam Name</th><th class='text-center'>Date</th><th class='text-center'>Exam Time</th><th class='text-center'>Action</th> </tr></thead>";
+                            $data.append(header);
+
+                            var tablebody = '<tbody></tbody>';
+                            $data.append(tablebody);
+                            $.each(d.StudentList, function (i, item) {
+
+                                var $row = $('<tr/>');
+                                $row.append($('<td/>').html(im));
+                                $row.append($('<td/>').html( item.Subject_Namee )  );
+                                $row.append($('<td/>').html( item.Exam_Date ));
+                                $row.append($('<td/>').html(item.Start_Time +'-'+ item.End_Time));
+                                @*$row.append($('<td/>').html('<input type="button" value="Edit" style="width:100px" class="btn btn-info" onclick="@("window.location.href='" + @Url.Action("View_Exam_Details", "SchoolAdmin",new{exam_term_id = "' + item.ExamTerm_Id + '" })  + "'");" />'));*@
+                                $row.append($('<td/>').html('<a href="#" style="width:100px" class="btn btn - warning" onclick="EditStudentRecord(' + item.ExamSchedule_Id + ')" ><input type="button" value="Edit" style="width:100px" class="btn btn-info" ></a>'));
+
+
+                                $data.append($row);
+                                im++;
+
+
+                            });
+
+                            $('#LoginForm').html($data);
+                        }
+                        else {
+                            var $noData = $('<div/>').html('No Data Found!');
+                            $('#LoginForm').html($noData);
+                        }
+                    },
+                    error: function () {
+                        alert('Error! Please try again.');
+                    }
+                });
+
+                });
+                });
+
+
+        </script>
+
+        <script type="text/javascript">
+                function EditStudentRecord(ExamScheduleId) {
+                   // alert(ExamScheduleId);
+
+                      var url = '@Url.Action("ExamScheduleDetails", "SchoolAdmin")';
+
+                    window.location.href = url + '/?ExamScheduleId=' + ExamScheduleId;
+                    // var url = "/Home/GetStudentById?StudentId=" + StudentId;
+                }
+
+                   function redirectReport() {
+                   // alert(ExamScheduleId);
+
+                       var class_id = $('#Class_Id').val();
+                       var exam_term_id = $('#Exam_Term_id').val();
+                       var exam_year = $('#Year').val();
+
+                      var url = '@Url.Action("CreateExamSchedule_Report", "SchoolAdmin")';
+
+                       window.location.href = url + '/?exam_term_id=' + exam_term_id + '&class_id=' + class_id + '&exam_year=' + exam_year;
+
+
+                    // var url = "/Home/GetStudentById?StudentId=" + StudentId;
+                }
+                //$(document).ready(function () {
+                //    $('#Year').on('change', function () {
+                //        $("#LoginForm").html("Loading....");
+                //        $.get("/SchoolAdmin/ViewExamScheduled", null, DataBind);
+                //function DataBind(StudentList) {
+                //    var SetData = $("#SetStudentList");
+                //    for (var i = 0; i < StudentList.length; i++) {
+                //        var Data = "<tr class='row_" + StudentList[i].StudentId + "'>" +
+                //            "<td>" + StudentList[i].StudentId + "</td>" +
+                //            "<td>" + StudentList[i].StudentName + "</td>" +
+                //            "<td>" + StudentList[i].Email + "</td>" +
+                //            "<td>" + StudentList[i].DepartmentName + "</td>" +
+                //            "<td>" + "<a href='#' class='btn btn-warning' onclick='EditStudentRecord(" + StudentList[i].StudentId + ")' ><span class='glyphicon glyphicon-edit'></span></a>" + "</td>" +
+                //            "<td>" + "<a href='#' class='btn btn-danger' onclick='DeleteStudentRecord(" + StudentList[i].StudentId + ")'><span class='glyphicon glyphicon-trash'></span></a>" + "</td>" +
+                //            "</tr>";
+                //        SetData.append(Data);
+                //        $("#LoginForm").html(" ");
+
+                //    }
+                //}
+
+                //    });
+                //});
+        </script>
+
+
+
+
+
+
+
+
+
+    }
+
+
+
+
+    <script>
+        var checkboxes = $("input[type='checkbox']"),
+            Butt = $("input[type='']");
+
+        checkboxes.click(function () {
+            Butt.attr("disabled", !checkboxes.is(":checked"));
+        });
+
+    </script>
+    <script>
+        function openCity(evt, cityName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(cityName).style.display = "block";
+            evt.currentTarget.className += " active";
+            // window.location.reload();
+        }
+
+        // Get the element with id="defaultOpen" and click on it
+        //document.getElementById("defaultOpen").click();
+    </script>
+
+    <script type="text/javascript">
+        $(function () {
+
+            $('#Class_Id').on('change', function () {
+                var id = 0;
+                var value = 0;
+                var Section_Id = 0;
+
+                id = $(this).attr("id");
+                value = $("#Class_Id").val();
+                //Section_Id = $("#Section_Id").val();
+                // alert(id);
+                //alert(value);
+
+                $.ajax({
+                    type: "POST",
+                    url: "/SchoolAdmin/AjaxMethod_SectionList",
+                    data: '{type: "' + id + '", value: "' + value + '",Section_Id:"' + Section_Id + '" }',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        var dropDownId;
+                        var dropDownId1;
+                        var list;
+                        var list1;
+                        switch (id) {
+                            case "Class_Id":
+                                dropDownId = "#Exam_Term_id";
+                                list = response.Exam_Term_Name;
+                                DisableDropDown("#Exam_Term_id");
+                                // DisableDropDown("#CityId");
+                                PopulateDropDown("#Exam_Term_id", list);
+                                //    break;
+                                //case "Period_Id":
+                                dropDownId1 = "#Section_Id";
+                                list1 = response.Section_Name;
+                                DisableDropDown1("#Section_Id");
+                                PopulateDropDown1("#Section_Id", list1);
+                                break;
+                        }
+
+                    },
+                    failure: function (response) {
+                        alert(response.responseText);
+                    },
+                    error: function (response) {
+                        alert(response.responseText);
+                    }
+                });
+            });
+
+
+
+            function DisableDropDown(dropDownId) {
+                //$(dropDownId).attr("disabled", "disabled");
+                $(dropDownId).empty().append('<option selected="selected" value="0">Please Select Exam Term</option>');
+            }
+
+            function PopulateDropDown(dropDownId, list) {
+                if (list != null && list.length > 0) {
+                    //$(dropDownId).removeAttr("disabled");
+                    $.each(list, function () {
+                        $(dropDownId).append($("<option></option>").val(this['Value']).html(this['Text']));
+                    });
+                }
+            }
+
+            function DisableDropDown1(dropDownId1) {
+                //$(dropDownId).attr("disabled", "disabled");
+                $(dropDownId1).empty().append('<option selected="selected" value="0">Please Select Section</option>');
+            }
+
+            function PopulateDropDown1(dropDownId1, list1) {
+                if (list1 != null && list1.length > 0) {
+                    //$(dropDownId).removeAttr("disabled");
+                    $.each(list1, function () {
+                        $(dropDownId1).append($("<option></option>").val(this['Value']).html(this['Text']));
+                    });
+                }
+            }
+
+
+
+            $(function () {
+                if ($("#Class_Id").val() != "") {
+                    var message = "Class: " + $("#Class_Id option:selected").text();
+                    //  message += "\nSection: " + $("#Section_Name option:selected").text();
+
+                    // alert(message);
+                }
+
+            });
+
+
+        });
+
+    </script>
+
+
+
+
+</body>
+</html>
+
+

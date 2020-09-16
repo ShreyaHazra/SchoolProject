@@ -1,0 +1,554 @@
+﻿@model SchoolWork.Models.Routine
+
+@{
+    ViewBag.Title = "Create Class";
+}
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+    
+    <link href="~/CSS/stylesheet2.css" rel="stylesheet" />
+    <style>
+        .text-danger {
+            font-weight: 700;
+            color: red;
+        }
+
+        .body-div {
+            margin-top: 140px;
+            border-color: indigo;
+            border-style: groove;
+            padding: 35px;
+        }
+
+        .Education {
+            border-color: lightyellow;
+            border-style: inset;
+            padding: 17px;
+        }
+
+        p {
+            text-align: center;
+        }
+
+
+        .container {
+            width: 70% !important;
+            padding: 10px !important;
+        }
+
+        .well {
+            background-color: #ead4b3 !important;
+            padding: 10px 19px !important;
+            /*border-style: inset;*/
+        }
+
+        .left {
+            float: left;
+            margin-right: 10px;
+            width: 48%;
+        }
+
+        .right {
+            float: left;
+            margin-left: 10px;
+            width: 48%;
+        }
+
+        .hr {
+            margin-top: 14px !important;
+            margin-bottom: 14px !important;
+        }
+    </style>
+</head>
+<body id="LoginForm" style="background-color:cornflowerblue;">
+    <div class="container">
+        <div class="body-div" style="background-color:blanchedalmond; max-width:100%">
+            <div class="row">
+                <div class="col-sm-12 col-md-12">
+                    @*<a class="btn btn-primary btn-product" onclick="@("window.location.href='" + @Url.Action("SchoolNoticeAdd", "SchoolAdmin") + "'");"><span class="glyphicon glyphicon-pencil"></span>Add Notice</a>*@
+                    <a class="btn btn-primary" onclick="@("window.location.href='" + @Url.Action("AdminHeaderBoard", "DashBoard") + "'");"><span class="glyphicon glyphicon-home"></span> &nbsp; Home</a>
+
+                    <a class="btn btn-danger" onclick="history.go(-1)"><span class="glyphicon glyphicon-arrow-left"></span> &nbsp; Return</a>
+
+                    @*<input type="button"  value="Return" class="btn btn-danger" />*@
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 col-md-12 text-center">
+                    <h1 style="color:blueviolet;"><b>Create Class</b></h1>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="row Education">
+                <div class="col-md-12 col-sm-12 well">
+                    <div class="col-md-12 col-sm-12 ">
+                        <h4 class="text-center" style="color: blueviolet;font-weight: bold;">Add Class </h4>
+                        <hr />
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-1">
+                            <label>Class Name:</label>
+                        </div>
+                        <div class="col-sm-3">
+                            <input class="form-control" placeholder="Class Name" type="text" id="classname" name="classname" onchange="changeclass(1,0)" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-1">
+                            <label>Start Time:</label>
+                        </div>
+                        <div class="col-sm-3">
+                            <input type="time" class="form-control" id="Stime" name="Stime" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-1">
+                            <label>End Time:</label>
+                        </div>
+                        <div class="col-sm-3">
+                            <input type="time" class="form-control" id="Etime" name="Etime"  onchange=""/>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div><br />
+                    <div class="col-sm-12" style="text-align:right">
+                        <a class="btn btn-success btn-sm" id="save">Save</a>
+                        <a class="btn btn-warning btn-sm">Clear</a>
+                    </div>
+                </div>
+                <div class="clearfix"></div><br />
+                <div class="col-sm-12 well">
+                    <h4 class="text-center" style="color: blueviolet;font-weight: bold;">View Class</h4>
+                    <hr />
+                    <div class="col-sm-12 col-md-12" id="viewclass">
+                        <!--insert dynamic table here-->
+                    </div>
+                </div>
+            </div>
+        </div><!---end class body div row-->
+    </div><!--container-->
+
+    @section Scripts
+    {
+
+        @Scripts.Render("~/bundles/jqueryval")
+
+
+        @Styles.Render("~/Content/cssjqryUi")
+
+
+
+        <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+        <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+        <link href="~/CSS/StyleSheet5.css" rel="stylesheet" />
+        <link href="~/CSS/Table.css" rel="stylesheet" />
+
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+
+
+
+        <!--sweet alert-->
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+
+        <!-- DataTables CSS -->
+
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.5/css/jquery.dataTables.css">
+
+
+        <!-- DataTables -->
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.5/js/jquery.dataTables.js">
+        </script>
+        <script type="text/javascript">
+            function changeclass(id,count) {
+
+                var cls;
+                
+                if (id == 1)
+                    cls = $("#classname").val();
+
+                else
+
+                    cls = $("#CN" + count).val();
+                //alert(cls);
+                $.ajax({
+                    type: "POST",
+                    url: "/SchoolAdmin/AjaxclassName",
+                    data: '{cname:"' + cls + '"}',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        //alert(response.length);
+                        if (response.length > 0) {
+                            swal({
+                                title: "",
+                                text: response,
+                                icon: "error"
+                            });
+                            if (id == 1)
+                                $("#classname").val("");
+
+                            else
+
+                                $("#CN" + count).val("");
+
+
+                        }
+                        else;
+
+
+
+
+
+                    },
+                    failure: function (response) {
+                        alert("from  inner failure" + response.responseText);
+                    },
+                    error: function (response) {
+                        alert("from inner error  " + response.responseText);
+                    }
+                });
+
+            }
+
+
+            //change class
+
+            function createTable() {
+
+                $.ajax({
+                    type: "POST",
+                    url: "/SchoolAdmin/AjaxcreateClassTable",
+                    data: '{}',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        var list = response.Templist;
+                        var count = 0;
+                        var str;
+                        str = "<table id='viewclasstime'>";
+                        str += "<thead>";
+                        str += "<tr>";
+                        str += "<th>";
+                        str += "Class Name";
+                        str += "</th>";
+                        str += "<th>";
+                        str += "Start Time";
+                        str += "</th>";
+                        str += "<th>";
+                        str += "End Time";
+                        str += "</th>";
+                        str += "<th>";
+                        str += "Action";
+                        str += "</th>";
+                        str += "</tr>";
+                        str += "</thead>";
+                        if (list.length == 0) {
+
+                            str += "<tr>";
+                            str += "<td colspan='4' class='text-align:center col-sm-12 col-md-12'>";
+                            str += "No Data Found";
+                            str += "</td>";
+                            str += "</tr>";
+
+                        }
+
+
+
+                        if (list != null && list.length > 0) {
+                            
+                            $.each(list, function () {
+                                count++;
+                                str += "<tr  id='show"+count+"'>";
+                                str += "<td class='col-sm-3'>";
+
+                                
+                                str += this['ClassName'];
+                                str += "</td>";
+                                str += "<td class='col-sm-3'>";
+                                str += this['Stime'];
+                                str += "</td>";
+                                str += "<td class='col-sm-3'>";
+                                str += this['Etime'];
+                                str += "</td>";
+
+
+                                str += "<td class='col-sm-3'>";
+                                str += "<a href='Javascript:Edit(" + this['id'] + ","+count+")' data-toggle='tooltip' title='Edit'>";
+                                str += "  <span class='glyphicon glyphicon-edit' style='font-size:27px;'></span>";
+
+                                str += "</a> ";
+
+                               
+                                str += "<a href='javascript:Rem(" + this['id'] + ")' data-toggle='tooltip' title='Delete'>";
+                                str += "  <span class='glyphicon glyphicon-remove-circle' style='font-size:27px;'></span>";
+
+                                str += "</a> ";
+                                str += "</td>";
+                                str += "</tr>";
+                                //end of Show
+                                //begining of hide
+
+
+                                 str += "<tr  id='hide"+count+"' hidden='hidden'>";
+                                str += "<td class='col-sm-3'>";
+
+
+                                str += "<input type=text class='form-control' value=" + this['ClassName'] + " id='CN" + count + "' onchange=changeclass(2," + count + ")>";
+                                str += "</td>";
+                                str += "<td class='col-sm-3'>";
+                                str += "<input type=text class='form-control' value="+this['Stime']+" id='ST"+count+"'>";
+                               
+                                str += "</td>";
+                                str += "<td class='col-sm-3'>";
+                                str += "<input type=text class='form-control' value="+this['Etime']+" id='ET"+count+"'>";
+                                str += "</td>";
+
+
+                                str += "<td class='col-sm-3'>";
+
+                                 
+                                str += "<a  class='btn btn-primary btn-small' href='Javascript:Update(" + this['id'] + "," + count + ")' data-toggle='tooltip' title='Edit'>Update";
+                               
+
+                                str += "</a> ";
+
+                               
+                                
+                                str += "</td>";
+                                str += "</tr>";
+
+                            });
+                        }
+
+
+                        str += "</table>";
+
+                        $("#viewclass").html(str);
+                       $('#viewclasstime').DataTable();
+                    },
+                    failure: function (response) {
+                        alert("from   failure" + response.responseText);
+                    },
+                    error: function (response) {
+                        alert("from  error  " + response.responseText);
+                    }
+                });
+
+
+            }
+
+            function Rem(id) {
+
+                $.ajax({
+                    type: "POST",
+                    url: "/SchoolAdmin/AjaxDeleteClass",
+                    data: '{Class_Id:' + id + '}',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                                 swal({
+                                        title: "",
+                                        text: response,
+                                        icon: "success",
+                                    });
+
+                                    
+                                    createTable();
+                    },
+                    failure: function (response) {
+                         alert("from Delete failure" + response.responseText);
+                    },
+                   error: function (response) {
+                        alert("from Delete error  " + response.responseText);
+                    }
+                });
+            
+
+            }
+
+
+            function Update(id, count) {
+
+                if (CalDuration(2, count) > 0) {
+
+
+
+
+                    var cn = $("#CN" + count).val();
+
+                    var SD = $("#ST" + count).val();
+
+                    var ED = $("#ET" + count).val();
+                    alert(',Class_Name:"' + cn + '",STime:"' + SD + '",ETime:"' + ED);
+                    $.ajax({
+                        type: "POST",
+                        url: "/SchoolAdmin/AjaxUpdateClass",
+                        data: '{Class_Id:' + id + ',Class_Name:"' + cn + '",STime:"' + SD + '",ETime:"' + ED + '"}',
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function (response) {
+                            swal({
+                                title: "",
+                                text: response,
+                                icon: "success",
+                            });
+                            createTable();
+                            $("#show" + count).show();
+
+                            $("#hide" + count).hide();
+
+                        },
+                        failure: function (response) {
+                            alert("from Delete failure" + response.responseText);
+                        },
+                        error: function (response) {
+                            alert("from Delete error  " + response.responseText);
+                        }
+                    });
+
+                }
+               
+
+            }
+
+            function Edit(id, count) {
+
+                $("#show" + count).hide();
+
+                $("#hide" + count).show();
+                
+            }
+
+
+               function CalDuration(id,count) {
+
+
+                
+                   var stime, etime; 
+
+                   if (id == 1) {
+
+                       stime = $("#Stime").val();
+
+                       etime = $("#Etime").val();
+                   }
+                   else {
+
+                        stime = $("#ST"+count).val();
+
+                       etime = $("#ET"+count).val();
+
+                   }
+                
+                var t1 = stime.split(':');
+
+                
+
+                var t2 = etime.split(':');
+
+
+                var d1 = new Date(0, 0, 0, t1[0], t1[1]);
+
+               
+                var d2 = new Date(0, 0, 0, t2[0], t2[1]);
+               
+                var diff = (d2.getTime() - d1.getTime())/60000;
+
+                
+                if (diff < 0) {
+                    swal("End time Should be greater than start time!!");
+
+                    if (id == 1) {
+                        $("#Stime").val("");
+
+                        $("#Etime").val("");
+
+                        $("#Stime").focus();
+                    }
+                    else {
+
+                        $("#ST"+count).val("");
+
+                        $("#ET"+count).val("");
+
+                        $("#ST"+count).focus("");
+                    }
+
+
+                }
+
+                   return diff;
+
+            }
+        </script>
+        <script>
+
+            $(window).load(function () {
+                // executes when complete page is fully loaded, including all frames, objects and images
+                //alert("window is loaded");
+                createTable();
+
+            });
+
+            $(document).ready(function () {
+
+
+               
+              //  $('#viewclasstimee').DataTable();
+               
+
+
+
+
+                $("#save").click(function () {
+
+
+                    if (CalDuration(1, 0) > 0) {
+
+                        $.ajax({
+                            type: "POST",
+                            url: "/SchoolAdmin/Ajaxaddclass",
+                            data: '{classname:"' + $("#classname").val() + '",Stime:"' + $("#Stime").val() + '",Etime:"' + $("#Etime").val() + '"}',
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            success: function (response) {
+                                swal({
+                                    title: "",
+                                    text: response,
+                                    icon: "success"
+
+                                });
+
+                                $("#classname").val("");
+                                $("#Stime").val("");
+                                $("#Etime").val("");
+
+                                createTable();
+                            },
+                            failure: function (response) {
+                                alert("from   failure" + response.responseText);
+                            },
+                            error: function (response) {
+                                alert("from  error  " + response.responseText);
+                            }
+                        });
+
+                    }
+
+                });
+
+            });
+                    //end save button click
+
+        </script>
+
+
+    }
+
+</body>
+</html>

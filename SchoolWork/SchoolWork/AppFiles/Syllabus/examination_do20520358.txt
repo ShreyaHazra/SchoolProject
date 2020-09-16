@@ -1,0 +1,17 @@
+Student(class, section, roll,) --> 1. {view Marks Sheet }{Name of exam,Subject,marks,Total Marks Obtain}-->Download as soft copy.
+
+Parent ---> Same things like student(multiple marks sheet for different child)
+
+
+
+
+
+
+
+
+
+
+
+
+
+

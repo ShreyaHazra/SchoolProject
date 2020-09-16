@@ -1,0 +1,452 @@
+﻿@model SchoolWork.Models.SchoolRegistration
+
+@{
+    ViewBag.Title = "SchoolRegister";
+}
+
+<h2>SchoolRegister</h2>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+
+    <link href="~/CSS/stylesheet2.css" rel="stylesheet" />
+    <style>
+        .text-danger {
+            font-weight: 700;
+            color: red;
+        }
+    </style>
+
+</head>
+<body id="LoginForm" style="background-color:cadetblue">
+    <div class="container">
+        <h1 class="form-heading"></h1>
+        <br />
+        <br />
+        <br />
+        <br />
+        <div class="login-form">
+            <div class="body-div" style="background-color:blanchedalmond; max-width:80%">
+
+                <h1 style="color:blueviolet; margin-top:-30px"><b>SCHOOL REGISTATION FORM</b></h1>
+                <br />
+                <br />
+                @using (Html.BeginForm("SchoolRegister", "SchoolRegistration", FormMethod.Post, new { id = "myID", name = "randform" }))
+               
+                {
+                           
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="input-group">
+
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+                                @Html.EditorFor(model => model.SchoolName, new { htmlAttributes = new { @class = "form-control", @Placeholder = "Enter School Name" } })
+                           
+                            </div>
+
+                                @Html.ValidationMessageFor(model => model.SchoolName, "", new { @class = "text-danger" })
+
+                            
+                        </div>
+
+                        <div class="col-sm-3">
+                            <div class="input-group">
+
+
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-barcode"></i></span>
+                                @Html.EditorFor(model => model.SchoolCode, new { htmlAttributes = new { @class = "form-control", @Placeholder = "Generate School Code",@onkeydown = "return false" } })
+                            
+                            </div>
+
+                                @Html.ValidationMessageFor(model => model.SchoolCode, "", new { @class = "text-danger" })
+
+                            
+                        </div>
+
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <input type="button" value=" Generate Code" class="btn btn-info" onclick="randomString();" />
+
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="input-group">
+
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                                @Html.EditorFor(model => model.SchoolEmail, new { htmlAttributes = new { @class = "form-control", @Placeholder = "Enter School Email Id" } })
+
+                            </div>
+
+                            @Html.ValidationMessageFor(model => model.SchoolEmail, "", new { @class = "text-danger" })
+
+
+
+                        </div>
+
+
+                        <div class="row">
+                          
+                            <div class="col-sm-10">
+                                <p id="Status" />
+                            </div>
+                        </div>
+
+                        <div class="col-sm-4">
+                            <div class="input-group">
+
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                @Html.EditorFor(model => model.SchoolPassword, new { htmlAttributes = new { @class = "form-control", @Placeholder = "Enter School Password" } })
+
+                            </div>
+
+                            @Html.ValidationMessageFor(model => model.SchoolPassword, "", new { @class = "text-danger" })
+
+
+                        </div>
+
+                        <div class="col-sm-4">
+                            <div class="input-group">
+
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-phone-alt"></i></span>
+                                @Html.EditorFor(model => model.SchoolPhone, new { htmlAttributes = new { @class = "form-control", @Placeholder = "Enter School Phone  Number" } })
+
+                            </div>
+
+                            @Html.ValidationMessageFor(model => model.SchoolPhone, "", new { @class = "text-danger" })
+
+
+
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="input-group">
+
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                @Html.EditorFor(model => model.SchoolContactPerson, new { htmlAttributes = new { @class = "form-control", @Placeholder = "Enter School Contact Person Name" } })
+
+                            </div>
+
+                            @Html.ValidationMessageFor(model => model.SchoolContactPerson, "", new { @class = "text-danger" })
+
+                            
+                        </div>
+
+                        <div class="col-sm-4">
+                            <div class="input-group">
+
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                                @Html.EditorFor(model => model.SchoolContactPersonEmail, new { htmlAttributes = new { @class = "form-control", @Placeholder = "Enter School  Contact Person Email Id" } })
+                            
+                            </div>
+                            
+                                @Html.ValidationMessageFor(model => model.SchoolContactPersonEmail, "", new { @class = "text-danger" })
+
+                            
+                        </div>
+
+                        <div class="col-sm-4">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
+                                
+                                @Html.EditorFor(model => model.SchoolContactPersonPhone, new { htmlAttributes = new { @class = "form-control", @Placeholder = "Enter School Contact Person Phone Number" } })
+                            
+                            </div>
+
+                                @Html.ValidationMessageFor(model => model.SchoolContactPersonPhone, "", new { @class = "text-danger" })
+
+                            
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="input-group">
+
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-road"></i></span>
+                                @Html.EditorFor(model => model.SchoolAddress1, new { htmlAttributes = new { @class = "form-control", @Placeholder = "Address line 1" } })
+                            
+                            </div>
+                            
+                                @Html.ValidationMessageFor(model => model.SchoolAddress1, "", new { @class = "text-danger" })
+
+                           
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="input-group">
+
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-road"></i></span>
+                                @Html.EditorFor(model => model.SchoolAddress2, new { htmlAttributes = new { @class = "form-control", @Placeholder = "Address line 2" } })
+                            
+                            </div>
+
+                            @Html.ValidationMessageFor(model => model.SchoolAddress2, "", new { @class = "text-danger" })
+
+                           
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="input-group">
+
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
+                                @Html.DropDownListFor(m => m.CountryId, Model.Countries, "Please select Country", new { @class = "form-control" })
+                            
+                            </div>
+
+                            @Html.ValidationMessageFor(m => m.CountryId, "", new { @class = "text-danger" })
+
+                           
+                        </div>
+
+                        <div class="col-sm-3">
+                            <div class="input-group">
+
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-flag"></i></span>
+                                @Html.DropDownListFor(m => m.StateId, Model.States, "Please select State", new { @class = "form-control" })
+                            
+                                </div>   
+
+                               @Html.ValidationMessageFor(m => m.StateId, "", new { @class = "text-danger" })
+
+                           
+                        </div>
+
+                        <div class="col-sm-3">
+                            <div class="input-group">
+
+
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-map-marker"></i></span>
+                                @Html.DropDownListFor(m => m.CityId, Model.Cities, "Please select City", new { @class = "form-control" })
+                            
+                                </div>  
+
+                               @Html.ValidationMessageFor(m => m.CityId, "", new { @class = "text-danger" })
+
+                            
+                        </div>
+
+                        <div class="col-sm-3">
+                            <div class="input-group">
+
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-education"></i></span>
+
+                                @Html.DropDownListFor(m => m.Board_Id, Model.Board_Name, "Please select Board", new { @class = "form-control" })
+
+                            </div>
+
+                            @Html.ValidationMessageFor(m => m.Board_Id, "", new { @class = "text-danger" })
+
+
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+
+
+                                @*@Html.EditorFor(model => model.SchoolBoard, new { htmlAttributes = new { @class = "form-control", @Placeholder = "Select School Board " } })
+                                @Html.ValidationMessageFor(model => model.SchoolBoard, "", new { @class = "text-danger" })*@
+
+                            </div>
+                        </div>
+
+                        <div class="col-sm-3">
+                            <div class="input-group">
+
+                                @*@Html.DropDownListFor(m => m.CountryId, Model.Countries, "Please select", new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.CountryId, "", new { @class = "text-danger" })*@
+
+
+
+
+                            </div>
+                        </div>
+
+                        <div class="col-sm-3">
+                            <div class="form-group">
+
+                                @*@Html.DropDownListFor(m => m.StateId, Model.States, "Please select")*@
+
+
+
+
+                            </div>
+                        </div>
+
+                        <div class="col-sm-3">
+                            <div class="form-group">
+
+
+
+                                @*@Html.DropDownListFor(m => m.CityId, Model.Cities, "Please select")*@
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <br />
+                    <div class="form-group">
+
+                        <input type="submit" value="Submit" class="btn btn-success" />
+                        &nbsp;&nbsp;
+                        <input type="reset" value="Reset" class="btn btn-warning">
+
+                    </div>
+                    <br>
+                    <div class="form-group">
+
+                        <p>Already Have an Account!  @Html.ActionLink("Click Here To Sign-In", "SchoolAdminLogin", "SchoolAdmin")</p>
+
+                    </div>
+
+                }
+            </div>
+        </div>
+    </div>
+
+    @section Scripts
+    {
+        @Scripts.Render("~/bundles/jqueryval")
+    }
+</body>
+
+
+
+</html>
+<script type="text/javascript">
+    function randomString()
+    {
+        
+        var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZ&";
+        var string_length = 12;
+        var randomstring = '';
+        for (var i = 0; i < string_length; i++)
+        {
+            var rnum = Math.floor(Math.random() * chars.length);
+            randomstring += chars.substring(rnum, rnum + 1);
+            
+        }
+        //alert(randomstring);
+        document.randform.SchoolCode.value = randomstring;
+    }
+</script>
+<script type="text/javascript">
+           $(function () {
+               $("select").each(function () {
+                   if ($(this).find("option").length <= 1) {
+                       //$(this).attr("disabled", "disabled");
+                   }
+               });
+
+               $("select").change(function () {
+                   var value = 0;
+                   if ($(this).val() != "") {
+                       value = $(this).val();
+                   }
+                   var id = $(this).attr("id")
+                       ;
+                       $.ajax({
+                       type: "POST",
+                           url: "/SchoolRegistration/AjaxMethod",
+                       data: '{type: "' + id + '", value: ' + value + '}',
+                       contentType: "application/json; charset=utf-8",
+                       dataType: "json",
+                       success: function (response) {
+                           var dropDownId;
+                           var list;
+                           switch (id) {
+                               case "CountryId":
+                                   list = response.States;
+                                   DisableDropDown("#StateId");
+                                   DisableDropDown("#CityId");
+                                   PopulateDropDown("#StateId", list);
+                                   break;
+                               case "StateId":
+                                   dropDownId = "#CityId";
+                                   list = response.Cities;
+                                   DisableDropDown("#CityId");
+                                   PopulateDropDown("#CityId", list);
+                                   break;
+                           }
+
+                       },
+                       failure: function (response) {
+                           alert(response.responseText);
+                       },
+                       error: function (response) {
+                           alert(response.responseText);
+                       }
+                   });
+               });
+           });
+
+           function DisableDropDown(dropDownId) {
+               //$(dropDownId).attr("disabled", "disabled");
+               $(dropDownId).empty().append('<option selected="selected" value="0">Please select</option>');
+           }
+
+           function PopulateDropDown(dropDownId, list) {
+               if (list != null && list.length > 0) {
+                   //$(dropDownId).removeAttr("disabled");
+                   $.each(list, function () {
+                       $(dropDownId).append($("<option></option>").val(this['Value']).html(this['Text']));
+                   });
+               }
+           }
+
+           $(function () {
+               if ($("#CountryId").val() != "" && $("#StateId").val() != "" && $("#CityId").val() != "") {
+                   var message = "Country: " + $("#CountryId option:selected").text();
+                   message += "\nState: " + $("#StateId option:selected").text();
+                   message += "\nCity: " + $("#CityId option:selected").text();
+                   alert(message);
+               }
+           });
+           </script>
+
+<script type="text/javascript">
+   $('#SchoolEmail').change(function () {
+     // alert("hi");
+       $("#Status").html("Checking...");
+       $.post("@Url.Action("CheckUsernameAvailability", "SchoolRegistration")",
+           {
+               useremail: $("#SchoolEmail").val()
+
+
+           },
+           function (data) {
+               if (data == 0) {
+                  // alert(School_Code);
+                   $("#Status").html('<font color="Green">Available !. you can take it.</font>');
+                   $("#SchoolEmail").css("border-color", "Green");
+
+               }
+               else {
+                  // alert(School_Code);
+                   $("#Status").html('<font color="Red">That name is taken.Try Another.</font>');
+                   $("#SchoolEmail").css("border-color", "Red");
+               }
+           });
+   });
+</script>

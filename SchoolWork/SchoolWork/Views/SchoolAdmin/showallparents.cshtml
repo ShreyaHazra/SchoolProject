@@ -1,0 +1,101 @@
+﻿@model IEnumerable<SchoolWork.Models.ParentDetails>
+<h2>Index</h2>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="~/CSS/StyleSheet1.css" rel="stylesheet" />
+    <link href="~/CSS/Table.css" rel="stylesheet" />
+    <style>
+        .text-danger {
+            font-weight: 700;
+            color: red;
+        }
+    </style>
+
+</head>
+@*<p>
+    @Html.ActionLink("Create New", "Create")
+</p>*@
+
+<body id="LoginForm" style="background-color:gainsboro;padding:10px;">
+    @*<div class="container" >*@
+    <h1 class="form-heading"></h1>
+    <br />
+    <br />
+    <br />
+    <br />
+    @*<div class="login-form">
+        <div class="body-div" style="border:1px solid black;background-color:gainsboro; max-width:100%">*@
+    <h3 style="text-align:right;margin-top:-15px">
+        <input type="button" value="Home" class="btn btn-info" onclick="@("window.location.href='" + @Url.Action("AdminHeaderBoard", "DashBoard") + "'");" />
+
+        <input type="button" onclick="history.go(-1)" value="Return" class="btn btn-info" />
+
+    </h3>
+    <h1 style="color:green; margin-top:-30px; text-align:center"><b>PARENT LIST</b></h1>
+    <br />
+    @using (Html.BeginForm("SchoolRegister", "SchoolRegistration", FormMethod.Post, new { id = "myID", name = "randform" }))
+
+    {
+        <table class="table" id="products">
+            <thead>
+                <tr>
+                    <th> @Html.DisplayName("ID")</th>
+                    <th>@Html.DisplayName("Parent Name")</th>
+                    <th>@Html.DisplayName("Parent Contact")</th>
+                    <th>@Html.DisplayName("Parent Email")</th>
+                    <th>@Html.DisplayName("Parent password")</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.ParentID))</td>
+                        <td>@Html.DisplayFor(modelItem => item.ParentName)</td>
+                        <td>@Html.DisplayFor(modelItem => item.ParentContact)</td>
+                        <td>@Html.DisplayFor(modelItem => item.ParentEmail)</td>
+                        <td>@Html.DisplayFor(modelItem => item.ParentPassword)</td>
+                        <td>
+                            @Html.ActionLink("Edit", "UpdateParentDetails", new { id = item.ParentID }) |
+                            @Html.ActionLink("Details", "Details", new { id = item.ParentID }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.ParentID })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    }
+    @*</div>
+        </div>
+        </div>*@
+
+    @section Scripts
+   {
+        @Scripts.Render("~/bundles/jqueryval")
+        <!-- DataTables CSS -->
+
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.5/css/jquery.dataTables.css">
+
+        <!-- jQuery -->
+        <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+
+        <!-- DataTables -->
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.5/js/jquery.dataTables.js">
+        </script>
+
+        <script type="text/javascript" charset="utf8">
+            $(document).ready(function () {
+                $('#products').DataTable();
+            });
+        </script>
+    }
+</body>
+
+
+
+</html>
